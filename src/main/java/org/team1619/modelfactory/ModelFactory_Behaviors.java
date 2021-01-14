@@ -34,6 +34,14 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 
 			case "bh_example":
 				return new Behavior_Example(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_zero":
+				return new Behavior_Drivetrain_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_swerve_math":
+				return new Behavior_Drivetrain_Swerve_Math(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_swerve_matthew":
+				return new Behavior_Drivetrain_Swerve_Matthew(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_swerve_vector":
+				return new Behavior_Drivetrain_Swerve_Vector(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 
 			// State not found
 			default:
