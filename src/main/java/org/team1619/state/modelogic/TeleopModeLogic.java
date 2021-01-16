@@ -24,7 +24,6 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	public void initialize() {
 		sLogger.info("***** TELEOP *****");
 		mode = 0;
-		fSharedInputValues.setBoolean("ipb_swerve_vector_mode",true);
 	}
 
 	@Override
@@ -62,8 +61,6 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	@Override
 	public boolean isDone(String name, State state) {
 		switch (name) {
-			case "st_drivetrain_zero":
-				return !fSharedInputValues.getBoolean("ipb_swerve_vector_mode");
 			default:
 				return state.isDone();
 		}
