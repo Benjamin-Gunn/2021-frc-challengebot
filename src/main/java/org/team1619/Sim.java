@@ -1,7 +1,12 @@
 package org.team1619;
 
+import org.team1619.modelfactory.SimModelFactory;
+import org.team1619.robot.FrcSimRobot;
 import org.team1619.services.logging.LoggingService;
 import org.team1619.state.SimModule;
+import org.team1619.state.StateControls;
+import org.uacr.robot.AbstractModelFactory;
+import org.uacr.robot.AbstractStateControls;
 import org.uacr.services.input.InputService;
 import org.uacr.services.output.OutputService;
 import org.uacr.services.states.StatesService;
@@ -19,39 +24,17 @@ import org.uacr.utilities.services.managers.ServiceManager;
 
 public class Sim {
 
-	private static final Logger sLogger = LogManager.getLogger(Sim.class);
-
 	public static void main(String[] args) {
+		new FrcSimRobot() {
+			@Override
+			protected AbstractStateControls createStateControls() {
+				return new StateControls(fInputValues, fRobotConfiguration);
+			}
 
-		System.setProperty("logPath", "logs");
-
-		YamlConfigParser parser = new YamlConfigParser();
-		parser.load("general.yaml");
-
-		Config loggerConfig = parser.getConfig("logger");
-		if (loggerConfig.contains("log_level")) {
-			LogManager.setLogLevel(loggerConfig.getEnum("log_level", LogManager.Level.class));
-		}
-
-		Injector injector = new Injector(new SimModule());
-		injector.getInstance(SharedRobotConfiguration.class).initialize();
-
-		StatesService statesService = injector.getInstance(StatesService.class);
-		InputService inputService = injector.getInstance(InputService.class);
-		OutputService outputService = injector.getInstance(OutputService.class);
-		LoggingService loggingService = injector.getInstance(LoggingService.class);
-		WebDashboardService webDashboardService = injector.getInstance(WebDashboardService.class);
-
-		ScheduledMultiService coreService = new ScheduledMultiService(new Scheduler(10), inputService, statesService, outputService);
-		ScheduledMultiService infoService = new ScheduledMultiService(new Scheduler(30), loggingService, webDashboardService);
-
-		ServiceManager serviceManager = new AsyncServiceManager(coreService, infoService);
-
-		sLogger.info("Starting services");
-		serviceManager.start();
-		serviceManager.awaitHealthy();
-		sLogger.info("********************* ALL SERVICES STARTED *******************************");
-		serviceManager.awaitStopped();
-		sLogger.info("All Services stopped");
+			@Override
+			protected AbstractModelFactory createModelFactory() {
+				return new SimModelFactory(fHardwareFactory, fEventBus, fInputValues, fOutputValues, fRobotConfiguration, fObjectsDirectory);
+			}
+		}.start();
 	}
 }
