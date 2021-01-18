@@ -20,7 +20,7 @@ general:
 
   input_numerics: []
 
-  input_vectors: []
+  input_vectors: [ipv_cancoder_front_right, ipv_cancoder_front_left, ipv_cancoder_back_left, ipv_cancoder_back_right]
 
   output_numerics: []
 
