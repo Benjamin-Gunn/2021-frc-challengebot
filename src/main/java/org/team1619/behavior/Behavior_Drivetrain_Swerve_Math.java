@@ -207,16 +207,16 @@ public class Behavior_Drivetrain_Swerve_Math implements Behavior {
 		}
 
 		// Set the motors
-		fSharedOutputValues.setNumeric("opn_drivetrain_front_right_speed", "percent", frontRightMotorSpeed);
-		fSharedOutputValues.setNumeric("opn_drivetrain_front_left_speed", "percent", frontLeftMotorSpeed);
-		fSharedOutputValues.setNumeric("opn_drivetrain_back_left_speed", "percent", backLeftMotorSpeed);
-		fSharedOutputValues.setNumeric("opn_drivetrain_back_right_speed", "percent", backRightMotorSpeed);
+		fSharedOutputValues.setNumeric("opn_drivetrain_front_right_speed", "percent", frontRightMotorSpeed, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_front_left_speed", "percent", frontLeftMotorSpeed, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_back_left_speed", "percent", backLeftMotorSpeed, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_back_right_speed", "percent", backRightMotorSpeed, "pr_drive");
 
 		// set the angle
-		fSharedOutputValues.setNumeric("opn_drivetrain_front_right_angle", "position", frontRightMotorAngle);
-		fSharedOutputValues.setNumeric("opn_drivetrain_front_left_angle", "position", frontLeftMotorAngle);
-		fSharedOutputValues.setNumeric("opn_drivetrain_back_left_angle", "position", backLeftMotorAngle);
-		fSharedOutputValues.setNumeric("opn_drivetrain_back_right_angle", "position", backRightMotorAngle);
+		fSharedOutputValues.setNumeric("opn_drivetrain_front_right_angle", "absolute_position", frontRightMotorAngle, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_front_left_angle", "absolute_position", frontLeftMotorAngle, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_back_left_angle", "absolute_position", backLeftMotorAngle, "pr_drive");
+		fSharedOutputValues.setNumeric("opn_drivetrain_back_right_angle", "absolute_position", backRightMotorAngle, "pr_drive");
 	}
 
 	@Override

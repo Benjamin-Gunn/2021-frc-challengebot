@@ -119,9 +119,15 @@ public class Behavior_Drivetrain_Swerve_Vector implements Behavior {
 			Vector target = new Vector(translation.add(fModuleRotationDirections.get(i).scale(rotateAxis)));
 
 			// When the joysticks are idle, move the wheel angles to their rotation angle so the robot can spin instantly and move in any direction as quickly as possible.
+//			if(target.magnitude() == 0.0) {
+//				target = new Vector(0, fModuleRotationDirections.get(i).angle());
+//			}
+
+			// When the joysticks are idle, leave the wheel angles where they are
 			if(target.magnitude() == 0.0) {
-				target = new Vector(0, fModuleRotationDirections.get(i).angle());
+				target = new Vector(0, current.angle());
 			}
+
 
 			// If the difference between the target angle and the actual angle is more than 90 degrees, rotate 180 degrees and reverse the motor direction.
 			// Ramp up the wheel velocity as the actual angle get closer to the target angle. This prevents the robot from being pulled off course.
@@ -141,9 +147,8 @@ public class Behavior_Drivetrain_Swerve_Vector implements Behavior {
 
 		// Output values to motors
 		for(int i = 0; i < fCurrentModuleVectors.size(); i++) {
-			//todo- profile?
-			fSharedOutputValues.setNumeric(fModuleOutputAngleNames.get(i), "position", fCurrentModuleVectors.get(i).angle());
-			fSharedOutputValues.setNumeric(fModuleOutputSpeedNames.get(i), "percent", fCurrentModuleVectors.get(i).magnitude());
+			fSharedOutputValues.setNumeric(fModuleOutputAngleNames.get(i), "absolute_position", fCurrentModuleVectors.get(i).angle(), "pr_drive");
+			fSharedOutputValues.setNumeric(fModuleOutputSpeedNames.get(i), "percent", fCurrentModuleVectors.get(i).magnitude(), "pr_drive");
 			fSharedInputValues.setNumeric(fModuleInputSpeedNames.get(i), fCurrentModuleVectors.get(1).magnitude());
 		}
 	}
