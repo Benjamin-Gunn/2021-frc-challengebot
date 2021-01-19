@@ -14,4 +14,24 @@ swerve_odometry_input:
 navx:
   ipv_navx:
 
+cancoder:
 
+    ipv_drivetrain_front_right_angle:
+        device_number: 20
+        read_absolute_position: true
+        magnet_offset: 211.816
+
+    ipv_drivetrain_front_left_angle:
+        device_number: 21
+        read_absolute_position: true
+        magnet_offset: -358.066
+
+    ipv_drivetrain_back_left_angle:
+        device_number: 22
+        read_absolute_position: true
+        magnet_offset: -8.262
+
+    ipv_drivetrain_back_right_angle:
+        device_number: 23
+        read_absolute_position: true
+        magnet_offset: -106.436

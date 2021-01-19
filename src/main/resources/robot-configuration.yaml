@@ -16,12 +16,13 @@ general:
 
   input_booleans: [ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_left_stick_button, ipb_driver_right_stick_button]
 
-  input_numerics: [ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x,
-                   ipn_drivetrain_front_right_angle, ipn_drivetrain_front_left_angle, ipn_drivetrain_back_left_angle, ipn_drivetrain_back_right_angle]
+  input_numerics: [ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x]
 
-  input_vectors: [ipv_swerve_odometry, ipv_navx]
+  input_vectors: [ipv_swerve_odometry, ipv_navx,
+                  ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle]
 
-  output_numerics: [opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed, opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle]
+  output_numerics: [opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed,
+                    opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle]
 
   output_booleans: []
 
@@ -39,8 +40,8 @@ global_drivetrain_swerve_math:
   y_left_js: ipn_driver_left_y
   x_right_js: ipn_driver_right_x
   y_right_js: ipn_driver_right_y
-  robot_length: 36.0
-  robot_width: 24.0
+  robot_length: 18.5
+  robot_width: 16.5
   navx: ipv_navx
 
 global_drivetrain_swerve_vector:
@@ -51,17 +52,17 @@ global_drivetrain_swerve_vector:
   navx: ipv_navx
   # The robot is centered on the x,y axis with the front of the robot pointing towards 0 on the unit circle
   #  In order of front right, front left, back left, back right
-  module_positions: [[30.0, -20.0 ], [ 30.0, 20.0 ], [ -30.0, 20.0 ], [ -30.0, -20.0 ]]
+  module_positions: [[9.25, -8.25], [9.25, 8.25], [-9.25, 8.25], [-9.25, -8.25]]
   input_angle_names:  [ "ipn_drivetrain_front_right_angle", "ipn_drivetrain_front_left_angle", "ipn_drivetrain_back_left_angle", "ipn_drivetrain_back_right_angle"]
   input_speed_names:  [ "ipn_drivetrain_front_right_speed", "ipn_drivetrain_front_left_speed", "ipn_drivetrain_back_left_speed", "ipn_drivetrain_back_right_speed"]
   output_angle_names: [ "opn_drivetrain_front_right_angle", "opn_drivetrain_front_left_angle", "opn_drivetrain_back_left_angle", "opn_drivetrain_back_right_angle"]
   output_speed_names: [ "opn_drivetrain_front_right_speed", "opn_drivetrain_front_left_speed", "opn_drivetrain_back_left_speed", "opn_drivetrain_back_right_speed"]
 
 global_drivetrain_Matthew:
-  swerve_front_right_module_position: [ 30.0, -20.0 ]
-  swerve_front_left_module_position: [ 30.0, 20.0 ]
-  swerve_back_left_module_position: [ -30.0, 20.0 ]
-  swerve_back_right_module_position: [ -30.0, -20.0 ]
+  swerve_front_right_module_position: [9.25, -8.25]
+  swerve_front_left_module_position: [9.25, 8.25]
+  swerve_back_left_module_position: [-9.25, 8.25]
+  swerve_back_right_module_position: [-9.25, -8.25]
   swerve_x: ipn_driver_left_x
   swerve_y: ipn_driver_left_y
   swerve_rotate: ipn_driver_right_x
