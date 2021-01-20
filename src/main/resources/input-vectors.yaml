@@ -1,64 +1,37 @@
 #odometry_input:
-#  ipv_odometry:
-#    left_encoder: ipn_drivetrain_left_position
-#    right_encoder: ipn_drivetrain_right_position
-#    navx: ipv_navx
+swerve_odometry_input:
+    ipv_swerve_odometry:
+        front_right_speed: ipn_drivetrain_front_right_speed
+        front_left_speed: ipn_drivetrain_front_left_speed
+        back_left_speed: ipn_drivetrain_back_left_speed
+        back_right_speed: ipn_drivetrain_back_right_speed
+        front_right_angle: ipn_drivetrain_front_right_angle
+        front_left_angle: ipn_drivetrain_front_left_angle
+        back_left_angle: ipn_drivetrain_back_left_angle
+        back_right_angle: ipn_drivetrain_back_right_angle
+        navx: ipv_navx
 
-#navx:
-#  ipv_navx:
-
-#limelight:
-#  ipv_limelight_turret:
-#    host: turret
-#    degrees: true
-#    pnp: pnp-secondary
+navx:
+  ipv_navx:
 
 cancoder:
-  ipv_cancoder_front_right:
-    device_number: 20
-    inverted: false
-    read_position: true
-    read_absolute_position: true
-    read_velocity: true
-    position_scalar: 1.0
-    velocity_scalar: 1.0
-    boot_to_absolute_position: true
-    magnet_offset: -60.0
-    sensor_range_360: true
 
-  ipv_cancoder_front_left:
-    device_number: 21
-    inverted: false
-    read_position: true
-    read_absolute_position: true
-    read_velocity: true
-    position_scalar: 1.0
-    velocity_scalar: 1.0
-    boot_to_absolute_position: true
-    magnet_offset: -60.0
-    sensor_range_360: true
+    ipv_drivetrain_front_right_angle:
+        device_number: 20
+        read_absolute_position: true
+        magnet_offset: 211.816
 
-  ipv_cancoder_back_left:
-    device_number: 22
-    inverted: false
-    read_position: true
-    read_absolute_position: true
-    read_velocity: true
-    position_scalar: 1.0
-    velocity_scalar: 1.0
-    boot_to_absolute_position: true
-    magnet_offset: -60.0
-    sensor_range_360: true
+    ipv_drivetrain_front_left_angle:
+        device_number: 21
+        read_absolute_position: true
+        magnet_offset: -358.066
 
-  ipv_cancoder_back_right:
-    device_number: 23
-    inverted: false
-    read_position: true
-    read_absolute_position: true
-    read_velocity: true
-    position_scalar: 1.0
-    velocity_scalar: 1.0
-    boot_to_absolute_position: true
-    magnet_offset: -60.0
-    sensor_range_360: true
+    ipv_drivetrain_back_left_angle:
+        device_number: 22
+        read_absolute_position: true
+        magnet_offset: -8.262
 
+    ipv_drivetrain_back_right_angle:
+        device_number: 23
+        read_absolute_position: true
+        magnet_offset: -106.436

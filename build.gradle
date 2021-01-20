@@ -18,6 +18,23 @@ repositories {
     }
 }
 
+dependencies {
+    implementation 'com.github.team1619:uacr-robot-core:master-SNAPSHOT'
+    implementation 'com.github.team1619:uacr-robot-dashboard:master-SNAPSHOT'
+    implementation 'com.github.team1619:frc-core-plugin:master-SNAPSHOT'
+
+    implementation 'com.google.guava:guava:25.1-jre'
+    implementation 'org.yaml:snakeyaml:1.21'
+
+    implementation wpi.deps.wpilib()
+    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+
+    implementation wpi.deps.vendor.java()
+    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+}
+
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
@@ -49,27 +66,16 @@ deploy {
 
 def includeDesktopSupport = false
 
-dependencies {
-    implementation 'com.github.team1619:uacr-robot-core:master-SNAPSHOT'
-    implementation 'com.github.team1619:uacr-robot-dashboard:master-SNAPSHOT'
-    implementation 'com.github.team1619:frc-core-plugin:master-SNAPSHOT'
-
-    implementation (group: 'com.google.guava', name: 'guava', version: '25.1-jre')
-    implementation 'org.yaml:snakeyaml:1.21'
-
-    implementation wpi.deps.wpilib()
-    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
-
-    implementation wpi.deps.vendor.java()
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-}
-
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
 jar {
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    from {
+        if (configurations.find { it.name == 'dev' }) {
+            configurations.runtimeClasspath.filter { (!it.path.contains('com.github.team1619')) } .collect { it.isDirectory() ? it : zipTree(it) }
+        } else {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
