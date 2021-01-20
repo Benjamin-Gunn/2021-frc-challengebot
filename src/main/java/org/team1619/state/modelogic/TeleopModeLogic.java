@@ -23,7 +23,7 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	@Override
 	public void initialize() {
 		sLogger.info("***** TELEOP *****");
-		mode = 0;
+		mode = 2;
 	}
 
 	@Override

@@ -78,11 +78,11 @@ public class Behavior_Drivetrain_Swerve_Matthew implements Behavior {
 		fCurrentModuleVectors.replaceAll(v -> new Vector());
 
 		// TODO - Make this a state
+		fSharedInputValues.setInputFlag("ipv_navx", "zero");
 		fSharedOutputValues.setOutputFlag("opn_drivetrain_front_right_angle", "zero");
 		fSharedOutputValues.setOutputFlag("opn_drivetrain_front_left_angle", "zero");
 		fSharedOutputValues.setOutputFlag("opn_drivetrain_back_left_angle", "zero");
 		fSharedOutputValues.setOutputFlag("opn_drivetrain_back_right_angle", "zero");
-
 
 		mStateName = stateName;
 	}
@@ -102,9 +102,9 @@ public class Behavior_Drivetrain_Swerve_Matthew implements Behavior {
 				mFieldOriented = !mFieldOriented;
 			}
 
-			double xAxis = fSharedInputValues.getNumeric(fXAxis);
-			double yAxis = fSharedInputValues.getNumeric(fYAxis);
-			double rotateAxis = fSharedInputValues.getNumeric(fRotateAxis);
+			double xAxis = rangeStick(fSharedInputValues.getNumeric(fXAxis));
+			double yAxis = rangeStick(fSharedInputValues.getNumeric(fYAxis));
+			double rotateAxis = rangeStick(fSharedInputValues.getNumeric(fRotateAxis));
 
 			// This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.
 			double robotOrientation = 0;
@@ -113,7 +113,7 @@ public class Behavior_Drivetrain_Swerve_Matthew implements Behavior {
 			// To do this, the angle of the robot read from the navx is subtracted from the direction chosen by the driver.
 			// For example, if the robot is rotated 15 degrees and the driver chooses straight forward, the actual angle is -15 degrees.
 			if (mFieldOriented) {
-				robotOrientation += -fSharedInputValues.getVector("ipv_navx").get("angle") + 90;
+				robotOrientation += fSharedInputValues.getVector("ipv_navx").get("angle");
 			}
 
 			// Swapping X and Y translates coordinate systems from the controller to the robot.
@@ -159,7 +159,7 @@ public class Behavior_Drivetrain_Swerve_Matthew implements Behavior {
 
 		// When the joysticks are idle, move the wheel angles to their rotation angle so the robot can spin instantly and move in any direction as quickly as possible.
 		if(target.magnitude() == 0.0) {
-			target = new Vector(0, currentModuleAngle);
+			target = new Vector(0, last.angle());
 		}
 
 		// If the difference between the target angle and the actual angle is more than 90 degrees, rotate 180 degrees and reverse the motor direction.
@@ -189,5 +189,20 @@ public class Behavior_Drivetrain_Swerve_Matthew implements Behavior {
 		fSharedInputValues.setNumeric("ipn_drivetrain_front_left_speed", moduleVectors.get(1).magnitude());
 		fSharedInputValues.setNumeric("ipn_drivetrain_back_left_speed", moduleVectors.get(2).magnitude());
 		fSharedInputValues.setNumeric("ipn_drivetrain_back_right_speed", moduleVectors.get(3).magnitude());
+	}
+
+	private double rangeStick(double value) {
+		double valueSign = Math.signum(value);
+		value = Math.abs(value);
+
+		double min = 0.15;
+		double max = 1.0;
+
+		double minOutput = 0.0;
+		double maxOutput = 1.0;
+
+		double linearOutput =  (((value - min) / (max - min)) * (maxOutput - minOutput) + minOutput) * valueSign;
+
+		return linearOutput;
 	}
 }
