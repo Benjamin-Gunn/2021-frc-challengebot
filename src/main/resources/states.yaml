@@ -1,11 +1,11 @@
 single_state:
 
-# ------ Drivetrain ------
+  # ------ Drivetrain ------
 
   st_drivetrain_zero:
     behavior: bh_drivetrain_zero
     behavior_config:
-      timeout_time: 1000
+      timeout_time: 500
       zeroing_threshold: 0.1
 
   st_drivetrain_swerve_vector:
@@ -17,10 +17,19 @@ single_state:
   st_drivetrain_swerve_matthew:
     behavior: bh_drivetrain_swerve_matthew
 
+  st_drivetrain_pure_pursuit_test:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_test
+      heading: 0.0
+
 
 done_for_time_state:
 
 parallel_state:
 
 sequencer_state:
+  sq_pure_pursuit_test:
+    sequence: [ st_drivetrain_pure_pursuit_test ]
+
 

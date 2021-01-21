@@ -1,14 +1,14 @@
 #odometry_input:
 swerve_odometry_input:
     ipv_swerve_odometry:
-        front_right_speed: ipn_drivetrain_front_right_speed
-        front_left_speed: ipn_drivetrain_front_left_speed
-        back_left_speed: ipn_drivetrain_back_left_speed
-        back_right_speed: ipn_drivetrain_back_right_speed
-        front_right_angle: ipn_drivetrain_front_right_angle
-        front_left_angle: ipn_drivetrain_front_left_angle
-        back_left_angle: ipn_drivetrain_back_left_angle
-        back_right_angle: ipn_drivetrain_back_right_angle
+        front_right_position: ipn_drivetrain_front_right_speed_position
+        front_left_position: ipn_drivetrain_front_left_speed_position
+        back_left_position: ipn_drivetrain_back_left_speed_position
+        back_right_position: ipn_drivetrain_back_right_speed_position
+        front_right_angle: ipv_drivetrain_front_right_angle
+        front_left_angle: ipv_drivetrain_front_left_angle
+        back_left_angle: ipv_drivetrain_back_left_angle
+        back_right_angle: ipv_drivetrain_back_right_angle
         navx: ipv_navx
 
 navx:
