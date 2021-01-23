@@ -9,7 +9,7 @@ general:
        priority_level_1: []
     ss_drivetrain:
       priority_level_2: [st_drivetrain_zero]
-      priority_level_1: [st_drivetrain_swerve_vector, st_drivetrain_swerve_math, st_drivetrain_swerve_matthew]
+      priority_level_1: [st_drivetrain_swerve_vector, st_drivetrain_swerve_math, st_drivetrain_swerve_matthew, st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red]
       default: []
 
   subsystems: [ss_drivetrain]
@@ -75,9 +75,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: []
-    destinations: []
-    actions: []
+    origins: [gsc]
+    destinations: [a, b]
+    actions: [blue, red]
 
   match_values:
 
