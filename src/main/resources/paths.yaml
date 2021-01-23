@@ -15,6 +15,11 @@ path:
     path: [[0, 0], [75, -45], [135, -105], [195, -45], [315, -15]]
     model: standard
 
+  pt_test:
+    path: [ [ 0, 0 ], [ 30, 0 ] ]
+    model: standard
+    max_speed: 0.3
+
 model:
   standard:
     spacing: 2.0
@@ -22,7 +27,7 @@ model:
     max_acceleration: 0.005
     max_deceleration: 0.005
     tracking_error_speed: 5.0
-    min_speed: 0.5
-    max_speed: 0.5
+    min_speed: 0.2
+    max_speed: 1.0
     turn_speed: 0.02
     look_ahead_distance: 30.0

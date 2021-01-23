@@ -39,7 +39,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		mAutoAction = (fSharedInputValues.getString("ips_auto_action").toLowerCase().replaceAll("\\s", ""));
 		mCombinedAuto = "sq_auto_" + mAutoOrigin + "_" + mAutoDestination + "_" + mAutoAction;
 		if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "sq_auto_anywhere_3ball_none";
+			mCombinedAuto = "st_drivetrain_pure_pursuit_test";
 		}
 		sLogger.debug(mCombinedAuto);
 
@@ -59,7 +59,8 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 	@Override
 	public boolean isReady(String name) {
 		switch (name) {
-
+			case "st_drivetrain_zero":
+				return !fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed");
 		}
 
 		// Check isReady on auto states
