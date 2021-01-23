@@ -27,25 +27,25 @@ single_state:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_gsc_a_blue
-        heading: 0.0
+      heading: 0.0
 
   st_drivetrain_gsc_a_red:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_gsc_a_red
-        heading: 0.0
+      heading: 0.0
 
   st_drivetrain_gsc_b_blue:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_gsc_b_blue
-        heading: 0.0
+      heading: 0.0
 
   st_drivetrain_gsc_b_red:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_gsc_b_red
-        heading: 0.0
+      heading: 0.0
 
 
 
@@ -56,6 +56,15 @@ parallel_state:
 
 sequencer_state:
   sq_pure_pursuit_test:
-    sequence: [ st_drivetrain_pure_pursuit_test ]
+    sequence: [st_drivetrain_pure_pursuit_test]
+  sq_auto_gsc_a_blue:
+    sequence: [st_drivetrain_gsc_a_blue]
+  sq_auto_gsc_a_red:
+    sequence: [st_drivetrain_gsc_a_red]
+  sq_auto_gsc_b_blue:
+    sequence: [st_drivetrain_gsc_b_blue]
+  sq_auto_gsc_b_red:
+    sequence: [st_drivetrain_gsc_b_red]
+
 
 
