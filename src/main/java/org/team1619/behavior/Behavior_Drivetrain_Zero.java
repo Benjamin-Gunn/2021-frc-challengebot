@@ -41,7 +41,7 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 		timeoutTimer.reset();
 		timeoutTimer.start(timeoutTime);
 
-		stop();
+		stopModules();
 
 		sharedInputValues.setInputFlag(navx, "zero");
 
@@ -52,8 +52,9 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 	public void update() {
 		if (!sharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed")) {
 
-			if (positionInputNames.stream().mapToDouble(input -> Math.abs(sharedInputValues.getNumeric(input))).max().getAsDouble() < zeroingThreshold &&
-				Math.abs(sharedInputValues.getVector(navx).get("angle")) < zeroingThreshold) {
+			double maxWheelPosition = positionInputNames.stream().mapToDouble(input -> Math.abs(sharedInputValues.getNumeric(input))).max().getAsDouble();
+
+			if (maxWheelPosition < zeroingThreshold && Math.abs(sharedInputValues.getVector(navx).get("angle")) < zeroingThreshold) {
 
 				sharedInputValues.setInputFlag(odometry, "zero");
 

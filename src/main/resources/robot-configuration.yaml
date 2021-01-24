@@ -61,6 +61,7 @@ global_drivetrain_swerve_vector:
   output_speed_names: [ "opn_drivetrain_front_right_speed", "opn_drivetrain_front_left_speed", "opn_drivetrain_back_left_speed", "opn_drivetrain_back_right_speed" ]
 
 global_drivetrain_Matthew:
+  max_module_velocity: 144.0
   module_positions: [ [ 9.25, -8.25 ], [ 9.25, 8.25 ], [ -9.25, 8.25 ], [ -9.25, -8.25 ] ]
   input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
   input_position_names: [ ipn_drivetrain_front_right_angle_position, ipn_drivetrain_front_left_angle_position, ipn_drivetrain_back_left_angle_position, ipn_drivetrain_back_left_angle_position]

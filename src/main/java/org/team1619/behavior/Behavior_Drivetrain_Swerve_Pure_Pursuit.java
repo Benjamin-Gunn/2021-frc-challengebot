@@ -34,7 +34,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     private Path currentPath;
     private Pose2d currentPosition;
     private boolean isFollowing;
-    private double heading;
+    private double targetHeading;
     private String pathName;
 
     public Behavior_Drivetrain_Swerve_Pure_Pursuit(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
@@ -73,7 +73,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         }
 
         pathName = "Unknown";
-        heading = 0.0;
+        targetHeading = 0.0;
 
         isFollowing = true;
     }
@@ -83,13 +83,13 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
 
-        stop();
+        stopModules();
 
         pathName = config.getString("path_name");
-        heading = config.getDouble("heading", heading);
+        targetHeading = config.getDouble("target_heading", targetHeading);
 
         headingController.setProfile("pure_pursuit");
-        headingController.set(heading);
+        headingController.set(targetHeading);
         headingController.reset();
 
         if (!mPaths.containsKey(pathName)) {
@@ -115,7 +115,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     @Override
     public void update() {
         if (!isFollowing) {
-            stop();
+            stopModules();
 
             return;
         }
@@ -129,7 +129,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         int closest = currentPath.getClosestPointIndex(currentPosition);
 
         if (lookahead == -1) {
-            stop();
+            stopModules();
 
             isFollowing = false;
             return;
@@ -145,7 +145,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     public void dispose() {
         LOGGER.trace("Leaving state {}", stateName);
 
-        stop();
+        stopModules();
     }
 
     @Override

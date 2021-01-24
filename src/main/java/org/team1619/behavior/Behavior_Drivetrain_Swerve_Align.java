@@ -4,19 +4,11 @@ import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
-import org.uacr.utilities.WebDashboardGraphDataset;
-import org.uacr.utilities.YamlConfigParser;
 import org.uacr.utilities.closedloopcontroller.ClosedLoopController;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
-import org.uacr.utilities.purepursuit.Path;
-import org.uacr.utilities.purepursuit.Point;
-import org.uacr.utilities.purepursuit.Pose2d;
 import org.uacr.utilities.purepursuit.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -27,12 +19,13 @@ import java.util.Map;
 public class Behavior_Drivetrain_Swerve_Align extends BaseSwerve {
 
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Swerve_Align.class);
+    private static final Vector ZERO_TRANSLATION = new Vector();
 
     private final ClosedLoopController headingController;
 
     private String stateName;
 
-    private double heading;
+    private double targetHeading;
 
     public Behavior_Drivetrain_Swerve_Align(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration);
@@ -41,7 +34,7 @@ public class Behavior_Drivetrain_Swerve_Align extends BaseSwerve {
         
         stateName = "Unknown";
 
-        heading = 0.0;
+        targetHeading = 0.0;
     }
 
     @Override
@@ -49,12 +42,12 @@ public class Behavior_Drivetrain_Swerve_Align extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
 
-        stop();
+        stopModules();
 
-        heading = config.getDouble("heading", heading);
+        targetHeading = config.getDouble("target_heading", targetHeading);
 
         headingController.setProfile("align");
-        headingController.set(heading);
+        headingController.set(targetHeading);
         headingController.reset();
     }
 
@@ -62,14 +55,17 @@ public class Behavior_Drivetrain_Swerve_Align extends BaseSwerve {
     public void update() {
         Map<String, Double> odometryValues = sharedInputValues.getVector(odometry);
 
-        setModulePowers(new Vector(), headingController.getWithPID(odometryValues.get("heading")));
+        double heading = odometryValues.get("heading");
+        double pidOutput = headingController.getWithPID(heading);
+
+        setModulePowers(ZERO_TRANSLATION, pidOutput);
     }
 
     @Override
     public void dispose() {
         LOGGER.trace("Leaving state {}", stateName);
 
-        stop();
+        stopModules();
     }
 
     @Override

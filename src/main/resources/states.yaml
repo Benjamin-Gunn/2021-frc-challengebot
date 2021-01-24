@@ -21,12 +21,12 @@ single_state:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_test
-      heading: 0.0
+      target_heading: 0.0
 
   st_drivetrain_swerve_align_test:
     behavior: bh_drivetrain_swerve_align
     behavior_config:
-      heading: 0.0
+      target_heading: 0.0
 
 done_for_time_state:
 

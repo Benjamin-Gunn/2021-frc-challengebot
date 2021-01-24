@@ -23,6 +23,7 @@ public abstract class BaseSwerve implements Behavior {
 
     private final VectorList currentModuleVectors;
 
+    protected final double maxModuleVelocity;
     protected final VectorList modulePositions;
     protected final VectorList moduleRotationDirections;
 
@@ -36,6 +37,8 @@ public abstract class BaseSwerve implements Behavior {
     public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         sharedInputValues = inputValues;
         sharedOutputValues = outputValues;
+
+        maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_Matthew", "max_module_velocity");
 
         modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_Matthew", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
 
@@ -60,7 +63,7 @@ public abstract class BaseSwerve implements Behavior {
         setModulePowers(translation, moduleRotationDirections, rotationSpeed);
     }
 
-    protected void stop() {
+    protected void stopModules() {
         Stream.concat(angleOutputNames.stream(), speedOutputNames.stream()).forEach(output -> sharedOutputValues.setNumeric(output, "percent", 0.0));
     }
 
@@ -107,7 +110,7 @@ public abstract class BaseSwerve implements Behavior {
 
     protected void setMotorPower(int moduleNumber, Vector moduleVector) {
         sharedOutputValues.setNumeric(angleOutputNames.get(moduleNumber), "absolute_position", moduleVector.angle(), "pr_drive");
-        sharedOutputValues.setNumeric(speedOutputNames.get(moduleNumber), "velocity", moduleVector.magnitude() * 144, "pr_drive");
+        sharedOutputValues.setNumeric(speedOutputNames.get(moduleNumber), "velocity", moduleVector.magnitude() * maxModuleVelocity, "pr_drive");
     }
 
     @Override
