@@ -49,6 +49,8 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return mode == 1;
 			case "st_drivetrain_swerve_matthew":
 				return mode == 2;
+			case "st_drivetrain_swerve_align_test":
+				return fSharedInputValues.getBoolean("ipb_driver_b");
 			default:
 				return false;
 		}
@@ -57,6 +59,8 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	@Override
 	public boolean isDone(String name, State state) {
 		switch (name) {
+			case "st_drivetrain_swerve_align_test":
+				return !fSharedInputValues.getBoolean("ipb_driver_b");
 			default:
 				return state.isDone();
 		}
