@@ -4,18 +4,18 @@ general:
 
   states:
     sequences:
-      priority_level_1: [ ]
+      priority_level_1: [ sq_pure_pursuit_test ]
     parallels:
       priority_level_1: [ ]
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
-      priority_level_2: [ st_drivetrain_pure_pursuit_test ]
+      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test ]
       priority_level_1: [ st_drivetrain_swerve_vector, st_drivetrain_swerve_math, st_drivetrain_swerve_matthew ]
       default: [ ]
 
   subsystems: [ ss_drivetrain ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_left_stick_button, ipb_driver_right_stick_button ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_b, ipb_driver_left_stick_button, ipb_driver_right_stick_button ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 

@@ -54,7 +54,6 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 
 			if (positionInputNames.stream().mapToDouble(input -> Math.abs(sharedInputValues.getNumeric(input))).max().getAsDouble() < zeroingThreshold &&
 				Math.abs(sharedInputValues.getVector(navx).get("angle")) < zeroingThreshold) {
-				LOGGER.debug("Drivetrain Zero -> Zeroed");
 
 				sharedInputValues.setInputFlag(odometry, "zero");
 
@@ -62,6 +61,7 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 
 				if(Math.abs(odometryValues.get("x")) < zeroingThreshold &&
 						Math.abs(odometryValues.get("y")) < zeroingThreshold) {
+					LOGGER.debug("Drivetrain Zero -> Zeroed");
 					sharedInputValues.setBoolean("ipb_drivetrain_has_been_zeroed", true);
 				}
 				return;

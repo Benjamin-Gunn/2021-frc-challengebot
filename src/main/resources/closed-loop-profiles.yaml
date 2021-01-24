@@ -3,7 +3,13 @@ other:
     profiles:
       pure_pursuit:
         f: 0.0
-        p: 0.1
+        p: 0.01
         i: 0.0
         d: 0.0
         max_output: 1.0
+      align:
+        f: 0.0
+        p: 0.01
+        i: 0.0
+        d: 0.000005
+        max_output: 0.5
