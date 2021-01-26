@@ -91,7 +91,8 @@ public abstract class BaseSwerve implements Behavior {
         // If the difference between the target angle and the actual angle is more than 90 degrees, rotate 180 degrees and reverse the motor direction.
         // Ramp up the wheel velocity as the actual angle get closer to the target angle. This prevents the robot from being pulled off course.
         // The cosine is raised to the power of 3 so that the ramp increases faster as the delta in the angle approaches zero.
-        double directionScalar = Math.pow(Math.cos(Math.toRadians(target.angle() - current.angle())), 3);
+//        double directionScalar = Math.pow(Math.cos(Math.toRadians(target.angle() - current.angle())), 3);
+        double directionScalar = Math.signum(Math.pow(Math.cos(Math.toRadians(target.angle() - current.angle())), 3));
 
         if (directionScalar < 0) {
             target = target.rotate(180);

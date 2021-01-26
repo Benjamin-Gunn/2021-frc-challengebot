@@ -1,6 +1,7 @@
 path:
   pt_test:
-    path: [ [ 0, 0 ], [ 165, 15 ], [ 195, 105 ], [ 255, 75 ], [ 315, 45 ] ]
+#    path: [[0, 0], [102, 0], [138, -36], [102, -72], [66, -36], [102, 0], [192, -12], [228, 24], [192, 60], [156, 24], [220, -72], [288, -36], [240, 0], [192, -12], [102, 0], [0, 0]]
+    path: [[0, 0], [94, 0], [132, -31], [94, -60], [56, -31], [94, 0], [176, 8], [215, 43], [176, 78], [137, 43], [176, -4], [242, -46], [279, -21], [242, 26], [20, 30]]
     model: standard
 
 #  pt_gsc_a_blue:
@@ -26,8 +27,8 @@ model:
     max_acceleration: 0.05
     max_deceleration: 0.05
     tracking_error_speed: 100000.0
-    min_speed: 0.1
-    max_speed: 0.8
+    min_speed: 1.0
+    max_speed: 1.0
     turn_speed: 0.4
-    look_ahead_distance: 10.0
+    look_ahead_distance: 15.0
     velocity_look_ahead_points: 1

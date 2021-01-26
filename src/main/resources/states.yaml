@@ -5,7 +5,7 @@ single_state:
   st_drivetrain_zero:
     behavior: bh_drivetrain_zero
     behavior_config:
-      timeout_time: 500
+      timeout_time: 1000
       zeroing_threshold: 0.1
 
   st_drivetrain_swerve_vector:
