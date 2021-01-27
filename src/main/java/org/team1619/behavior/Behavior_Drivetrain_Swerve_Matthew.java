@@ -29,7 +29,7 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
     private boolean fieldOriented;
 
     public Behavior_Drivetrain_Swerve_Matthew(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
-        super(inputValues, outputValues, config, robotConfiguration);
+        super(inputValues, outputValues, config, robotConfiguration, true);
 
         xAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_x");
         yAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_y");

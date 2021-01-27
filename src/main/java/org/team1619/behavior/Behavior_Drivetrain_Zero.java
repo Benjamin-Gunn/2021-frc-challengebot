@@ -24,7 +24,7 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 	private double zeroingThreshold;
 
 	public Behavior_Drivetrain_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
-		super(inputValues, outputValues, config, robotConfiguration);
+		super(inputValues, outputValues, config, robotConfiguration, true);
 
 		timeoutTimer = new Timer();
 		timeoutTime = 500;

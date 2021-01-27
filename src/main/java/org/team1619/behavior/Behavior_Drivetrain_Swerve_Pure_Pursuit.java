@@ -38,7 +38,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     private String pathName;
 
     public Behavior_Drivetrain_Swerve_Pure_Pursuit(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
-        super(inputValues, outputValues, config, robotConfiguration);
+        super(inputValues, outputValues, config, robotConfiguration, false);
 
         headingController = new ClosedLoopController(robotConfiguration.getString("global_drivetrain_Matthew", "heading_controller"));
         

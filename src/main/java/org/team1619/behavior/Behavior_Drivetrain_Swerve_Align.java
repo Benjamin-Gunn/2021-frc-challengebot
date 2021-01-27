@@ -28,7 +28,7 @@ public class Behavior_Drivetrain_Swerve_Align extends BaseSwerve {
     private double targetHeading;
 
     public Behavior_Drivetrain_Swerve_Align(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
-        super(inputValues, outputValues, config, robotConfiguration);
+        super(inputValues, outputValues, config, robotConfiguration, true);
 
         headingController = new ClosedLoopController(robotConfiguration.getString("global_drivetrain_Matthew", "heading_controller"));
         
