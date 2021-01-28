@@ -21,6 +21,8 @@ public abstract class BaseSwerve implements Behavior {
     protected final InputValues sharedInputValues;
     protected final OutputValues sharedOutputValues;
 
+    protected final boolean useAngleDifferenceScalar;
+
     private final VectorList currentModuleVectors;
 
     protected final double maxModuleVelocity;
@@ -34,9 +36,11 @@ public abstract class BaseSwerve implements Behavior {
     protected final List<String> angleOutputNames;
     protected final List<String> speedOutputNames;
 
-    public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+    public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration, boolean useAngleDifferenceScalar) {
         sharedInputValues = inputValues;
         sharedOutputValues = outputValues;
+
+        this.useAngleDifferenceScalar = useAngleDifferenceScalar;
 
         maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_Matthew", "max_module_velocity");
 
@@ -92,6 +96,10 @@ public abstract class BaseSwerve implements Behavior {
         // Ramp up the wheel velocity as the actual angle get closer to the target angle. This prevents the robot from being pulled off course.
         // The cosine is raised to the power of 3 so that the ramp increases faster as the delta in the angle approaches zero.
         double directionScalar = Math.pow(Math.cos(Math.toRadians(target.angle() - current.angle())), 3);
+
+        if(!useAngleDifferenceScalar) {
+            directionScalar = Math.signum(directionScalar);
+        }
 
         if (directionScalar < 0) {
             target = target.rotate(180);
