@@ -46,7 +46,7 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
 
-        stop();
+        stopModules();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
     public void dispose() {
         LOGGER.trace("Leaving state {}", stateName);
 
-        stop();
+        stopModules();
     }
 
     @Override

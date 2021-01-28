@@ -5,8 +5,9 @@ talon:
     inverted: true
     feedback_device: internal_encoder
     read_position: true
-    read_velocity: false
+    read_velocity: true
     read_temperature: true
+    # reciprocal of the counts per unit of the module
     position_scalar: 0.00087179
     velocity_scalar: 0.00087179
     sensor_inverted: false
@@ -21,8 +22,8 @@ talon:
         i: 0.0
         d: 0.0
       pr_drive:
-        f: 0.0
-        p: 0.5
+        f: 0.06
+        p: 0.05
         i: 0.0
         d: 0.0
 
@@ -48,8 +49,8 @@ talon:
         i: 0.0
         d: 0.0
       pr_drive:
-        f: 0.0
-        p: 0.5
+        f: 0.06
+        p: 0.05
         i: 0.0
         d: 0.0
 
@@ -75,8 +76,8 @@ talon:
         i: 0.0
         d: 0.0
       pr_drive:
-        f: 0.0
-        p: 0.5
+        f: 0.06
+        p: 0.05
         i: 0.0
         d: 0.0
 
@@ -102,8 +103,8 @@ talon:
         i: 0.0
         d: 0.0
       pr_drive:
-        f: 0.0
-        p: 0.5
+        f: 0.06
+        p: 0.05
         i: 0.0
         d: 0.0
 

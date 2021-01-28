@@ -34,7 +34,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     private Path currentPath;
     private Pose2d currentPosition;
     private boolean isFollowing;
-    private double heading;
+    private double targetHeading;
     private String pathName;
 
     public Behavior_Drivetrain_Swerve_Pure_Pursuit(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
@@ -73,7 +73,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         }
 
         pathName = "Unknown";
-        heading = 0.0;
+        targetHeading = 0.0;
 
         isFollowing = true;
     }
@@ -83,13 +83,13 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
 
-        stop();
+        stopModules();
 
         pathName = config.getString("path_name");
-        heading = config.getDouble("heading", heading);
+        targetHeading = config.getDouble("target_heading", targetHeading);
 
         headingController.setProfile("pure_pursuit");
-        headingController.set(heading);
+        headingController.set(targetHeading);
         headingController.reset();
 
         if (!mPaths.containsKey(pathName)) {
@@ -115,7 +115,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     @Override
     public void update() {
         if (!isFollowing) {
-            stop();
+            stopModules();
 
             return;
         }
@@ -125,21 +125,18 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         // Turns the odometry values into a Pose2d to pass to path methods
         currentPosition = new Pose2d(odometryValues.get("x"), odometryValues.get("y"), odometryValues.get("heading"));
 
-        Pose2d followPosition = currentPosition.clone();
-
-        int lookahead = currentPath.getLookAheadPointIndex(followPosition);
-        int closest = currentPath.getClosestPointIndex(followPosition);
+        int lookahead = currentPath.getLookAheadPointIndex(currentPosition);
+        int closest = currentPath.getClosestPointIndex(currentPosition);
 
         if (lookahead == -1) {
-            sharedOutputValues.setNumeric("opn_drivetrain_left", "percent", 0.0);
-            sharedOutputValues.setNumeric("opn_drivetrain_right", "percent", 0.0);
+            stopModules();
 
             isFollowing = false;
             return;
         }
 
         // Uses the path object to calculate velocity values
-        double velocity = currentPath.getPathPointVelocity(closest, followPosition);
+        double velocity = currentPath.getPathPointVelocity(closest, currentPosition);
 
         setModulePowers(new Vector(currentPath.getPoint(lookahead).subtract(currentPosition)).normalize().scale(velocity), headingController.getWithPID(currentPosition.getHeading()));
     }
@@ -148,7 +145,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     public void dispose() {
         LOGGER.trace("Leaving state {}", stateName);
 
-        stop();
+        stopModules();
     }
 
     @Override

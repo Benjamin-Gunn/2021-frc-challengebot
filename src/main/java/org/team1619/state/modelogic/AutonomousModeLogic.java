@@ -39,7 +39,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		mAutoAction = (fSharedInputValues.getString("ips_auto_action").toLowerCase().replaceAll("\\s", ""));
 		mCombinedAuto = "sq_auto_" + mAutoOrigin + "_" + mAutoDestination + "_" + mAutoAction;
 		if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "st_drivetrain_pure_pursuit_test";
+			mCombinedAuto = "sq_pure_pursuit_test";
 		}
 		sLogger.debug(mCombinedAuto);
 

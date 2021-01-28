@@ -4,18 +4,18 @@ general:
 
   states:
     sequences:
-      priority_level_1: [sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red]
+      priority_level_1: [sq_pure_pursuit_test, sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red]
     parallels:
       priority_level_1: [ ]
     ss_drivetrain:
       priority_level_3: [st_drivetrain_zero]
-      priority_level_2: [st_drivetrain_pure_pursuit_test]
+      priority_level_2: [st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test]
       priority_level_1: [st_drivetrain_swerve_vector, st_drivetrain_swerve_math, st_drivetrain_swerve_matthew , st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red]
       default: [ ]
 
   subsystems: [ ss_drivetrain ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_left_stick_button, ipb_driver_right_stick_button ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_b, ipb_driver_left_stick_button, ipb_driver_right_stick_button ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
@@ -61,6 +61,7 @@ global_drivetrain_swerve_vector:
   output_speed_names: [ "opn_drivetrain_front_right_speed", "opn_drivetrain_front_left_speed", "opn_drivetrain_back_left_speed", "opn_drivetrain_back_right_speed" ]
 
 global_drivetrain_Matthew:
+  max_module_velocity: 144.0
   module_positions: [ [ 9.25, -8.25 ], [ 9.25, 8.25 ], [ -9.25, 8.25 ], [ -9.25, -8.25 ] ]
   input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
   input_position_names: [ ipn_drivetrain_front_right_angle_position, ipn_drivetrain_front_left_angle_position, ipn_drivetrain_back_left_angle_position, ipn_drivetrain_back_left_angle_position]
