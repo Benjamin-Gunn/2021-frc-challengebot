@@ -2,27 +2,27 @@ controller_axis:
   ipn_driver_left_y:
     port: 0
     axis: 1
-    scale: 1.0
+    scale: 0.3
     deadband: 0.15
     inverted: true
 
   ipn_driver_left_x:
     port: 0
     axis: 0
-    scale: 1.0
+    scale: 0.3
     deadband: 0.15
     inverted: true
 
   ipn_driver_right_y:
     port: 0
     axis: 5
-    scale: 1.0
+    scale: 0.3
     deadband: 0.15
 
   ipn_driver_right_x:
     port: 0
     axis: 4
-    scale: 1.0
+    scale: 0.3
     deadband: 0.15
     inverted: true
 
