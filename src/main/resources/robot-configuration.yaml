@@ -15,7 +15,7 @@ general:
 
   subsystems: [ ss_drivetrain ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_b, ipb_driver_left_stick_button, ipb_driver_right_stick_button ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_b, ipb_driver_left_stick_button, ipb_driver_right_stick_button, ipb_driver_left_trigger ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
@@ -74,6 +74,8 @@ global_drivetrain_Matthew:
   swerve_y: ipn_driver_left_y
   swerve_rotate: ipn_driver_right_x
   swerve_field_oriented_button: ipb_driver_start
+  slow_mode_button: ipb_driver_left_trigger
+  scale_factor: 0.1
 
 
 log:

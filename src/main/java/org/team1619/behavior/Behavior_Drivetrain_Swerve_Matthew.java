@@ -24,6 +24,9 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
     private final String rotateAxis;
     private final String fFieldOrientedButton;
 
+    private final String slowModeButton;
+    private final double scaleFactor;
+
     private String stateName;
 
     private boolean fieldOriented;
@@ -36,6 +39,8 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
         rotateAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_rotate");
         fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_field_oriented_button");
 
+        slowModeButton = robotConfiguration.getString("global_drivetrain_Matthew", "slow_mode_button");
+        scaleFactor = robotConfiguration.getDouble("global_drivetrain_Matthew", "scale_factor");
         stateName = "Unknown";
 
         fieldOriented = false;
@@ -45,6 +50,7 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
     public void initialize(String stateName, Config config) {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
+
 
         stopModules();
     }
@@ -64,9 +70,18 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
                 fieldOriented = !fieldOriented;
             }
 
+            boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
+
+
             double xAxis = rangeStick(sharedInputValues.getNumeric(this.xAxis));
             double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
             double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
+
+            if (slowModeButton){
+                xAxis = xAxis*scaleFactor;
+                yAxis = yAxis*scaleFactor;
+                rotateAxis = rotateAxis*scaleFactor;
+            }
 
             // This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.
             double robotOrientation = 0;
