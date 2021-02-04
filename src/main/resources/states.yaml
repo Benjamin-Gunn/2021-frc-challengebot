@@ -25,12 +25,46 @@ single_state:
     behavior_config:
       target_heading: 0.0
 
+  st_collector_collect:
+    behavior: bh_collector
+    behavior_config:
+      speed: 0.5
+
+  st_collector_eject:
+    behavior: bh_collector
+    behavior_config:
+      speed: -0.5
+
+  st_collector_stop:
+    behavior: bh_collector
+    behavior_config:
+      speed: 0.0
+
+
 done_for_time_state:
+  wt_collector_collect:
+    state: st_collector_collect
+    state_timeout: 1000
+    max_timeout: 1000
+
+  wt_collector_eject:
+    state: st_collector_eject
+    state_timeout: 1000
+    max_timeout: 1000
+
+  wt_collector_stop:
+    state: st_collector_stop
+    state_timeout: 1000
+    max_timeout: 1000
+
 
 parallel_state:
 
 sequencer_state:
   sq_pure_pursuit_test:
     sequence: [ st_drivetrain_pure_pursuit_test ]
+
+  sq_auto_collector_test_test:
+    sequence: [ wt_collector_collect, wt_collector_stop, wt_collector_eject, wt_collector_stop ]
 
 

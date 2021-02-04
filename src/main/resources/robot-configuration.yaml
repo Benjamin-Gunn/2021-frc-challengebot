@@ -4,7 +4,7 @@ general:
 
   states:
     sequences:
-      priority_level_1: [ sq_pure_pursuit_test ]
+      priority_level_1: [ sq_pure_pursuit_test, sq_auto_collector_test_test ]
     parallels:
       priority_level_1: [ ]
     ss_drivetrain:
@@ -12,10 +12,13 @@ general:
       priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test ]
       priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math ]
       default: [  ]
+    ss_collector:
+      priority_level_1: [ st_collector_collect, st_collector_eject, st_collector_stop, wt_collector_collect, wt_collector_eject, wt_collector_stop ]
 
-  subsystems: [ ss_drivetrain ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_a, ipb_driver_b, ipb_driver_left_stick_button, ipb_driver_right_stick_button, ipb_driver_left_trigger ]
+  subsystems: [ ss_drivetrain, ss_collector ]
+
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
@@ -24,7 +27,8 @@ general:
                    ipv_swerve_odometry ]
 
   output_numerics: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed,
-                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle ]
+                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle,
+                     opn_collector ]
 
   output_booleans: [ ]
 
@@ -70,9 +74,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [ ]
-    destinations: [ ]
-    actions: [ ]
+    origins: [ collector ]
+    destinations: [ test ]
+    actions: [ test ]
 
   match_values:
 

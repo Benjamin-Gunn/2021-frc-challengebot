@@ -39,8 +39,8 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         rotateAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_rotate");
         fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
 
-        slowModeButton = robotConfiguration.getString("global_drivetrain_Matthew", "slow_mode_button");
-        scaleFactor = robotConfiguration.getDouble("global_drivetrain_Matthew", "scale_factor");
+        slowModeButton = robotConfiguration.getString("global_drivetrain_swerve", "slow_mode_button");
+        scaleFactor = robotConfiguration.getDouble("global_drivetrain_swerve", "scale_factor");
         stateName = "Unknown";
 
         fieldOriented = true;
@@ -57,49 +57,38 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
 
     @Override
     public void update() {
-        if (sharedInputValues.getBoolean("ipb_driver_a")) {
-            Vector centerOfRotation = new Vector(new Point(60.0, 0.0));
-            double rotationSpeed = 1.0;
-            Vector translation = new Vector(new Point(0.0, 0.0));
 
-            VectorList moduleRotationVectors = modulePositions.copy().subtractAll(centerOfRotation).rotateAll(90).autoScaleAll(VectorList.AutoScaleMode.SCALE_LARGEST_UP_OR_DOWN, 1.0);
-
-            setModulePowers(translation, moduleRotationVectors, rotationSpeed);
-        } else {
-            if (sharedInputValues.getBooleanRisingEdge(fFieldOrientedButton)) {
-                fieldOriented = !fieldOriented;
-            }
-
-            boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
-
-
-            double xAxis = rangeStick(sharedInputValues.getNumeric(this.xAxis));
-            double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
-            double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
-
-            if (slowModeButton){
-                xAxis = xAxis*scaleFactor;
-                yAxis = yAxis*scaleFactor;
-                rotateAxis = rotateAxis*scaleFactor;
-            }
-
-            // This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.
-            double robotOrientation = 0;
-
-            // When using field orientation, forward is always towards the opposite end of the field even if the robot is facing a different direction.
-            // To do this, the angle of the robot read from the navx is subtracted from the direction chosen by the driver.
-            // For example, if the robot is rotated 15 degrees and the driver chooses straight forward, the actual angle is -15 degrees.
-            if (fieldOriented) {
-                robotOrientation += sharedInputValues.getVector("ipv_navx").get("angle");
-            }
-
-            // Swapping X and Y translates coordinate systems from the controller to the robot.
-            // The controller use the Y axis for forward/backwards and the X axis for right/left
-            // The robot forward/backwards is along the X axis and left/right is along the Y axis
-            Vector translation = new Vector(new Point(yAxis, xAxis)).rotate(robotOrientation);
-
-            setModulePowers(translation, rotateAxis);
+        if (sharedInputValues.getBooleanRisingEdge(fFieldOrientedButton)) {
+            fieldOriented = !fieldOriented;
         }
+
+        boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
+        double xAxis = rangeStick(sharedInputValues.getNumeric(this.xAxis));
+        double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
+        double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
+
+        if (slowModeButton){
+            xAxis = xAxis*scaleFactor;
+            yAxis = yAxis*scaleFactor;
+            rotateAxis = rotateAxis*scaleFactor;
+        }
+
+        // This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.
+        double robotOrientation = 0;
+
+        // When using field orientation, forward is always towards the opposite end of the field even if the robot is facing a different direction.
+        // To do this, the angle of the robot read from the navx is subtracted from the direction chosen by the driver.
+        // For example, if the robot is rotated 15 degrees and the driver chooses straight forward, the actual angle is -15 degrees.
+        if (fieldOriented) {
+            robotOrientation += sharedInputValues.getVector("ipv_navx").get("angle");
+        }
+
+        // Swapping X and Y translates coordinate systems from the controller to the robot.
+        // The controller use the Y axis for forward/backwards and the X axis for right/left
+        // The robot forward/backwards is along the X axis and left/right is along the Y axis
+        Vector translation = new Vector(new Point(yAxis, xAxis)).rotate(robotOrientation);
+
+        setModulePowers(translation, rotateAxis);
     }
 
     @Override

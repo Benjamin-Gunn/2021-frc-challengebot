@@ -216,6 +216,11 @@ talon:
         i: 0.0
         d: 0.0
 
+  opn_collector:
+    type: fx
+    device_number: 9
+    inverted: false
+
 
 absolute_encoder_talon:
 
