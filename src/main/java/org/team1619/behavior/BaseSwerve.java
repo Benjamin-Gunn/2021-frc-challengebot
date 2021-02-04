@@ -42,21 +42,21 @@ public abstract class BaseSwerve implements Behavior {
 
         this.useAngleDifferenceScalar = useAngleDifferenceScalar;
 
-        maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_Matthew", "max_module_velocity");
+        maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_swerve", "max_module_velocity");
 
-        modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_Matthew", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
+        modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_swerve", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
 
         currentModuleVectors = new VectorList(Collections.nCopies(4, new Vector()));
 
         // Create a set of vectors at right angles to the corners of the robot to use to calculate rotation vectors
         moduleRotationDirections = modulePositions.copy().normalizeAll().rotateAll(90);
 
-        navx = robotConfiguration.getString("global_drivetrain_Matthew", "navx");
-        odometry = robotConfiguration.getString("global_drivetrain_Matthew", "odometry");
-        angleInputNames = robotConfiguration.getList("global_drivetrain_Matthew", "input_angle_names");
-        positionInputNames = robotConfiguration.getList("global_drivetrain_Matthew", "input_position_names");
-        angleOutputNames = robotConfiguration.getList("global_drivetrain_Matthew", "output_angle_names");
-        speedOutputNames = robotConfiguration.getList("global_drivetrain_Matthew", "output_speed_names");
+        navx = robotConfiguration.getString("global_drivetrain_swerve", "navx");
+        odometry = robotConfiguration.getString("global_drivetrain_swerve", "odometry");
+        angleInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_angle_names");
+        positionInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_position_names");
+        angleOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_angle_names");
+        speedOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_speed_names");
     }
 
     protected void setModulePowers(Vector translation, VectorList moduleRotationDirections, double rotationSpeed) {

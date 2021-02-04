@@ -15,9 +15,9 @@ import org.uacr.utilities.purepursuit.VectorList;
  * Drives the robot in swerve mode, based on the joystick values.
  */
 
-public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
+public class Behavior_Drivetrain_Swerve extends BaseSwerve {
 
-    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Swerve_Matthew.class);
+    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Swerve.class);
 
     private final String xAxis;
     private final String yAxis;
@@ -31,19 +31,19 @@ public class Behavior_Drivetrain_Swerve_Matthew extends BaseSwerve {
 
     private boolean fieldOriented;
 
-    public Behavior_Drivetrain_Swerve_Matthew(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+    public Behavior_Drivetrain_Swerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
 
-        xAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_x");
-        yAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_y");
-        rotateAxis = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_rotate");
-        fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_Matthew", "swerve_field_oriented_button");
+        xAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_x");
+        yAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_y");
+        rotateAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_rotate");
+        fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
 
         slowModeButton = robotConfiguration.getString("global_drivetrain_Matthew", "slow_mode_button");
         scaleFactor = robotConfiguration.getDouble("global_drivetrain_Matthew", "scale_factor");
         stateName = "Unknown";
 
-        fieldOriented = false;
+        fieldOriented = true;
     }
 
     @Override
