@@ -49,6 +49,12 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return mode == 1;
 			case "st_drivetrain_swerve_align_test":
 				return fSharedInputValues.getBoolean("ipb_driver_b");
+			case "st_elevator_shoot":
+				return fSharedInputValues.getBoolean("ipb_driver_x");
+			case "st_elevator_eject":
+				return fSharedInputValues.getBoolean("ipb_driver_y");
+			case "st_elevator_stop":
+				return fSharedInputValues.getBoolean("ipb_driver_a");
 			default:
 				return false;
 		}

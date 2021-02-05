@@ -40,6 +40,21 @@ single_state:
     behavior_config:
       speed: 0.0
 
+  st_elevator_stop:
+    behavior: bh_elevator
+    behavior_config:
+      speed: 0.0
+
+  st_elevator_shoot:
+    behavior: bh_elevator
+    behavior_config:
+      speed: 0.8
+
+  st_elevator_eject:
+    behavior: bh_elevator
+    behavior_config:
+      speed: -0.1
+
 
 done_for_time_state:
   wt_collector_collect:

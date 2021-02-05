@@ -44,7 +44,8 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 				return new Behavior_Drivetrain_Swerve_Align(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_collector":
 				return new Behavior_Collector(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-
+			case "bh_elevator":
+				return new Behavior_Elevator(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 
 			// State not found
 			default:
