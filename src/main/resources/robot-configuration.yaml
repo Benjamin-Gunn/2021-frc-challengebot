@@ -4,7 +4,7 @@ general:
 
   states:
     sequences:
-      priority_level_1: [ sq_pure_pursuit_test, sq_auto_collector_test_test ]
+      priority_level_1: [ sq_pure_pursuit_test, sq_auto_collector_test_test, sq_auto_elevator_test_test ]
     parallels:
       priority_level_1: [ ]
     ss_drivetrain:
@@ -15,7 +15,7 @@ general:
     ss_collector:
       priority_level_1: [ st_collector_collect, st_collector_eject, st_collector_stop, wt_collector_collect, wt_collector_eject, wt_collector_stop ]
     ss_elevator:
-      priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_stop ]
+      priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_stop, wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject ]
 
   subsystems: [ ss_drivetrain, ss_collector, ss_elevator ]
 
