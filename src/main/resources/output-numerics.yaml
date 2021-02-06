@@ -224,7 +224,7 @@ talon:
   opn_elevator:
     type: fx
     device_number: 9
-    inverted: false
+    inverted: true
 
 absolute_encoder_talon:
 
