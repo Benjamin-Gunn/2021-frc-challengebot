@@ -9,7 +9,7 @@ other:
         max_output: 1.0
       align:
         f: 0.0
-        p: 0.01
+        p: 0.08
         i: 0.0
         d: 0.000005
         max_output: 0.5

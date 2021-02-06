@@ -23,14 +23,14 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	@Override
 	public void initialize() {
 		sLogger.info("***** TELEOP *****");
-		mode = 2;
+		mode = 0;
 	}
 
 	@Override
 	public void update() {
-		if (fSharedInputValues.getBooleanFallingEdge("ipb_driver_back")){
-			mode = (mode < 2)?(mode + 1): 0;
-		}
+//		if (fSharedInputValues.getBooleanFallingEdge("ipb_driver_back")){
+//			mode = (mode < 2)?(mode + 1): 0;
+//		}
 	}
 
 	@Override
@@ -43,12 +43,10 @@ public class TeleopModeLogic extends AbstractModeLogic {
 		switch (name) {
 			case "st_drivetrain_zero":
 				return !fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed");
-			case "st_drivetrain_swerve_vector":
+			case "st_drivetrain_swerve":
 				return mode == 0;
 			case "st_drivetrain_swerve_math":
 				return mode == 1;
-			case "st_drivetrain_swerve_matthew":
-				return mode == 2;
 			case "st_drivetrain_swerve_align_test":
 				return fSharedInputValues.getBoolean("ipb_driver_b");
 			default:

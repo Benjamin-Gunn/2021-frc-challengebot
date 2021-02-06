@@ -21,6 +21,8 @@ public abstract class BaseSwerve implements Behavior {
     protected final InputValues sharedInputValues;
     protected final OutputValues sharedOutputValues;
 
+    protected final boolean useAngleDifferenceScalar;
+
     private final VectorList currentModuleVectors;
 
     protected final double maxModuleVelocity;
@@ -34,25 +36,27 @@ public abstract class BaseSwerve implements Behavior {
     protected final List<String> angleOutputNames;
     protected final List<String> speedOutputNames;
 
-    public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+    public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration, boolean useAngleDifferenceScalar) {
         sharedInputValues = inputValues;
         sharedOutputValues = outputValues;
 
-        maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_Matthew", "max_module_velocity");
+        this.useAngleDifferenceScalar = useAngleDifferenceScalar;
 
-        modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_Matthew", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
+        maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_swerve", "max_module_velocity");
+
+        modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_swerve", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
 
         currentModuleVectors = new VectorList(Collections.nCopies(4, new Vector()));
 
         // Create a set of vectors at right angles to the corners of the robot to use to calculate rotation vectors
         moduleRotationDirections = modulePositions.copy().normalizeAll().rotateAll(90);
 
-        navx = robotConfiguration.getString("global_drivetrain_Matthew", "navx");
-        odometry = robotConfiguration.getString("global_drivetrain_Matthew", "odometry");
-        angleInputNames = robotConfiguration.getList("global_drivetrain_Matthew", "input_angle_names");
-        positionInputNames = robotConfiguration.getList("global_drivetrain_Matthew", "input_position_names");
-        angleOutputNames = robotConfiguration.getList("global_drivetrain_Matthew", "output_angle_names");
-        speedOutputNames = robotConfiguration.getList("global_drivetrain_Matthew", "output_speed_names");
+        navx = robotConfiguration.getString("global_drivetrain_swerve", "navx");
+        odometry = robotConfiguration.getString("global_drivetrain_swerve", "odometry");
+        angleInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_angle_names");
+        positionInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_position_names");
+        angleOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_angle_names");
+        speedOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_speed_names");
     }
 
     protected void setModulePowers(Vector translation, VectorList moduleRotationDirections, double rotationSpeed) {
@@ -92,6 +96,10 @@ public abstract class BaseSwerve implements Behavior {
         // Ramp up the wheel velocity as the actual angle get closer to the target angle. This prevents the robot from being pulled off course.
         // The cosine is raised to the power of 3 so that the ramp increases faster as the delta in the angle approaches zero.
         double directionScalar = Math.pow(Math.cos(Math.toRadians(target.angle() - current.angle())), 3);
+
+        if(!useAngleDifferenceScalar) {
+            directionScalar = Math.signum(directionScalar);
+        }
 
         if (directionScalar < 0) {
             target = target.rotate(180);
