@@ -40,6 +40,21 @@ single_state:
     behavior_config:
       speed: 0.0
 
+  st_elevator_stop:
+    behavior: bh_elevator
+    behavior_config:
+      speed: 0.0
+
+  st_elevator_shoot:
+    behavior: bh_elevator
+    behavior_config:
+      speed: 0.8
+
+  st_elevator_eject:
+    behavior: bh_elevator
+    behavior_config:
+      speed: -0.1
+
 
 done_for_time_state:
   wt_collector_collect:
@@ -57,6 +72,21 @@ done_for_time_state:
     state_timeout: 1000
     max_timeout: 1000
 
+  wt_elevator_shoot:
+    state: st_elevator_shoot
+    state_timeout: 1000
+    max_timeout: 1000
+
+  wt_elevator_eject:
+    state: st_elevator_eject
+    state_timeout: 1000
+    max_timeout: 1000
+
+  wt_elevator_stop:
+    state: st_elevator_stop
+    state_timeout: 1000
+    max_timeout: 1000
+
 
 parallel_state:
 
@@ -66,5 +96,8 @@ sequencer_state:
 
   sq_auto_collector_test_test:
     sequence: [ wt_collector_collect, wt_collector_stop, wt_collector_eject, wt_collector_stop ]
+
+  sq_auto_elevator_test_test:
+    sequence: [ wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject, wt_elevator_stop ]
 
 
