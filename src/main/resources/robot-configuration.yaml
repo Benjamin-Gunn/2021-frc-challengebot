@@ -4,13 +4,13 @@ general:
 
   states:
     sequences:
-      priority_level_1: [ sq_pure_pursuit_test, sq_auto_collector_test_test, sq_auto_elevator_test_test ]
+      priority_level_1: [sq_pure_pursuit_test, sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red, sq_auto_collector_test_test, sq_auto_elevator_test_test ]
     parallels:
       priority_level_1: [ ]
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
       priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test ]
-      priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math ]
+      priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math, st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red ]
       default: [  ]
     ss_collector:
       priority_level_1: [ st_collector_collect, st_collector_eject, st_collector_stop, wt_collector_collect, wt_collector_eject, wt_collector_stop ]
@@ -74,9 +74,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [ collector, elevator ]
-    destinations: [ test ]
-    actions: [ test ]
+    origins: [gsc, collector, elevator ]
+    destinations: [a, b, test]
+    actions: [blue, red, test]
 
   match_values:
 
