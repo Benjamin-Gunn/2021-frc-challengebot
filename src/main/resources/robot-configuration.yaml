@@ -6,7 +6,8 @@ general:
     sequences:
       priority_level_1: [sq_pure_pursuit_test, sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red, sq_auto_collector_test_test, sq_auto_elevator_test_test ]
     parallels:
-      priority_level_1: [ ]
+      priority_level_2: [ pl_shoot ]
+      priority_level_1: [ pl_prime_to_shoot ]
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
       priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test ]
@@ -16,10 +17,13 @@ general:
       priority_level_1: [ st_collector_collect, st_collector_eject, st_collector_stop, wt_collector_collect, wt_collector_eject, wt_collector_stop ]
     ss_elevator:
       priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_stop, wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject ]
+    ss_flywheel:
+      priority_level_1: [ st_flywheel_zero, st_flywheel_shoot, st_flywheel_prime ]
+      default: [ st_flywheel_stop ]
 
-  subsystems: [ ss_drivetrain, ss_collector, ss_elevator ]
+  subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_a, ipb_driver_x, ipb_driver_y ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_right_bumper, ipb_driver_right_trigger ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
@@ -28,7 +32,8 @@ general:
                    ipv_swerve_odometry ]
 
   output_numerics: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed,
-                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle, opn_collector, opn_elevator ]
+                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle,
+                     opn_collector, opn_elevator, opn_flywheel ]
 
   output_booleans: [ ]
 
@@ -66,6 +71,19 @@ global_drivetrain_swerve:
   swerve_field_oriented_button: ipb_driver_start
   slow_mode_button: ipb_driver_left_trigger
   scale_factor: 0.1
+
+
+global_flywheel:
+  #original was ipb_driver_x but now it's bad
+  adjust_flywheel_speed_button: ipb_driver_right_trigger
+  adjust_up_button: ipb_driver_dpad_up
+  adjust_down_button: ipb_driver_dpad_down
+  increment: 1.0
+  speed_profile:
+    10.0: 6250
+    15.0: 5150
+    18.0: 5100
+    24.0: 6000
 
 
 log:

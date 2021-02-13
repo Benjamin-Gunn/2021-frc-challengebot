@@ -81,6 +81,37 @@ single_state:
     behavior_config:
       speed: -0.1
 
+  st_flywheel_zero:
+    behavior: bh_flywheel_zero
+    behavior_config:
+      zero_timeout_time: 500
+
+  st_flywheel_prime:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 5000.0
+      limelight: ipv_limelight_turret
+      allow_adjust: true
+      velocity_profile: pr_prime
+      final_velocity_error: 200.0
+      percent_output: 0.9
+      turbo_velocity_cutoff: 4500
+
+  st_flywheel_shoot:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 5000.0
+      allow_adjust: true
+      velocity_profile: pr_shoot
+      final_velocity_error: 500.0
+
+  st_flywheel_stop:
+    behavior: bh_flywheel_states
+    behavior_config:
+      coast: true
+      allow_adjust: false
+
+
 
 done_for_time_state:
   wt_collector_collect:
@@ -115,6 +146,11 @@ done_for_time_state:
 
 
 parallel_state:
+  pl_prime_to_shoot:
+    foreground_states: [ st_elevator_stop, st_flywheel_prime ]
+  pl_shoot:
+    foreground_states: [ st_elevator_shoot, st_flywheel_shoot ]
+
 
 sequencer_state:
   sq_pure_pursuit_test:

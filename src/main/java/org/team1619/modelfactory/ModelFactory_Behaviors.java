@@ -46,7 +46,10 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 				return new Behavior_Collector(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_elevator":
 				return new Behavior_Elevator(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-
+			case "bh_flywheel_states":
+				return new Flywheel_States (fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_flywheel_zero":
+				return new Flywheel_Zero (fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			// State not found
 			default:
 				throw new ConfigurationException("Behavior " + name + " does not exist.");
