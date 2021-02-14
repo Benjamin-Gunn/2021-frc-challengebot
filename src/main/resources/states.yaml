@@ -24,6 +24,7 @@ single_state:
     behavior: bh_drivetrain_swerve_align
     behavior_config:
       target_heading: 0.0
+
   st_drivetrain_gsc_a_blue:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
@@ -114,35 +115,35 @@ single_state:
 
 
 done_for_time_state:
-  wt_collector_collect:
-    state: st_collector_collect
-    state_timeout: 1000
-    max_timeout: 1000
-
-  wt_collector_eject:
-    state: st_collector_eject
-    state_timeout: 1000
-    max_timeout: 1000
-
-  wt_collector_stop:
-    state: st_collector_stop
-    state_timeout: 1000
-    max_timeout: 1000
-
-  wt_elevator_shoot:
-    state: st_elevator_shoot
-    state_timeout: 1000
-    max_timeout: 1000
-
-  wt_elevator_eject:
-    state: st_elevator_eject
-    state_timeout: 1000
-    max_timeout: 1000
-
-  wt_elevator_stop:
-    state: st_elevator_stop
-    state_timeout: 1000
-    max_timeout: 1000
+#  wt_collector_collect:
+#    state: st_collector_collect
+#    state_timeout: 1000
+#    max_timeout: 1000
+#
+#  wt_collector_eject:
+#    state: st_collector_eject
+#    state_timeout: 1000
+#    max_timeout: 1000
+#
+#  wt_collector_stop:
+#    state: st_collector_stop
+#    state_timeout: 1000
+#    max_timeout: 1000
+#
+#  wt_elevator_shoot:
+#    state: st_elevator_shoot
+#    state_timeout: 1000
+#    max_timeout: 1000
+#
+#  wt_elevator_eject:
+#    state: st_elevator_eject
+#    state_timeout: 1000
+#    max_timeout: 1000
+#
+#  wt_elevator_stop:
+#    state: st_elevator_stop
+#    state_timeout: 1000
+#    max_timeout: 1000
 
 
 parallel_state:
@@ -165,10 +166,10 @@ sequencer_state:
     sequence: [st_drivetrain_gsc_b_red]
 
 
-  sq_auto_collector_test_test:
-    sequence: [ wt_collector_collect, wt_collector_stop, wt_collector_eject, wt_collector_stop ]
-
-  sq_auto_elevator_test_test:
-    sequence: [ wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject, wt_elevator_stop ]
+#  sq_auto_collector_test_test:
+#    sequence: [ wt_collector_collect, wt_collector_stop, wt_collector_eject, wt_collector_stop ]
+#
+#  sq_auto_elevator_test_test:
+#    sequence: [ wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject, wt_elevator_stop ]
 
 
