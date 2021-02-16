@@ -11,8 +11,25 @@ swerve_odometry_input:
         back_right_angle: ipv_drivetrain_back_right_angle
         navx: ipv_navx
 
+limelight_odometry_input:
+    ipv_limelight_odometry:
+        left_limelight: ipv_limelight_left
+        right_limelight: ipv_limelight_right
+        limelight_distance: 45.5
+        left_limelight_angle: 90.0
+        right_limelight_angle: 90.0
+
 navx:
-  ipv_navx:
+    ipv_navx:
+
+limelight:
+    ipv_limelight_left:
+        host: left
+        degrees: true
+
+    ipv_limelight_right:
+        host: right
+        degrees: true
 
 cancoder:
 
