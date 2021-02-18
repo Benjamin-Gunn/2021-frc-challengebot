@@ -43,6 +43,31 @@ single_state:
     behavior_config:
       target_heading: 0.0
 
+
+  st_drivetrain_gscr_a_blue:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_gscr_a_blue
+      heading: 0.0
+
+  st_drivetrain_gscr_a_red:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_gscr_a_red
+      heading: 0.0
+
+  st_drivetrain_gscr_b_blue:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_gscr_b_blue
+      heading: 0.0
+
+  st_drivetrain_gscr_b_red:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_gscr_b_red
+      heading: 0.0
+
   st_drivetrain_gsc_a_blue:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
@@ -66,8 +91,6 @@ single_state:
     behavior_config:
       path_name: pt_gsc_b_red
       heading: 0.0
-
-
 
 
   st_collector_collect:
@@ -180,14 +203,22 @@ sequencer_state:
     sequence: [st_drivetrain_anc_slalom]
   sq_auto_anc_anc_bounce:
     sequence: [st_drivetrain_anc_bounce]
+  sq_auto_gscr_a_blue:
+    sequence: [st_drivetrain_gscr_a_blue]
+  sq_auto_gscr_a_red:
+    sequence: [st_drivetrain_gscr_a_red]
+  sq_auto_gscr_b_blue:
+    sequence: [st_drivetrain_gscr_b_blue]
+  sq_auto_gscr_b_red:
+    sequence: [st_drivetrain_gscr_b_red]
   sq_auto_gsc_a_blue:
-    sequence: [st_drivetrain_gsc_a_blue]
+    sequence: [ st_drivetrain_gsc_a_blue ]
   sq_auto_gsc_a_red:
-    sequence: [st_drivetrain_gsc_a_red]
+    sequence: [ st_drivetrain_gsc_a_red ]
   sq_auto_gsc_b_blue:
-    sequence: [st_drivetrain_gsc_b_blue]
+    sequence: [ st_drivetrain_gsc_b_blue ]
   sq_auto_gsc_b_red:
-    sequence: [st_drivetrain_gsc_b_red]
+    sequence: [ st_drivetrain_gsc_b_red ]
 
 
 #  sq_auto_collector_test_test:
