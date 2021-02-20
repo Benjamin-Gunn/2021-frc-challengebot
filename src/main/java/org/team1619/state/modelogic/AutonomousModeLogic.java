@@ -38,8 +38,11 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		mAutoDestination = (fSharedInputValues.getString("ips_auto_destination").toLowerCase().replaceAll("\\s", ""));
 		mAutoAction = (fSharedInputValues.getString("ips_auto_action").toLowerCase().replaceAll("\\s", ""));
 		mCombinedAuto = "sq_auto_" + mAutoOrigin + "_" + mAutoDestination + "_" + mAutoAction;
+		if (mAutoOrigin.equals("gsc") && mAutoDestination.equals("ball") && mAutoAction.equals("pattern")) {
+			mCombinedAuto = fSharedInputValues.getString("Path");
+		}
 		if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "sq_pure_pursuit_test";
+			mCombinedAuto = "none";
 		}
 		sLogger.debug(mCombinedAuto);
 

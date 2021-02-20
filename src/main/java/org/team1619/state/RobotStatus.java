@@ -18,8 +18,11 @@ public class RobotStatus extends AbstractRobotStatus {
 
 	private static final Logger sLogger = LogManager.getLogger(RobotStatus.class);
 
+	private String mLimelight;
+
 	public RobotStatus(InputValues inputValues, RobotConfiguration robotConfiguration) {
 		super(inputValues, robotConfiguration);
+		mLimelight = "";
 	}
 
 	@Override
@@ -31,6 +34,7 @@ public class RobotStatus extends AbstractRobotStatus {
 
 		}
 
+		mLimelight = fRobotConfiguration.getString("global_limelight", "limelight");
 	}
 
 	@Override
@@ -40,6 +44,27 @@ public class RobotStatus extends AbstractRobotStatus {
 		fSharedInputValues.getBoolean("ipb_flywheel_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_robot_has_been_zeroed", true);
 		}
+
+		// jace and alex path no signaling test
+		Map<String, Double> llValues = fSharedInputValues.getVector(mLimelight);
+		String mPathName;
+		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
+		mPathName = "No Target";
+		if (hasTarget) {
+			double llTargetX = llValues.getOrDefault("tx", 0.0);
+			double llTargetY = llValues.getOrDefault("ty", 0.0);
+			mPathName = "none";
+			if (llTargetX < 10 && llTargetX > 0) {
+				mPathName = "sq_auto_gsc_a_red";
+			} else if (llTargetX > 20 && llTargetX < 30) {
+				mPathName = "sq_auto_gsc_a_blue";
+			} else if (llTargetX < -10 && llTargetX > -30) {
+				mPathName = "sq_auto_gsc_b_red";
+			} else if (llTargetX < 20 && llTargetX > 10) {
+				mPathName = "sq_auto_gsc_b_blue";
+			}
+		}
+		fSharedInputValues.setString("Path", mPathName);
 	}
 
 	@Override

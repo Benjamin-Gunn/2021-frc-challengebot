@@ -29,7 +29,7 @@ general:
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
-  input_vectors: [ ipv_navx,
+  input_vectors: [ ipv_navx, ipv_limelight_turret,
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
                    ipv_swerve_odometry ]
 
@@ -87,6 +87,8 @@ global_flywheel:
     18.0: 5100
     24.0: 6000
 
+global_limelight:
+  limelight: ipv_limelight_turret
 
 log:
 #  ips_selected_auto: true
@@ -95,8 +97,8 @@ global_webdashboard:
 
   auto_selector:
     origins: [gsc, gscr, anc]
-    destinations: [a, b, anc]
-    actions: [blue, red, barrel, slalom, bounce]
+    destinations: [a, b, anc, ball]
+    actions: [blue, red, barrel, slalom, bounce, pattern]
 
   match_values:
 
