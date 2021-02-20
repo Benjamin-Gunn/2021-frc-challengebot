@@ -93,6 +93,47 @@ single_state:
       path_name: pt_gsc_b_red
       heading: 0.0
 
+  st_drivetrain_acc_green_intro:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_green_intro
+
+  st_drivetrain_acc_intro_yellow:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_intro_yellow
+      heading_mode: limelight
+
+  st_drivetrain_acc_yellow_intro:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_yellow_intro
+
+  st_drivetrain_acc_intro_blue:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_intro_blue
+      heading_mode: limelight
+
+  st_drivetrain_acc_blue_intro:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_blue_intro
+
+  st_drivetrain_acc_intro_red:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_intro_red
+      heading_mode: limelight
+
+  st_drivetrain_acc_red_intro:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_acc_red_intro
+
+  st_drivetrain_wait:
+    behavior: bh_wait
+    behavior_config:
 
   st_collector_collect:
     behavior: bh_collector
@@ -154,8 +195,6 @@ single_state:
       coast: true
       allow_adjust: false
 
-
-
 done_for_time_state:
 #  wt_collector_collect:
 #    state: st_collector_collect
@@ -187,13 +226,23 @@ done_for_time_state:
 #    state_timeout: 1000
 #    max_timeout: 1000
 
+  wt_shoot:
+    state: pl_shoot
+    state_timeout: 2000
+    max_timeout: 2000
+
+  wt_wait:
+    state: st_drivetrain_wait
+    state_timeout: 2000
+    max_timeout: 2000
 
 parallel_state:
   pl_prime_to_shoot:
     foreground_states: [ st_elevator_stop, st_flywheel_prime ]
   pl_shoot:
     foreground_states: [ st_elevator_shoot, st_flywheel_shoot ]
-
+  pl_stop:
+    foreground_states: [ st_elevator_stop, st_flywheel_stop ]
 
 sequencer_state:
   sq_pure_pursuit_test:
@@ -228,4 +277,8 @@ sequencer_state:
 #  sq_auto_elevator_test_test:
 #    sequence: [ wt_elevator_shoot, wt_elevator_stop, wt_elevator_eject, wt_elevator_stop ]
 
+  sq_auto_main:
+    sequence: [pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_green_intro, wt_wait, st_drivetrain_acc_intro_yellow, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_yellow_intro, wt_wait, st_drivetrain_acc_intro_blue, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_blue_intro, wt_wait, st_drivetrain_acc_intro_red, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_red_intro, wt_wait, st_drivetrain_acc_intro_yellow, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot ]
+  sq_auto_acc_a_a:
+    sequence: [sq_auto_main, st_elevator_stop, st_flywheel_stop]
 

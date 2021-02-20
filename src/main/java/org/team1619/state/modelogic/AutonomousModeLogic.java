@@ -81,7 +81,6 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 	@Override
 	public boolean isDone(String name, State state) {
 		switch (name) {
-
 		}
 
 		//Checks the isDone on zero states and determines when autonomous is done

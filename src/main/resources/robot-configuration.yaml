@@ -5,22 +5,25 @@ general:
   states:
     sequences:
       priority_level_1: [sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_gscr_a_blue, sq_auto_gscr_a_red, sq_auto_gscr_b_blue, sq_auto_gscr_b_red,
-                         sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red ]
+                         sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red, sq_auto_main, sq_auto_acc_a_a ]
     parallels:
       priority_level_2: [ pl_shoot ]
-      priority_level_1: [ pl_prime_to_shoot ]
+      priority_level_1: [ pl_prime_to_shoot, pl_stop]
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
-      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test ]
+      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test, wt_wait ]
       priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math, st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
-                          st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce ]
-      default: [  ]
+                          st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,
+                          st_drivetrain_acc_green_intro, st_drivetrain_acc_intro_yellow, st_drivetrain_acc_yellow_intro, st_drivetrain_acc_intro_blue, st_drivetrain_acc_blue_intro, st_drivetrain_acc_intro_red, st_drivetrain_acc_red_intro ]
+      default: [ ]
     ss_collector:
-      priority_level_1: [ st_collector_collect, st_collector_eject, st_collector_stop]
+      priority_level_1: [ st_collector_collect, st_collector_eject ]
+      default: [ st_collector_stop ]
     ss_elevator:
-      priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_stop ]
+      priority_level_1: [ st_elevator_shoot, st_elevator_eject ]
+      default: [ st_elevator_stop ]
     ss_flywheel:
-      priority_level_1: [ st_flywheel_zero, st_flywheel_shoot, st_flywheel_prime ]
+      priority_level_1: [ st_flywheel_zero, st_flywheel_shoot, st_flywheel_prime, wt_shoot ]
       default: [ st_flywheel_stop ]
 
   subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel ]
@@ -98,9 +101,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [gsc, gscr, anc]
+    origins: [gsc, gscr, anc, acc]
     destinations: [a, b, anc, ball]
-    actions: [blue, red, barrel, slalom, bounce, pattern]
+    actions: [blue, red, barrel, slalom, bounce, pattern, a]
 
   match_values:
 
