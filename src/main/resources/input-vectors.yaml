@@ -14,6 +14,12 @@ swerve_odometry_input:
 navx:
   ipv_navx:
 
+limelight:
+    ipv_limelight_shooter:
+        host: turret
+        degrees: true
+        pnp: pnp-secondary
+
 cancoder:
   ipv_drivetrain_front_right_angle:
     device_number: 20

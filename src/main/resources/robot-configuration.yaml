@@ -25,7 +25,7 @@ general:
 
   subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_right_bumper, ipb_driver_right_trigger ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_right_bumper, ipb_driver_right_trigger, ipb_driver_dpad_up, ipb_driver_dpad_down ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 

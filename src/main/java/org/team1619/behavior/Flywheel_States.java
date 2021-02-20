@@ -34,6 +34,7 @@ public class Flywheel_States implements Behavior {
 	private double mPercentOutput;
 	private double mTurboVelocityCutoff;
 	private double fVelocityAdjustment;
+	private String mLimelight;
 	private String adjustUpButton;
 	private String adjustDownButton;
 	private String mVelocityProfile;
@@ -79,6 +80,7 @@ public class Flywheel_States implements Behavior {
 		mFinalVelocityError = config.getDouble("final_velocity_error", 500.0);
 		mPercentOutput = config.getDouble("percent_output", 0.9);
 		mTurboVelocityCutoff = config.getInt("turbo_velocity_cutoff", 0);
+		mLimelight = config.getString("limelight", "none");
 		mVelocityProfile = config.getString("velocity_profile", "none");
 	}
 
@@ -92,7 +94,51 @@ public class Flywheel_States implements Behavior {
 			// If we haven't reached the turbo prime speed yet set the motor to the turbo prime output in percent mode
 			outputType = "percent";
 			mVelocity = mPercentOutput;
-		}  else if (mTurboVelocityCutoff != 0) {
+		} else if (!mLimelight.equals("none")) {
+
+			// If the state should use the limelight use the distance to set the output
+			mHasReachedTurboVelocity = true;
+
+			double targetDistance = fSharedInputValues.getNumeric("ipn_odometry_distance");
+
+			if (targetDistance > 0) {
+				// ((top of target height - limelight height) / tan(limelight angle - (1/2 limelight FOV) + ty))
+
+				if (fDataDistances.size() < 1) {
+					// If there are no data points set velocity to 0
+					mVelocity = 0;
+				} else if (fDataDistances.size() == 1) {
+					// If there is one data point set velocity to the value at the point
+					mVelocity = fSpeedProfile.get(fDataDistances.get(0));
+				} else if (targetDistance < fDataDistances.get(0)) {
+					// If we are closer than the closest data point set the velocity to the value at the closest point
+					mVelocity = fSpeedProfile.get(fDataDistances.get(0));
+				} else if (targetDistance > fDataDistances.get(fDataDistances.size() - 1)) {
+					// If we are farther than the farthest data point set the velocity to the value at the farthest point
+					mVelocity = fSpeedProfile.get(fDataDistances.get(fDataDistances.size() - 1));
+				} else {
+					// We have at least one data point closer and one data point farther than our current position
+					// interpolate speed between the points
+
+					// Find the first distance value that is further than where we are
+					int index = 1;
+					for (; index < fDataDistances.size(); index++) {
+						if (fDataDistances.get(index) > targetDistance) {
+							break;
+						}
+					}
+
+					// Get the slope between the previous distance and the next distance
+					double slope = (fSpeedProfile.get(fDataDistances.get(index)) - fSpeedProfile.get(fDataDistances.get(index - 1))) / (fDataDistances.get(index) - fDataDistances.get(index - 1));
+
+					// Calculate flywheel distance based on previous point and slope
+					mVelocity = fSpeedProfile.get(fDataDistances.get(index - 1)) + (slope * (targetDistance - fDataDistances.get(index - 1)));
+				}
+			} else {
+				// Set the velocity to the initial velocity if we don't have a limelight target
+				mVelocity = mInitialVelocity;
+			}
+		}else if (mTurboVelocityCutoff != 0) {
 
 			// If turbo prime is up to speed but we don't h
 			mVelocity = mInitialVelocity;
