@@ -36,6 +36,7 @@ single_state:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
       path_name: pt_test
+      heading_mode: limelight
       target_heading: 0.0
 
   st_drivetrain_swerve_align_test:
@@ -132,7 +133,7 @@ single_state:
     behavior: bh_flywheel_states
     behavior_config:
       velocity: 5000.0
-      limelight: ipv_limelight_turret
+      limelight: ipv_limelight_shooter
       allow_adjust: true
       velocity_profile: pr_prime
       final_velocity_error: 200.0

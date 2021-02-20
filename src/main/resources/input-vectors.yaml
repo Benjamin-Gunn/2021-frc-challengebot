@@ -35,10 +35,12 @@ cancoder:
     read_absolute_position: true
     magnet_offset: -106.436
 
-
 limelight:
-  ipv_limelight_turret:
-    host: turret
-    degrees: true
-    pnp: pnp-secondary
-
+    ipv_limelight_shooter:
+        host: turret
+        degrees: true
+        pnp: pnp-secondary
+        pipelines:
+            galactic_search: 0
+            target: 1
+        initial_pipeline: target

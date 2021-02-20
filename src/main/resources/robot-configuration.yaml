@@ -29,7 +29,8 @@ general:
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 
-  input_vectors: [ ipv_navx, ipv_limelight_turret,
+  input_vectors: [ ipv_navx,
+                   ipv_limelight_shooter,
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
                    ipv_swerve_odometry ]
 
@@ -65,6 +66,7 @@ global_drivetrain_swerve:
   output_angle_names: [ opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle ]
   output_speed_names: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed ]
   navx: ipv_navx
+  limelight: ipv_limelight_shooter
   odometry: ipv_swerve_odometry
   heading_controller: pr_swerve_heading
   swerve_x: ipn_driver_left_x
@@ -88,7 +90,7 @@ global_flywheel:
     24.0: 6000
 
 global_limelight:
-  limelight: ipv_limelight_turret
+  limelight: ipv_limelight_shooter
 
 log:
 #  ips_selected_auto: true

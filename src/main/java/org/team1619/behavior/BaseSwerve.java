@@ -1,10 +1,12 @@
 package org.team1619.behavior;
 
 import org.uacr.models.behavior.Behavior;
+import org.uacr.models.exceptions.ConfigurationException;
 import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
+import org.uacr.utilities.closedloopcontroller.ClosedLoopController;
 import org.uacr.utilities.purepursuit.Vector;
 import org.uacr.utilities.purepursuit.VectorList;
 
@@ -30,11 +32,15 @@ public abstract class BaseSwerve implements Behavior {
     protected final VectorList moduleRotationDirections;
 
     protected final String navx;
+    protected final String limelight;
     protected final String odometry;
     protected final List<String> angleInputNames;
     protected final List<String> positionInputNames;
     protected final List<String> angleOutputNames;
     protected final List<String> speedOutputNames;
+
+    private final ClosedLoopController headingController;
+    private String headingMode;
 
     public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration, boolean useAngleDifferenceScalar) {
         sharedInputValues = inputValues;
@@ -52,11 +58,15 @@ public abstract class BaseSwerve implements Behavior {
         moduleRotationDirections = modulePositions.copy().normalizeAll().rotateAll(90);
 
         navx = robotConfiguration.getString("global_drivetrain_swerve", "navx");
+        limelight = robotConfiguration.getString("global_drivetrain_swerve", "limelight");
         odometry = robotConfiguration.getString("global_drivetrain_swerve", "odometry");
         angleInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_angle_names");
         positionInputNames = robotConfiguration.getList("global_drivetrain_swerve", "input_position_names");
         angleOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_angle_names");
         speedOutputNames = robotConfiguration.getList("global_drivetrain_swerve", "output_speed_names");
+
+        headingController = new ClosedLoopController(robotConfiguration.getString("global_drivetrain_swerve", "heading_controller"));
+        headingMode = "none";
     }
 
     protected void setModulePowers(Vector translation, VectorList moduleRotationDirections, double rotationSpeed) {
@@ -65,6 +75,43 @@ public abstract class BaseSwerve implements Behavior {
 
     protected void setModulePowers(Vector translation, double rotationSpeed) {
         setModulePowers(translation, moduleRotationDirections, rotationSpeed);
+    }
+
+    protected void setModulePowers(Vector translation, String headingMode, double headingOutput, String headingProfile) {
+        if(!this.headingMode.equals(headingMode)) {
+            headingController.reset();
+        }
+
+        switch (headingMode) {
+            case "navx":
+                if("none".equals(headingProfile)) {
+                    headingProfile = "navx";
+                }
+                break;
+            case "limelight":
+                if("none".equals(headingProfile)) {
+                    headingProfile = "limelight";
+                }
+                break;
+            default:
+                throw new ConfigurationException("Heading mode " + headingMode + " doesn't exist.");
+        }
+
+        headingController.setProfile(headingProfile);
+        headingController.set(headingOutput);
+
+        switch (headingMode) {
+            case "navx":
+                setModulePowers(translation, -headingController.getWithPID(sharedInputValues.getVector(navx).get("angle")));
+                break;
+            case "limelight":
+                setModulePowers(translation, headingController.getWithPID(sharedInputValues.getVector(limelight).get("tx")));
+                break;
+        }
+    }
+
+    protected void setModulePowers(Vector translation, String headingMode, double headingOutput) {
+        setModulePowers(translation, headingMode, headingOutput, "none");
     }
 
     protected void stopModules() {

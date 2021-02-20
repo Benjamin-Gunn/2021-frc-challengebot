@@ -8,7 +8,6 @@ import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 import org.uacr.utilities.purepursuit.Point;
 import org.uacr.utilities.purepursuit.Vector;
-import org.uacr.utilities.purepursuit.VectorList;
 
 
 /**
@@ -51,7 +50,6 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
 
-
         stopModules();
     }
 
@@ -67,10 +65,10 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
         double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
 
-        if (slowModeButton){
-            xAxis = xAxis*scaleFactor;
-            yAxis = yAxis*scaleFactor;
-            rotateAxis = rotateAxis*scaleFactor;
+        if (slowModeButton) {
+            xAxis = xAxis * scaleFactor;
+            yAxis = yAxis * scaleFactor;
+            rotateAxis = rotateAxis * scaleFactor;
         }
 
         // This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.

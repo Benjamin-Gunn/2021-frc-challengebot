@@ -25,8 +25,6 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Swerve_Pure_Pursuit.class);
 
-    private final ClosedLoopController headingController;
-
     private final Map<String, Path> mPaths;
 
     private String stateName;
@@ -34,14 +32,13 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     private Path currentPath;
     private Pose2d currentPosition;
     private boolean isFollowing;
+    private String headingMode;
     private double targetHeading;
     private String pathName;
 
     public Behavior_Drivetrain_Swerve_Pure_Pursuit(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, false);
 
-        headingController = new ClosedLoopController(robotConfiguration.getString("global_drivetrain_swerve", "heading_controller"));
-        
         stateName = "Unknown";
         
         mPaths = new HashMap<>();
@@ -73,6 +70,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         }
 
         pathName = "Unknown";
+        headingMode = "none";
         targetHeading = 0.0;
 
         isFollowing = true;
@@ -86,11 +84,8 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         stopModules();
 
         pathName = config.getString("path_name");
+        headingMode = config.getString("heading_mode", "navx");
         targetHeading = config.getDouble("target_heading", targetHeading);
-
-        headingController.setProfile("pure_pursuit");
-        headingController.set(targetHeading);
-        headingController.reset();
 
         if (!mPaths.containsKey(pathName)) {
             LOGGER.error("Path " + pathName + " doesn't exist");
@@ -138,7 +133,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         // Uses the path object to calculate velocity values
         double velocity = currentPath.getPathPointVelocity(closest, currentPosition);
 
-        setModulePowers(new Vector(currentPath.getPoint(lookahead).subtract(currentPosition)).normalize().scale(velocity), headingController.getWithPID(currentPosition.getHeading()));
+        setModulePowers(new Vector(currentPath.getPoint(lookahead).subtract(currentPosition)).normalize().scale(velocity), headingMode, targetHeading);
     }
 
     @Override
