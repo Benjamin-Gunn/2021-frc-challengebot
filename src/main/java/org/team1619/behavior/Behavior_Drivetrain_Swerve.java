@@ -30,6 +30,8 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
 
     private boolean fieldOriented;
 
+    private boolean targetLimelight;
+
     public Behavior_Drivetrain_Swerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
 
@@ -43,6 +45,7 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         stateName = "Unknown";
 
         fieldOriented = true;
+        targetLimelight = false;
     }
 
     @Override
@@ -51,6 +54,9 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         this.stateName = stateName;
 
         stopModules();
+
+        targetLimelight = config.getBoolean("target_limelight", false);
+
     }
 
     @Override
@@ -86,7 +92,12 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         // The robot forward/backwards is along the X axis and left/right is along the Y axis
         Vector translation = new Vector(new Point(yAxis, xAxis)).rotate(robotOrientation);
 
-        setModulePowers(translation, rotateAxis);
+        if (targetLimelight){
+            setModulePowers(translation, "limelight", 0);
+        } else {
+            setModulePowers(translation, rotateAxis);
+        }
+
     }
 
     @Override

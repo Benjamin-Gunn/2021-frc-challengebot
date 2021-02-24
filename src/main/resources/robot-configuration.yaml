@@ -11,7 +11,7 @@ general:
       priority_level_1: [ pl_prime_to_shoot, pl_stop]
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
-      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align_test, wt_wait ]
+      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align, wt_wait ]
       priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math, st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
                           st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,
                           st_drivetrain_acc_green_intro, st_drivetrain_acc_intro_yellow, st_drivetrain_acc_yellow_intro, st_drivetrain_acc_intro_blue, st_drivetrain_acc_blue_intro, st_drivetrain_acc_intro_red, st_drivetrain_acc_red_intro ]
@@ -28,7 +28,7 @@ general:
 
   subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel ]
 
-  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_right_bumper, ipb_driver_right_trigger, ipb_driver_dpad_up, ipb_driver_dpad_down ]
+  input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_left_bumper, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_right_bumper, ipb_driver_right_trigger, ipb_driver_dpad_up, ipb_driver_dpad_down ]
 
   input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x ]
 

@@ -14,6 +14,21 @@ single_state:
   st_drivetrain_swerve_math:
     behavior: bh_drivetrain_swerve_math
 
+  st_drivetrain_pure_pursuit_test:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_test
+      heading_mode: limelight
+      target_heading: 0.0
+
+  st_drivetrain_swerve_align:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      target_heading: 0.0
+      target_limelight: true
+
+
+
   st_drivetrain_anc_barrel:
     behavior: bh_drivetrain_swerve_pure_pursuit
     behavior_config:
@@ -31,19 +46,6 @@ single_state:
     behavior_config:
       path_name: pt_anc_bounce
       heading: 0.0
-
-  st_drivetrain_pure_pursuit_test:
-    behavior: bh_drivetrain_swerve_pure_pursuit
-    behavior_config:
-      path_name: pt_test
-      heading_mode: limelight
-      target_heading: 0.0
-
-  st_drivetrain_swerve_align_test:
-    behavior: bh_drivetrain_swerve_align
-    behavior_config:
-      target_heading: 0.0
-
 
   st_drivetrain_gscr_a_blue:
     behavior: bh_drivetrain_swerve_pure_pursuit

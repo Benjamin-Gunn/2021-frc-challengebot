@@ -168,7 +168,7 @@ public class Flywheel_States implements Behavior {
 			fVelocityAdjustment -= fIncrement;
 		}
 
-		if(mAllowAdjust && mHasReachedTurboVelocity){
+		if(mAllowAdjust && (mHasReachedTurboVelocity || mTurboVelocityCutoff == 0)){
 				mVelocity += fVelocityAdjustment;
 		}
 

@@ -60,8 +60,8 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return mode == 0;
 			case "st_drivetrain_swerve_math":
 				return mode == 1;
-			case "st_drivetrain_swerve_align_test":
-				return fSharedInputValues.getBoolean("ipb_driver_b");
+			case "st_drivetrain_swerve_align":
+				return fSharedInputValues.getBoolean("ipb_driver_left_bumper");
 			case "st_flywheel_zero":
 				return !fSharedInputValues.getBoolean("ipb_flywheel_has_been_zeroed");
 			case "pl_prime_to_shoot":
@@ -76,8 +76,8 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	@Override
 	public boolean isDone(String name, State state) {
 		switch (name) {
-			case "st_drivetrain_swerve_align_test":
-				return !fSharedInputValues.getBoolean("ipb_driver_b");
+			case "st_drivetrain_swerve_align":
+				return !fSharedInputValues.getBoolean("ipb_driver_left_bumper");
 			case "pl_prime_to_shoot":
 				return !isPriming;
 			case "pl_shoot":
