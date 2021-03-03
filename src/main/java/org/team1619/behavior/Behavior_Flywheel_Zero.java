@@ -15,9 +15,9 @@ import java.util.Set;
  * Zeroes Flywheel in Sequence Mode
  */
 
-public class Flywheel_Zero implements Behavior {
+public class Behavior_Flywheel_Zero implements Behavior {
 
-	private static final Logger sLogger = LogManager.getLogger(Flywheel_Zero.class);
+	private static final Logger sLogger = LogManager.getLogger(Behavior_Flywheel_Zero.class);
 	private static final Set<String> sSubsystems = Set.of("ss_flywheel");
 
 	private final InputValues fSharedInputValues;
@@ -26,7 +26,7 @@ public class Flywheel_Zero implements Behavior {
 
 	private int mTimeoutTime;
 
-	public Flywheel_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+	public Behavior_Flywheel_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
 		fSharedInputValues = inputValues;
 		fSharedOutputValues = outputValues;
 		fTimeoutTimer = new Timer();

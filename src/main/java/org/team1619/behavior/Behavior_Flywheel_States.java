@@ -14,9 +14,9 @@ import java.util.*;
  * Controls the flywheel, using the state interrupt system
  */
 
-public class Flywheel_States implements Behavior {
+public class Behavior_Flywheel_States implements Behavior {
 
-	private static final Logger sLogger = LogManager.getLogger(Flywheel_States.class);
+	private static final Logger sLogger = LogManager.getLogger(Behavior_Flywheel_States.class);
 	private static final Set<String> sSubsystems = Set.of("ss_flywheel");
 
 	private final InputValues fSharedInputValues;
@@ -39,7 +39,7 @@ public class Flywheel_States implements Behavior {
 	private String adjustDownButton;
 	private String mVelocityProfile;
 
-	public Flywheel_States(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+	public Behavior_Flywheel_States(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
 		fSharedInputValues = inputValues;
 		fSharedOutputValues = outputValues;
 		adjustUpButton = robotConfiguration.getString("global_flywheel", "adjust_up_button");
