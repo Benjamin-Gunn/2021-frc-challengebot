@@ -133,6 +133,17 @@ single_state:
     behavior_config:
       path_name: pt_acc_red_intro
 
+  st_drivetrain_ppc_shooting_intro:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ppc_shooting_intro
+
+  st_drivetrain_ppc_intro_shooting:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ppc_intro_shooting
+      heading_mode: limelight
+
   st_drivetrain_wait:
     behavior: bh_wait
     behavior_config:
@@ -238,13 +249,24 @@ done_for_time_state:
     state_timeout: 2000
     max_timeout: 2000
 
+  wt_flywheel_prime_wait:
+    state: st_flywheel_prime
+    state_timeout: 10000
+    max_timeout: 10000
+
 parallel_state:
   pl_prime_to_shoot:
     foreground_states: [ st_elevator_stop, st_flywheel_prime ]
   pl_shoot:
     foreground_states: [ st_elevator_shoot, st_flywheel_shoot ]
-  pl_stop:
-    foreground_states: [ st_elevator_stop, st_flywheel_stop ]
+
+  pl_ppc_prime_intro_shoot:
+    foreground_states: [ st_drivetrain_ppc_intro_shooting ]
+    background_statees: [ pl_prime_to_shoot ]
+
+  pl_ppc_prime_shoot_intro:
+    foreground_states: [ st_drivetrain_ppc_shooting_intro ]
+    background_statees: [ pl_prime_to_shoot ]
 
 sequencer_state:
   sq_pure_pursuit_test:
@@ -283,4 +305,10 @@ sequencer_state:
     sequence: [pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_green_intro, wt_wait, st_drivetrain_acc_intro_yellow, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_yellow_intro, wt_wait, st_drivetrain_acc_intro_blue, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_blue_intro, wt_wait, st_drivetrain_acc_intro_red, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot, st_drivetrain_acc_red_intro, wt_wait, st_drivetrain_acc_intro_yellow, pl_prime_to_shoot, wt_shoot, pl_prime_to_shoot ]
   sq_auto_acc_a_a:
     sequence: [sq_auto_main, st_elevator_stop, st_flywheel_stop]
+
+  sq_ppc_main:
+    sequence: [pl_ppc_prime_intro_shoot, wt_shoot, pl_ppc_prime_shoot_intro, wt_flywheel_prime_wait]
+
+  sq_ppc_wait:
+    sequence: [wt_flywheel_prime_wait]
 
