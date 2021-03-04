@@ -99,7 +99,7 @@ public class Behavior_Flywheel_States implements Behavior {
 			// If the state should use the limelight use the distance to set the output
 			mHasReachedTurboVelocity = true;
 
-			double targetDistance = fSharedInputValues.getNumeric("ipn_odometry_distance");
+			double targetDistance = fSharedInputValues.getNumeric("ipn_target_distance");
 
 			if (targetDistance > 0) {
 				// ((top of target height - limelight height) / tan(limelight angle - (1/2 limelight FOV) + ty))
@@ -138,7 +138,7 @@ public class Behavior_Flywheel_States implements Behavior {
 				// Set the velocity to the initial velocity if we don't have a limelight target
 				mVelocity = mInitialVelocity;
 			}
-		}else if (mTurboVelocityCutoff != 0) {
+		} else if (mTurboVelocityCutoff != 0) {
 
 			// If turbo prime is up to speed but we don't h
 			mVelocity = mInitialVelocity;
@@ -168,8 +168,8 @@ public class Behavior_Flywheel_States implements Behavior {
 			fVelocityAdjustment -= fIncrement;
 		}
 
-		if(mAllowAdjust && (mHasReachedTurboVelocity || mTurboVelocityCutoff == 0)){
-				mVelocity += fVelocityAdjustment;
+		if (mAllowAdjust && (mHasReachedTurboVelocity || mTurboVelocityCutoff == 0)) {
+			mVelocity += fVelocityAdjustment;
 		}
 
 		if (mVelocity > 8000) {

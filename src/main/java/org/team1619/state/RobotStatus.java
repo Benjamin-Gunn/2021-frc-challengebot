@@ -65,6 +65,14 @@ public class RobotStatus extends AbstractRobotStatus {
 			}
 		}
 		fSharedInputValues.setString("Path", mPathName);
+
+		// calculating distance to target for use by flywheels
+
+		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
+		double limelightTargetX = llValues.getOrDefault("tx", 0.0);
+		double limelightTargetY = llValues.getOrDefault("ty", 0.0);
+		fSharedInputValues.setNumeric("ipn_target_distance", hasTarget ? Math.hypot(limelightTargetY, limelightTargetX) : -1);
+
 	}
 
 	@Override
