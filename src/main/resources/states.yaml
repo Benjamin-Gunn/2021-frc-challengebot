@@ -173,6 +173,14 @@ single_state:
     behavior_config:
       speed: 0.8
 
+  st_elevator_cycle_shoot:
+    behavior: bh_elevator
+    behavior_config:
+      enable_cycling: true
+      cycle_time_on: 175
+      cycle_time_off: 1000
+      speed: 0.8
+
   st_elevator_eject:
     behavior: bh_elevator
     behavior_config:
@@ -198,6 +206,7 @@ single_state:
     behavior: bh_flywheel_states
     behavior_config:
       velocity: 5000.0
+      limelight: ipv_limelight_shooter
       allow_adjust: true
       velocity_profile: pr_shoot
       final_velocity_error: 500.0
@@ -259,14 +268,14 @@ parallel_state:
     foreground_states: [ st_elevator_stop, st_flywheel_prime ]
   pl_shoot:
     foreground_states: [ st_elevator_shoot, st_flywheel_shoot ]
-
   pl_ppc_prime_intro_shoot:
     foreground_states: [ st_drivetrain_ppc_intro_shooting ]
     background_statees: [ pl_prime_to_shoot ]
-
   pl_ppc_prime_shoot_intro:
     foreground_states: [ st_drivetrain_ppc_shooting_intro ]
     background_statees: [ pl_prime_to_shoot ]
+  pl_cycle_shoot:
+    foreground_states: [ st_elevator_cycle_shoot, st_flywheel_shoot ]
 
 sequencer_state:
   sq_pure_pursuit_test:

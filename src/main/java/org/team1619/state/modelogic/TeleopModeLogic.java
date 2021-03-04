@@ -70,7 +70,7 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return !fSharedInputValues.getBoolean("ipb_flywheel_has_been_zeroed");
 			case "pl_prime_to_shoot":
 				return isPriming;
-			case "pl_shoot":
+			case "pl_cycle_shoot":
 				return fSharedInputValues.getBoolean("ipb_driver_right_trigger") && fSharedInputValues.getBoolean("ipb_flywheel_primed");
 			default:
 				return false;
@@ -84,7 +84,7 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return !fSharedInputValues.getBoolean("ipb_driver_left_bumper");
 			case "pl_prime_to_shoot":
 				return !isPriming;
-			case "pl_shoot":
+			case "pl_cycle_shoot":
 				return fSharedInputValues.getBooleanFallingEdge("ipb_driver_right_trigger");
 			default:
 				return state.isDone();

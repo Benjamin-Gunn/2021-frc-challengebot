@@ -9,8 +9,8 @@ general:
                          sq_ppc_main, sq_ppc_wait]
     parallels:
       priority_level_3: [ pl_ppc_prime_intro_shoot, pl_ppc_prime_shoot_intro ]
-      priority_level_2: [ pl_prime_to_shoot ]
-      priority_level_1: [ pl_shoot ]
+      priority_level_2: [ pl_prime_to_shoot, pl_cycle_shoot ]
+      priority_level_1: [ pl_shoot]
 
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
@@ -24,7 +24,7 @@ general:
       priority_level_1: [ st_collector_collect, st_collector_eject ]
       default: [ st_collector_stop ]
     ss_elevator:
-      priority_level_1: [ st_elevator_shoot, st_elevator_eject ]
+      priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_cycle_shoot ]
       default: [ st_elevator_stop ]
     ss_flywheel:
       priority_level_2: [ wt_flywheel_prime_wait ]
@@ -92,10 +92,12 @@ global_flywheel:
   adjust_down_button: ipb_driver_dpad_down
   increment: 1.0
   speed_profile:
-    10.0: 6250
-    15.0: 5150
-    18.0: 5100
-    24.0: 6000
+    5.42: 5050
+    7.5: 3790
+    10.42: 3000
+    12.5: 3120
+    15.42: 3500
+    17.5: 3700
 
 global_limelight:
   limelight: ipv_limelight_shooter
