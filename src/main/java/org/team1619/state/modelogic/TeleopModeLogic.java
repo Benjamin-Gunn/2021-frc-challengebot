@@ -56,10 +56,6 @@ public class TeleopModeLogic extends AbstractModeLogic {
 		switch (name) {
 			case "st_drivetrain_swerve_align":
 				return !fSharedInputValues.getBoolean("ipb_driver_left_bumper");
-			case "pl_prime_to_shoot":
-				return !isPriming;
-			case "pl_cycle_shoot":
-				return fSharedInputValues.getBooleanFallingEdge("ipb_driver_right_trigger");
 			default:
 				return state.isDone();
 		}
