@@ -31,7 +31,6 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 		sLogger.trace("Creating behavior '{}' of type '{}' with config '{}'", name, config.getType(), config.getData());
 
 		switch (name) {
-
 			case "bh_drivetrain_zero":
 				return new Behavior_Drivetrain_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_drivetrain_swerve":
