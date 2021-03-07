@@ -17,11 +17,7 @@ public class TeleopModeLogic extends AbstractModeLogic {
 
 	public TeleopModeLogic(InputValues inputValues, RobotConfiguration robotConfiguration) {
 		super(inputValues, robotConfiguration);
-
-
 	}
-
-
 
 	@Override
 	public void initialize() {
@@ -36,8 +32,6 @@ public class TeleopModeLogic extends AbstractModeLogic {
 	public void dispose() {
 
 	}
-
-
 
 	@Override
 	public boolean isReady(String name) {
@@ -60,8 +54,4 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return state.isDone();
 		}
 	}
-
-
-
-
 }

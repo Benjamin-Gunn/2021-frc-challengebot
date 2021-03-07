@@ -26,9 +26,8 @@ general:
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
                    ipv_swerve_odometry ]
 
-  output_numerics: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed,
-                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle,
-                     opn_collector, opn_elevator, opn_flywheel ]
+  output_numerics: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right,
+                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle]
 
   output_booleans: [ ]
 
@@ -40,15 +39,6 @@ global_timing:
   frame_time_threshold_webdashboard_service: 80
   frame_cycle_time_threshold_core_thread: 80
   frame_cycle_time_threshold_info_thread: 80
-
-global_drivetrain_swerve_math:
-  x_left_js: ipn_driver_left_x
-  y_left_js: ipn_driver_left_y
-  x_right_js: ipn_driver_right_x
-  y_right_js: ipn_driver_right_y
-  robot_length: 18.5
-  robot_width: 16.5
-  navx: ipv_navx
 
 global_drivetrain_swerve:
   max_module_velocity: 34.0
