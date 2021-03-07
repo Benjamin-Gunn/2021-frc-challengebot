@@ -77,9 +77,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [gsc, gscr, anc, acc]
+    origins: [gsc, gscr, anc ]
     destinations: [a, b, anc, ball]
-    actions: [blue, red, barrel, slalom, bounce, pattern, a]
+    actions: [blue, red, barrel, slalom, bounce, pattern ]
 
   match_values:
 
