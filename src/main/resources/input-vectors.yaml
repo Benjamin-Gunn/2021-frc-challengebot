@@ -19,6 +19,18 @@ limelight:
         host: turret
         degrees: true
         pnp: pnp-secondary
+        pipelines:
+            galactic_search: 0
+            target: 1
+        initial_pipeline: target
+
+networktable_reader:
+    ipv_rpi_position:
+        host: vision-rpi
+        values:
+            pv: valid
+            px: x
+            py: y
 
 cancoder:
   ipv_drivetrain_front_right_angle:
@@ -40,13 +52,3 @@ cancoder:
     device_number: 23
     read_absolute_position: true
     magnet_offset: -106.436
-
-limelight:
-    ipv_limelight_shooter:
-        host: turret
-        degrees: true
-        pnp: pnp-secondary
-        pipelines:
-            galactic_search: 0
-            target: 1
-        initial_pipeline: target

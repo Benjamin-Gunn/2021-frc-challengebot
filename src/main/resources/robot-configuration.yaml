@@ -34,6 +34,7 @@ general:
 
   input_vectors: [ ipv_navx,
                    ipv_limelight_shooter,
+                   ipv_rpi_position,
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
                    ipv_swerve_odometry ]
 
