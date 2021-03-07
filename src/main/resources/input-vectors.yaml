@@ -22,24 +22,24 @@ limelight:
 
 cancoder:
   ipv_drivetrain_front_right_angle:
-    device_number: 20
+    device_number: 16
     read_absolute_position: true
-    magnet_offset: 211.816
+    magnet_offset: -9.4
 
   ipv_drivetrain_front_left_angle:
-    device_number: 21
+    device_number: 4
     read_absolute_position: true
-    magnet_offset: -358.066
-
-  ipv_drivetrain_back_left_angle:
-    device_number: 22
-    read_absolute_position: true
-    magnet_offset: -8.262
+    magnet_offset: -106.9
 
   ipv_drivetrain_back_right_angle:
-    device_number: 23
+    device_number: 12
     read_absolute_position: true
-    magnet_offset: -106.436
+    magnet_offset: -62.5
+
+  ipv_drivetrain_back_left_angle:
+    device_number: 8
+    read_absolute_position: true
+    magnet_offset: -83.8
 
 limelight:
     ipv_limelight_shooter:

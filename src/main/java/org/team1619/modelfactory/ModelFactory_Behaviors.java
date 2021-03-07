@@ -34,24 +34,12 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 
 			case "bh_drivetrain_zero":
 				return new Behavior_Drivetrain_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_drivetrain_swerve_math":
-				return new Behavior_Drivetrain_Swerve_Math(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_drivetrain_swerve":
 				return new Behavior_Drivetrain_Swerve(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_drivetrain_swerve_pure_pursuit":
 				return new Behavior_Drivetrain_Swerve_Pure_Pursuit(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_drivetrain_swerve_align":
 				return new Behavior_Drivetrain_Swerve_Align(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_collector":
-				return new Behavior_Collector(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_elevator":
-				return new Behavior_Elevator(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_flywheel_states":
-				return new Behavior_Flywheel_States(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_flywheel_zero":
-				return new Behavior_Flywheel_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_wait":
-				return new Behavior_Wait(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			// State not found
 			default:
 				throw new ConfigurationException("Behavior " + name + " does not exist.");
