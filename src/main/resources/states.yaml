@@ -23,6 +23,12 @@ single_state:
             target_heading: 0.0
             target_limelight: true
 
+    st_drivetrain_swerve_manual:
+        behavior: bh_drivetrain_swerve_manual
+        behavior_config:
+            increment_speed: 0.1
+            increment_angle: 1.0
+
     st_drivetrain_anc_barrel:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
@@ -98,6 +104,7 @@ single_state:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
             path_name: pt_oval
+
 
 done_for_time_state:
 

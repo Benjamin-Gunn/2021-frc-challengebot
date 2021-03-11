@@ -48,7 +48,7 @@ path:
 
     pt_straightline:
         path: [ [ 0,0 ], [ 312 ,0 ]]
-        model: test
+        model: standard
 
 model:
     standard:
