@@ -42,7 +42,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 			mCombinedAuto = fSharedInputValues.getString("Path");
 		}
 		if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "none";
+			mCombinedAuto = "sq_pure_pursuit_test";
 		}
 		sLogger.debug(mCombinedAuto);
 
@@ -64,8 +64,6 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		switch (name) {
 			case "st_drivetrain_zero":
 				return !fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed");
-			case "st_flywheel_zero":
-				return !fSharedInputValues.getBoolean("ipb_flywheel_has_been_zeroed");
 		}
 
 		// Check isReady on auto states
@@ -85,7 +83,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 
 		//Checks the isDone on zero states and determines when autonomous is done
 		if (state.isDone()) {
-			if (name.contains("auto")) {
+			if (name.equals(mCombinedAuto)) {
 				fSharedInputValues.setBoolean("ipb_auto_complete", true);
 			}
 			return true;

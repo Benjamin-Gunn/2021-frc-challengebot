@@ -7,6 +7,7 @@ import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
 import org.uacr.utilities.closedloopcontroller.ClosedLoopController;
+import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.purepursuit.Vector;
 import org.uacr.utilities.purepursuit.VectorList;
 
@@ -78,9 +79,6 @@ public abstract class BaseSwerve implements Behavior {
     }
 
     protected void setModulePowers(Vector translation, String headingMode, double headingOutput, String headingProfile) {
-        if(!this.headingMode.equals(headingMode)) {
-            headingController.reset();
-        }
 
         switch (headingMode) {
             case "navx":
@@ -99,6 +97,11 @@ public abstract class BaseSwerve implements Behavior {
 
         headingController.setProfile(headingProfile);
         headingController.set(headingOutput);
+
+        if(!this.headingMode.equals(headingMode)) {
+            headingController.reset();
+            this.headingMode = headingMode;
+        }
 
         switch (headingMode) {
             case "navx":

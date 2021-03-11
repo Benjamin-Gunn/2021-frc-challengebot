@@ -1,15 +1,15 @@
 talon:
-  opn_drivetrain_front_right_speed:
+
+  <<: &speed_primary_defaults
     type: fx
-    device_number: 8
-    inverted: true
+    inverted: false
     feedback_device: internal_encoder
     read_position: true
     read_velocity: true
     read_temperature: true
     # reciprocal of the counts per unit of the module
-    position_scalar: 0.00087179
-    velocity_scalar: 0.00087179
+    position_scalar: 0.00128822
+    velocity_scalar: 0.00128822
     sensor_inverted: false
     current_limit_enabled: true
     continuous_current_limit_amps: 25
@@ -23,20 +23,27 @@ talon:
         d: 0.0
       pr_drive:
         f: 0.06
-        p: 0.07
+        p: 0.03
         i: 0.0
         d: 0.0
 
-  opn_drivetrain_front_left_speed:
+  <<: &speed_follower_defaults
     type: fx
-    device_number: 1
-    inverted: true
+    inverted: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+
+  <<: &angle_defaults
+    type: fx
+    inverted: false
     feedback_device: internal_encoder
     read_position: true
     read_velocity: false
     read_temperature: true
-    position_scalar: 0.00087179
-    velocity_scalar: 0.00087179
+    position_scalar: 0.01464844
+    velocity_scalar: 0.01464844
     sensor_inverted: false
     current_limit_enabled: true
     continuous_current_limit_amps: 25
@@ -49,216 +56,65 @@ talon:
         i: 0.0
         d: 0.0
       pr_drive:
-        f: 0.06
-        p: 0.07
+        f: 0.0
+        p: 0.4
         i: 0.0
         d: 0.0
 
-  opn_drivetrain_back_left_speed:
-    type: fx
+
+
+  opn_drivetrain_front_right_speed_primary:
+    device_number: 14
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_front_right_speed_follower:
+    device_number: 15
+    <<: *speed_follower_defaults
+
+
+  opn_drivetrain_front_left_speed_primary:
     device_number: 2
-    inverted: true
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: true
-    read_temperature: true
-    position_scalar: 0.00087179
-    velocity_scalar: 0.00087179
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.06
-        p: 0.07
-        i: 0.0
-        d: 0.0
+    <<: *speed_primary_defaults
 
-  opn_drivetrain_back_right_speed:
-    type: fx
+  opn_drivetrain_front_left_speed_follower:
     device_number: 3
-    inverted: true
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: false
-    read_temperature: true
-    position_scalar: 0.00087179
-    velocity_scalar: 0.00087179
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.06
-        p: 0.07
-        i: 0.0
-        d: 0.0
+    <<: *speed_follower_defaults
+
+
+  opn_drivetrain_back_left_speed_primary:
+    device_number: 6
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_back_left_speed_follower:
+    device_number: 7
+    <<: *speed_follower_defaults
+
+
+  opn_drivetrain_back_right_speed_primary:
+    device_number: 10
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_back_right_speed_follower:
+    device_number: 11
+    <<: *speed_follower_defaults
+
+
 
   opn_drivetrain_front_right_angle_motor:
-    type: fx
-    device_number: 4
-    inverted: false
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: false
-    read_temperature: true
-    position_scalar: 0.01384296
-    velocity_scalar: 0.01384296
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.0
-        p: 0.5
-        i: 0.0
-        d: 0.0
+    device_number: 13
+    <<: *angle_defaults
 
   opn_drivetrain_front_left_angle_motor:
-    type: fx
-    device_number: 5
-    inverted: false
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: false
-    read_temperature: true
-    position_scalar: 0.01384296
-    velocity_scalar: 0.01384296
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.0
-        p: 0.5
-        i: 0.0
-        d: 0.0
+    device_number: 1
+    <<: *angle_defaults
 
   opn_drivetrain_back_left_angle_motor:
-    type: fx
-    device_number: 6
-    inverted: false
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: false
-    read_temperature: true
-    position_scalar: 0.01384296
-    velocity_scalar: 0.01384296
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.0
-        p: 0.5
-        i: 0.0
-        d: 0.0
+    device_number: 5
+    <<: *angle_defaults
 
   opn_drivetrain_back_right_angle_motor:
-    type: fx
-    device_number: 7
-    inverted: false
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: false
-    read_temperature: true
-    position_scalar: 0.01384296
-    velocity_scalar: 0.01384296
-    sensor_inverted: false
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_pure_pursuit:
-        f: 0.1
-        p: 0.04
-        i: 0.0
-        d: 0.0
-      pr_drive:
-        f: 0.0
-        p: 0.5
-        i: 0.0
-        d: 0.0
-
-  opn_collector:
-    type: fx
-    device_number: 10
-    inverted: false
-
-  opn_elevator:
-    type: fx
     device_number: 9
-    inverted: true
-
-  opn_flywheel_primary:
-    device_number: 14
-    inverted: true
-    feedback_device: internal_encoder
-    read_position: true
-    read_velocity: true
-    position_scalar: 0.00097943
-    velocity_scalar: 0.05876592
-    read_temperature: true
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
-    profiles:
-      pr_prime:
-        f: 0.045
-        p: 1.0
-        i: 0.0
-        d: 0.0
-      pr_shoot:
-        f: 0.045
-        p: 1.0
-        i: 0.0
-        d: 0.0
-
-  opn_flywheel_follower:
-    device_number: 15
-    inverted: false
-    read_temperature: true
-    current_limit_enabled: true
-    continuous_current_limit_amps: 25
-    peak_current_limit_amps: 30
-    peak_current_duration_milliseconds: 100
+    <<: *angle_defaults
 
 
 absolute_encoder_talon:
@@ -280,6 +136,18 @@ absolute_encoder_talon:
     absolute_position_input: ipv_drivetrain_back_right_angle
 
 motor_group:
-  opn_flywheel:
-    master: opn_flywheel_primary
-    followers: [ opn_flywheel_follower ]
+  opn_drivetrain_front_right:
+    master: opn_drivetrain_front_right_speed_primary
+    followers: [ opn_drivetrain_front_right_speed_follower ]
+
+  opn_drivetrain_front_left:
+    master: opn_drivetrain_front_left_speed_primary
+    followers: [ opn_drivetrain_front_left_speed_follower ]
+
+  opn_drivetrain_back_right:
+    master: opn_drivetrain_back_right_speed_primary
+    followers: [ opn_drivetrain_back_right_speed_follower ]
+
+  opn_drivetrain_back_left:
+    master: opn_drivetrain_back_left_speed_primary
+    followers: [ opn_drivetrain_back_left_speed_follower ]

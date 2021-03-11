@@ -30,8 +30,6 @@ public class RobotStatus extends AbstractRobotStatus {
 		// Zero
 		if (!fSharedInputValues.getBoolean("ipb_robot_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_drivetrain_has_been_zeroed", false);
-			fSharedInputValues.setBoolean("ipb_flywheel_has_been_zeroed", false);
-
 		}
 
 		mLimelight = fRobotConfiguration.getString("global_limelight", "limelight");
@@ -40,12 +38,13 @@ public class RobotStatus extends AbstractRobotStatus {
 	@Override
 	public void update() {
 		if (!fSharedInputValues.getBoolean("ipb_robot_has_been_zeroed") &&
-				fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed") &&
-		fSharedInputValues.getBoolean("ipb_flywheel_has_been_zeroed")) {
+				fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_robot_has_been_zeroed", true);
 		}
 
 		// jace and alex path no signaling test
+
+
 		Map<String, Double> llValues = fSharedInputValues.getVector(mLimelight);
 		String mPathName;
 		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
@@ -65,14 +64,6 @@ public class RobotStatus extends AbstractRobotStatus {
 			}
 		}
 		fSharedInputValues.setString("Path", mPathName);
-
-		// calculating distance to target for use by flywheels
-
-		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
-		double limelightTargetX = llValues.getOrDefault("tx", 0.0);
-		double limelightTargetY = llValues.getOrDefault("ty", 0.0);
-		fSharedInputValues.setNumeric("ipn_target_distance", hasTarget ? Math.hypot(limelightTargetY, limelightTargetX) : -1);
-
 	}
 
 	@Override

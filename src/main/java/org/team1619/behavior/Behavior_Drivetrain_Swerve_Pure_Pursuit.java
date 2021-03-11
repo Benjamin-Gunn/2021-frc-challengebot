@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -66,6 +67,12 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
                 path.build();
 
                 mPaths.put(pathName, path);
+
+                if("pt_test".equals(pathName)) {
+                    graphPath(pathName, path);
+                    graphPathWayPoints(pathName, path);
+                    graphVelocityProfile(pathName, path);
+                }
             }
         }
 
@@ -85,7 +92,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
         pathName = config.getString("path_name");
         headingMode = config.getString("heading_mode", "navx");
-        targetHeading = config.getDouble("target_heading", targetHeading);
+        targetHeading = config.getDouble("target_heading", 0.0);
 
         if (!mPaths.containsKey(pathName)) {
             LOGGER.error("Path " + pathName + " doesn't exist");
@@ -94,13 +101,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
             currentPath = mPaths.get(pathName);
         }
 
-        WebDashboardGraphDataset pathGraphDataset = new WebDashboardGraphDataset();
-
-        for (Point point : currentPath.getPoints()) {
-            pathGraphDataset.addPoint(point.getX(), point.getY());
-        }
-
-        sharedInputValues.setVector("gr_" + stateName, pathGraphDataset);
+        graphPath(stateName, currentPath);
 
         currentPath.reset();
 
@@ -167,5 +168,35 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         path.setMaxSpeed(config.getDouble("max_speed", path.getMaxSpeed()));
         path.setLookAheadDistance(config.getDouble("look_ahead_distance", path.getLookAheadDistance()));
         path.setVelocityLookAheadPoints(config.getInt("velocity_look_ahead_points", path.getVelocityLookAheadPoints()));
+    }
+
+    private void graphPath(String name, Path path) {
+        WebDashboardGraphDataset pathGraphDataset = new WebDashboardGraphDataset();
+
+        for (PathPoint point : path.getPoints()) {
+            pathGraphDataset.addPoint(point.getX(), point.getY());
+        }
+
+        sharedInputValues.setVector("gr_" + name, pathGraphDataset);
+    }
+
+    private void graphPathWayPoints(String name, Path path) {
+        WebDashboardGraphDataset pathGraphDataset = new WebDashboardGraphDataset();
+
+        for (Point point : path.getWayPoints()) {
+            pathGraphDataset.addPoint(point.getX(), point.getY());
+        }
+
+        sharedInputValues.setVector("gr_" + name + "_waypoints", pathGraphDataset);
+    }
+
+    private void graphVelocityProfile(String name, Path path) {
+        WebDashboardGraphDataset pathGraphDataset = new WebDashboardGraphDataset();
+
+        for (PathPoint point : path.getPoints()) {
+            pathGraphDataset.addPoint(point.getDistance(), point.getVelocity());
+        }
+
+        sharedInputValues.setVector("gr_" + name + "_velocity", pathGraphDataset);
     }
 }

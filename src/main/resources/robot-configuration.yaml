@@ -1,37 +1,22 @@
 general:
+
   initial_teleop_mode: teleop_mode
   #  initial_teleop_mode: manual_mode
 
   states:
     sequences:
-      priority_level_4: [sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_gscr_a_blue, sq_auto_gscr_a_red, sq_auto_gscr_b_blue, sq_auto_gscr_b_red,
-                         sq_auto_gsc_a_blue, sq_auto_gsc_a_red, sq_auto_gsc_b_blue, sq_auto_gsc_b_red, sq_auto_main, sq_auto_acc_a_a,
-                         sq_ppc_main, sq_ppc_wait]
+      priority_level_4: [sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_gscr_a_blue, sq_auto_gscr_a_red, sq_auto_gscr_b_blue, sq_auto_gscr_b_red ]
+
     parallels:
-      priority_level_3: [ pl_ppc_prime_intro_shoot, pl_ppc_prime_shoot_intro ]
-      priority_level_2: [ pl_prime_to_shoot, pl_cycle_shoot ]
-      priority_level_1: [ pl_shoot]
 
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
-      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align, wt_wait ]
-      priority_level_1: [ st_drivetrain_swerve, st_drivetrain_swerve_math, st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
-                          st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,
-                          st_drivetrain_acc_green_intro, st_drivetrain_acc_intro_yellow, st_drivetrain_acc_yellow_intro, st_drivetrain_acc_intro_blue, st_drivetrain_acc_blue_intro, st_drivetrain_acc_intro_red, st_drivetrain_acc_red_intro,
-                          st_drivetrain_ppc_shooting_intro, st_drivetrain_ppc_intro_shooting ]
-      default: [ ]
-    ss_collector:
-      priority_level_1: [ st_collector_collect, st_collector_eject ]
-      default: [ st_collector_stop ]
-    ss_elevator:
-      priority_level_1: [ st_elevator_shoot, st_elevator_eject, st_elevator_cycle_shoot ]
-      default: [ st_elevator_stop ]
-    ss_flywheel:
-      priority_level_2: [ wt_flywheel_prime_wait ]
-      priority_level_1: [ st_flywheel_zero, st_flywheel_shoot, st_flywheel_prime, wt_shoot]
-      default: [ st_flywheel_stop ]
+      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align ]
+      priority_level_1: [ st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
+                            st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,  st_drivetrain_oval, st_drivetrain_straightline ]
+      default: [ st_drivetrain_swerve ]
 
-  subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel ]
+  subsystems: [ ss_drivetrain ]
 
   input_booleans: [ ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_left_bumper, ipb_driver_a, ipb_driver_x, ipb_driver_y, ipb_driver_b, ipb_driver_right_bumper, ipb_driver_right_trigger, ipb_driver_dpad_up, ipb_driver_dpad_down ]
 
@@ -42,9 +27,8 @@ general:
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
                    ipv_swerve_odometry ]
 
-  output_numerics: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed,
-                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle,
-                     opn_collector, opn_elevator, opn_flywheel ]
+  output_numerics: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right,
+                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle]
 
   output_booleans: [ ]
 
@@ -57,22 +41,13 @@ global_timing:
   frame_cycle_time_threshold_core_thread: 80
   frame_cycle_time_threshold_info_thread: 80
 
-global_drivetrain_swerve_math:
-  x_left_js: ipn_driver_left_x
-  y_left_js: ipn_driver_left_y
-  x_right_js: ipn_driver_right_x
-  y_right_js: ipn_driver_right_y
-  robot_length: 18.5
-  robot_width: 16.5
-  navx: ipv_navx
-
 global_drivetrain_swerve:
-  max_module_velocity: 170.0
-  module_positions: [ [ 9.25, -8.25 ], [ 9.25, 8.25 ], [ -9.25, 8.25 ], [ -9.25, -8.25 ] ]
+  max_module_velocity: 240.0
+  module_positions: [ [ 6.75, -6.75 ], [ 6.75, 6.75 ], [ -6.75, 6.75 ], [ -6.75, -6.75 ] ]
   input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
   input_position_names: [ ipn_drivetrain_front_right_angle_position, ipn_drivetrain_front_left_angle_position, ipn_drivetrain_back_left_angle_position, ipn_drivetrain_back_left_angle_position]
   output_angle_names: [ opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle ]
-  output_speed_names: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed ]
+  output_speed_names: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right ]
   navx: ipv_navx
   limelight: ipv_limelight_shooter
   odometry: ipv_swerve_odometry
@@ -84,21 +59,6 @@ global_drivetrain_swerve:
   slow_mode_button: ipb_driver_left_trigger
   scale_factor: 0.1
 
-
-global_flywheel:
-  #original was ipb_driver_x but now it's bad
-  adjust_flywheel_speed_button: ipb_driver_right_trigger
-  adjust_up_button: ipb_driver_dpad_up
-  adjust_down_button: ipb_driver_dpad_down
-  increment: 1.0
-  speed_profile:
-    5.42: 5050
-    7.5: 3790
-    10.42: 3000
-    12.5: 3120
-    15.42: 3500
-    17.5: 3700
-
 global_limelight:
   limelight: ipv_limelight_shooter
 
@@ -108,9 +68,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [gsc, gscr, anc, acc]
+    origins: [gsc, gscr, anc ]
     destinations: [a, b, anc, ball]
-    actions: [blue, red, barrel, slalom, bounce, pattern, a]
+    actions: [blue, red, barrel, slalom, bounce, pattern ]
 
   match_values:
 
