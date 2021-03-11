@@ -183,9 +183,8 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
     private void graphPathWayPoints(String name, Path path) {
         WebDashboardGraphDataset pathGraphDataset = new WebDashboardGraphDataset();
 
-        for (Point point : path.getWayPoints()) {
-            pathGraphDataset.addPoint(point.getX(), point.getY());
-        }
+      //  for (Point point : path.getWayPoints()) {//     pathGraphDataset.addPoint(point.getX(), point.getY());
+       // }
 
         sharedInputValues.setVector("gr_" + name + "_waypoints", pathGraphDataset);
     }

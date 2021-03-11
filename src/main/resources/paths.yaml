@@ -44,7 +44,7 @@ path:
 
     pt_oval:
         path: [ [ 0, 0 ], [ 190, 0 ], [ 190, 60 ], [ 0, 60 ], [ 0, 30 ], [ 0, 0 ] ]
-        model: test
+        model: standard
 
     pt_straightline:
         path: [ [ 0,0 ], [ 312 ,0 ]]

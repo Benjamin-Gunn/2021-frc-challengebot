@@ -39,6 +39,9 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 				return new Behavior_Drivetrain_Swerve_Pure_Pursuit(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_drivetrain_swerve_align":
 				return new Behavior_Drivetrain_Swerve_Align(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_swerve_manual":
+				return new Behavior_Drivetrain_Swerve_Manual(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+
 			// State not found
 			default:
 				throw new ConfigurationException("Behavior " + name + " does not exist.");
