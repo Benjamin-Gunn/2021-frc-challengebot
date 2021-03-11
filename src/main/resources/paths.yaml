@@ -44,11 +44,11 @@ path:
 
     pt_oval:
         path: [ [ 0, 0 ], [ 190, 0 ], [ 190, 60 ], [ 0, 60 ], [ 0, 30 ], [ 0, 0 ] ]
-        model: test
+        model: slow
 
     pt_straightline:
         path: [ [ 0,0 ], [ 312 ,0 ]]
-        model: test
+        model: slow
 
 model:
     standard:

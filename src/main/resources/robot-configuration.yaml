@@ -45,7 +45,7 @@ global_drivetrain_swerve:
   max_module_velocity: 240.0
   module_positions: [ [ 6.75, -6.75 ], [ 6.75, 6.75 ], [ -6.75, 6.75 ], [ -6.75, -6.75 ] ]
   input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
-  input_position_names: [ ipn_drivetrain_front_right_angle_position, ipn_drivetrain_front_left_angle_position, ipn_drivetrain_back_left_angle_position, ipn_drivetrain_back_left_angle_position]
+  input_position_names: [ ipn_drivetrain_front_right_speed_primary_position, ipn_drivetrain_front_left_speed_primary_position, ipn_drivetrain_back_left_speed_primary_position, ipn_drivetrain_back_right_speed_primary_position]
   output_angle_names: [ opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle ]
   output_speed_names: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right ]
   navx: ipv_navx

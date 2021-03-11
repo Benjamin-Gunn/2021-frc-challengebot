@@ -52,7 +52,7 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 	public void update() {
 		if (!sharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed")) {
 
-			double maxWheelPosition = positionInputNames.stream().mapToDouble(input -> Math.abs(sharedInputValues.getNumeric(input))).max().getAsDouble();
+			double maxWheelPosition = positionInputNames.stream().mapToDouble(sharedInputValues::getNumeric).map(Math::abs).max().getAsDouble();
 
 			if (maxWheelPosition < zeroingThreshold && Math.abs(sharedInputValues.getVector(navx).get("angle")) < zeroingThreshold) {
 
