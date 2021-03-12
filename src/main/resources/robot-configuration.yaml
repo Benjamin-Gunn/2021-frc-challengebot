@@ -57,7 +57,7 @@ global_drivetrain_swerve:
   swerve_rotate: ipn_driver_right_x
   swerve_field_oriented_button: ipb_driver_start
   slow_mode_button: ipb_driver_left_trigger
-  scale_factor: 0.1
+  scale_factor: 0.08
 
 global_limelight:
   limelight: ipv_limelight_shooter

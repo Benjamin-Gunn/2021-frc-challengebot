@@ -42,8 +42,8 @@ talon:
     read_position: true
     read_velocity: false
     read_temperature: true
-    position_scalar: 0.01464844
-    velocity_scalar: 0.01464844
+    position_scalar: 0.01464885474
+    velocity_scalar: 0.01464885474
     sensor_inverted: false
     current_limit_enabled: true
     continuous_current_limit_amps: 25
