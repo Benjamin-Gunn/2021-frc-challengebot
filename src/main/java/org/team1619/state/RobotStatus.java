@@ -43,7 +43,7 @@ public class RobotStatus extends AbstractRobotStatus {
 		}
 	}
 
-	public void updateWhenDisabled () {
+	public void disabledUpdate() {
 		// jace and alex path no signaling test
 
 
