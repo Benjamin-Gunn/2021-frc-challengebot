@@ -41,7 +41,9 @@ public class RobotStatus extends AbstractRobotStatus {
 				fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_robot_has_been_zeroed", true);
 		}
+	}
 
+	public void updateWhenDisabled () {
 		// jace and alex path no signaling test
 
 
