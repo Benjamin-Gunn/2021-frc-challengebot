@@ -43,6 +43,8 @@ public abstract class BaseSwerve implements Behavior {
     private final ClosedLoopController headingController;
     private String headingMode;
 
+    protected double currentMaxModuleVelocity;
+
     public BaseSwerve(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration, boolean useAngleDifferenceScalar) {
         sharedInputValues = inputValues;
         sharedOutputValues = outputValues;
@@ -50,6 +52,7 @@ public abstract class BaseSwerve implements Behavior {
         this.useAngleDifferenceScalar = useAngleDifferenceScalar;
 
         maxModuleVelocity = robotConfiguration.getDouble("global_drivetrain_swerve", "max_module_velocity");
+        currentMaxModuleVelocity = maxModuleVelocity;
 
         modulePositions = new VectorList(((List<List<Double>>) robotConfiguration.getList("global_drivetrain_swerve", "module_positions")).stream().map(Vector::new).collect(Collectors.toList()));
 
@@ -168,7 +171,7 @@ public abstract class BaseSwerve implements Behavior {
 
     protected void setMotorPower(int moduleNumber, Vector moduleVector) {
         sharedOutputValues.setNumeric(angleOutputNames.get(moduleNumber), "absolute_position", moduleVector.angle(), "pr_drive");
-        sharedOutputValues.setNumeric(speedOutputNames.get(moduleNumber), "velocity", moduleVector.magnitude() * maxModuleVelocity, "pr_drive");
+        sharedOutputValues.setNumeric(speedOutputNames.get(moduleNumber), "velocity", moduleVector.magnitude() * currentMaxModuleVelocity, "pr_drive");
     }
 
     @Override

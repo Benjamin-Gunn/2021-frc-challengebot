@@ -70,7 +70,8 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
                 if("pt_test".equals(pathName)) {
                     graphPath(pathName, path);
-                    graphPathWayPoints(pathName, path);
+                    // 210318 - there is an issue causing the code to hang here
+                    //graphPathWayPoints(pathName, path);
                     graphVelocityProfile(pathName, path);
                 }
             }

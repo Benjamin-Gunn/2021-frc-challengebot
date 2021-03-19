@@ -24,7 +24,9 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
     private final String fFieldOrientedButton;
 
     private final String slowModeButton;
-    private final double scaleFactor;
+    private final double slowModeMaxVelocity;
+    private final String cornerModeButton;
+    private final double cornerModeMaxVelocity;
 
     private String stateName;
 
@@ -41,7 +43,9 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
 
         slowModeButton = robotConfiguration.getString("global_drivetrain_swerve", "slow_mode_button");
-        scaleFactor = robotConfiguration.getDouble("global_drivetrain_swerve", "scale_factor");
+        slowModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "slow_mode_max_velocity");
+        cornerModeButton = robotConfiguration.getString("global_drivetrain_swerve", "corner_mode_button");
+        cornerModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "corner_mode_max_velocity");
         stateName = "Unknown";
 
         fieldOriented = true;
@@ -67,15 +71,21 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         }
 
         boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
+        boolean cornerModeButton = sharedInputValues.getBoolean(this.cornerModeButton);
         double xAxis = rangeStick(sharedInputValues.getNumeric(this.xAxis));
         double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
         double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
 
         if (slowModeButton) {
-            xAxis = xAxis * scaleFactor;
-            yAxis = yAxis * scaleFactor;
-            rotateAxis = rotateAxis * scaleFactor;
+            currentMaxModuleVelocity = slowModeMaxVelocity;
         }
+        else if (cornerModeButton) {
+            currentMaxModuleVelocity = cornerModeMaxVelocity;
+        } else {
+            currentMaxModuleVelocity = maxModuleVelocity;
+        }
+
+        sharedInputValues.setNumeric("ipn_drivetrain_max_velocity", currentMaxModuleVelocity);
 
         // This is the orientation of the front of the robot based on the unit circle. It does not have to be 0.
         double robotOrientation = 0;
