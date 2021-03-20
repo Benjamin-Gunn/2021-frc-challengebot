@@ -23,6 +23,21 @@ single_state:
             target_heading: 0.0
             target_limelight: true
 
+    # ------------Collector----------
+    st_collector_servo_zero:
+        behavior: bh_collector_servo_zero
+        behavior_config:
+            servo_zero_offset: 0.0
+            timeout_time: 500
+
+    st_collector_servo_release:
+        behavior: bh_collector_servo_states
+        behavior_config:
+            servo_zero_offset: 1.0
+            # 1.0 = 180 degreed
+
+    # ------------Paths----------
+
     st_drivetrain_anc_barrel:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
@@ -98,6 +113,9 @@ single_state:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
             path_name: pt_oval
+
+
+
 
 done_for_time_state:
 

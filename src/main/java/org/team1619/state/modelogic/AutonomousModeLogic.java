@@ -64,6 +64,8 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		switch (name) {
 			case "st_drivetrain_zero":
 				return !fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed");
+			case "st_collector_servo_zero":
+				return !fSharedInputValues.getBoolean("ipb_collector_servo_has_been_zeroed");
 		}
 
 		// Check isReady on auto states

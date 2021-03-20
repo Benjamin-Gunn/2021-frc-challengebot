@@ -153,3 +153,7 @@ motor_group:
   opn_drivetrain_back_left:
     master: opn_drivetrain_back_left_speed_primary
     followers: [ opn_drivetrain_back_left_speed_follower ]
+
+servo:
+  opn_collector_servo:
+    device_channel: 0

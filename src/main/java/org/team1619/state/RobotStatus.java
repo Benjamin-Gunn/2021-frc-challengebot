@@ -30,7 +30,9 @@ public class RobotStatus extends AbstractRobotStatus {
 		// Zero
 		if (!fSharedInputValues.getBoolean("ipb_robot_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_drivetrain_has_been_zeroed", false);
+			fSharedInputValues.setBoolean("ipb_collector_servo_has_been_zeroed", false);
 		}
+
 
 		mLimelight = fRobotConfiguration.getString("global_limelight", "limelight");
 	}
@@ -38,7 +40,8 @@ public class RobotStatus extends AbstractRobotStatus {
 	@Override
 	public void update() {
 		if (!fSharedInputValues.getBoolean("ipb_robot_has_been_zeroed") &&
-				fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed")) {
+				fSharedInputValues.getBoolean("ipb_drivetrain_has_been_zeroed") &&
+				fSharedInputValues.getBoolean("ipb_collector_servo_has_been_zeroed")) {
 			fSharedInputValues.setBoolean("ipb_robot_has_been_zeroed", true);
 		}
 	}

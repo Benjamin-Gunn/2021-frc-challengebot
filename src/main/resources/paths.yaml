@@ -50,6 +50,8 @@ path:
         path: [ [ 0,0 ], [ 312 ,0 ]]
         model: slow
 
+#fastest striaght line was at min speed of 0.05 and max acceleration of 0.03 at 0.72 seconds
+#this reduces the slip to start and accelerates as fast as possible.
 model:
     standard:
         spacing: 2.0
