@@ -5,14 +5,14 @@ general:
 
   states:
     sequences:
-      priority_level_4: [sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_gscr_a_blue, sq_auto_gscr_a_red, sq_auto_gscr_b_blue, sq_auto_gscr_b_red ]
+      priority_level_4: [sq_auto_accel_test_test, sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_gscr_a_blue, sq_auto_gscr_a_red, sq_auto_gscr_b_blue, sq_auto_gscr_b_red ]
 
     parallels:
 
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
       priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align ]
-      priority_level_1: [ st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
+      priority_level_1: [ st_drivetrain_accel_test, st_drivetrain_gscr_a_blue, st_drivetrain_gscr_a_red, st_drivetrain_gscr_b_blue, st_drivetrain_gscr_b_red,
                             st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,  st_drivetrain_oval, st_drivetrain_straightline ]
       default: [ st_drivetrain_swerve ]
 
@@ -75,9 +75,9 @@ log:
 global_webdashboard:
 
   auto_selector:
-    origins: [gsc, gscr, anc ]
-    destinations: [a, b, anc, ball]
-    actions: [blue, red, barrel, slalom, bounce, pattern ]
+    origins: [gsc, gscr, anc, accel ]
+    destinations: [a, b, anc, ball, test]
+    actions: [blue, red, barrel, slalom, bounce, pattern, test ]
 
   match_values:
 

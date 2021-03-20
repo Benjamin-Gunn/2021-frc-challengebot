@@ -36,6 +36,10 @@ path:
         #   path: [[0, 0], [40, 0], [60, 108], [120, -60], [150, 108], [180, -60], [210, -60], [240, 108], [300, 0]]
         model: slow
 
+    pt_accel_test:
+        path: [ [ 0,0 ], [ 312 ,0 ] ]
+        model: accel
+
     pt_test:
         path: [[47,13], [90,60], [110,80], [250,80], [275,60], [300,40], [320,60], [300,80], [275,60], [250,40], [110,40], [90,60], [47,107], [0,150]]
         model: standard
@@ -45,7 +49,7 @@ path:
         model: slow
 
     pt_straightline:
-        path: [ [ 0,0 ], [ 312 ,0 ]]
+        path: [ [ 0,0 ], [ 300 ,0 ]]
         model: slow
 
 #fastest striaght line was at min speed of 0.05 and max acceleration of 0.03 at 0.72 seconds
@@ -72,6 +76,18 @@ model:
         tracking_error_speed: 100000.0
         min_speed: 0.1
         max_speed: 0.3
+        turn_speed: 0.4
+        look_ahead_distance: 15.0
+        velocity_look_ahead_points: 1
+
+    accel:
+        spacing: 2.0
+        smoothing: 0.0
+        max_acceleration: 0.03
+        max_deceleration: 0.005
+        tracking_error_speed: 100000.0
+        min_speed: 0.05
+        max_speed: 1.0
         turn_speed: 0.4
         look_ahead_distance: 15.0
         velocity_look_ahead_points: 1
