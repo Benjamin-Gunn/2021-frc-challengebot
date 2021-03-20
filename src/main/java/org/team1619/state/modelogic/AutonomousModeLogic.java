@@ -40,9 +40,8 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		mCombinedAuto = "sq_auto_" + mAutoOrigin + "_" + mAutoDestination + "_" + mAutoAction;
 		if (mAutoOrigin.equals("gsc") && mAutoDestination.equals("ball") && mAutoAction.equals("pattern")) {
 			mCombinedAuto = fSharedInputValues.getString("Path");
-		}
-		if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "sq_pure_pursuit_test";
+		} else if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
+			mCombinedAuto = "";
 		}
 		sLogger.debug(mCombinedAuto);
 
@@ -56,6 +55,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 
 	@Override
 	public void dispose() {
+		fSharedInputValues.setString("ips_auto_origin", "");
 
 	}
 
