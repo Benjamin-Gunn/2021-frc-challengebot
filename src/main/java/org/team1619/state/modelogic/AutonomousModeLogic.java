@@ -41,7 +41,7 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		if (mAutoOrigin.equals("gsc") && mAutoDestination.equals("ball") && mAutoAction.equals("pattern")) {
 			mCombinedAuto = fSharedInputValues.getString("Path");
 		} else if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "";
+			mCombinedAuto = "st_drivetrain_pure_pursuit_test";
 		}
 		sLogger.debug(mCombinedAuto);
 

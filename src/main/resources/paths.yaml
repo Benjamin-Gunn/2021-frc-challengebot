@@ -41,8 +41,14 @@ path:
         model: accel
 
     pt_test:
-        path: [[47, 73], [90, 130], [130, 40], [170, 40], [180, 130], [195, 40], [255,40], [270,130], [347, 73]]
-        model: slow
+        #    path: [[0, 0], [102, 0], [138, -36], [102, -72], [66, -36], [102, 0], [192, -12], [228, 24], [192, 60], [156, 24], [220, -72], [288, -36], [240, 0], [192, -12], [102, 0], [0, 0]]
+#        path: [[0, 0], [94, 0], [122, -30], [94, -50], [66, -30], [94, 0], [180, 8], [218, 43], [180, 78], [142, 43], [180, -4], [242, -52], [282, -21], [242, 0], [0, 0]]
+        path: [[50, 84], [140, 80], [165, 60], [150, 40], [135, 50], [160, 75], [230, 95], [280, 110], [270, 140], [260, 118], [300, 45], [350, 50], [285, 78], [10, 90]]
+        model: standard
+        start:
+            x: 50.0
+            y: 80.0
+            heading: 0.0
 
     pt_oval:
         path: [ [ 0, 0 ], [ 190, 0 ], [ 190, 60 ], [ 0, 60 ], [ 0, 30 ], [ 0, 0 ] ]
@@ -58,15 +64,15 @@ model:
     standard:
         spacing: 2.0
         smoothing: 0.0
-        max_acceleration: 0.008
-        max_deceleration: 0.0035
+        max_acceleration: 0.02
+        max_deceleration: 0.001
         tracking_error_speed: 100000.0
-        min_speed: 0.3
+        min_speed: 0.5
         max_speed: 1.0
         #    min_speed: 0.1
         #    max_speed: 0.2
-        turn_speed: 0.009
-        look_ahead_distance: 12.0
+        turn_speed: 0.02
+        look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
     slow:
         spacing: 2.0
