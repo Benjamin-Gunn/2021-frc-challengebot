@@ -6,7 +6,7 @@ single_state:
         behavior: bh_drivetrain_zero
         behavior_config:
             timeout_time: 1000
-            zeroing_threshold: 0.1
+            zeroing_threshold: 0.2
 
     st_drivetrain_swerve:
         behavior: bh_drivetrain_swerve

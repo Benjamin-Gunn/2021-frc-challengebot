@@ -44,3 +44,21 @@ limelight:
             galactic_search: 0
             target: 1
         initial_pipeline: target
+
+network_table_reader:
+    ipv_rpi_vision:
+        host: vision-rpi
+        values:
+            pv: valid
+            px: x
+            py: y
+
+network_table_odometry:
+    ipv_rpi_odometry:
+        network_table_input: ipv_rpi_vision
+
+odometry_fuser:
+    ipv_fused_odometry:
+        relative_odometry_input: ipv_swerve_odometry
+        absolute_odometry_input: ipv_rpi_odometry
+        absolute_odometry_delay: 40

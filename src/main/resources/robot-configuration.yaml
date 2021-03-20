@@ -29,7 +29,7 @@ general:
   input_vectors: [ ipv_navx,
                    ipv_limelight_shooter,
                    ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle,
-                   ipv_swerve_odometry ]
+                   ipv_swerve_odometry, ipv_rpi_vision, ipv_rpi_odometry, ipv_fused_odometry ]
 
   output_numerics: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right,
                      opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle,
@@ -55,7 +55,7 @@ global_drivetrain_swerve:
   output_speed_names: [ opn_drivetrain_front_right, opn_drivetrain_front_left, opn_drivetrain_back_left, opn_drivetrain_back_right ]
   navx: ipv_navx
   limelight: ipv_limelight_shooter
-  odometry: ipv_swerve_odometry
+  odometry: ipv_fused_odometry
   heading_controller: pr_swerve_heading
   swerve_x: ipn_driver_left_x
   swerve_y: ipn_driver_left_y

@@ -6,7 +6,6 @@ import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
 import org.uacr.utilities.WebDashboardGraphDataset;
 import org.uacr.utilities.YamlConfigParser;
-import org.uacr.utilities.closedloopcontroller.ClosedLoopController;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 import org.uacr.utilities.purepursuit.*;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**
@@ -26,7 +24,8 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Swerve_Pure_Pursuit.class);
 
-    private final Map<String, Path> mPaths;
+    private final Map<String, Path> paths;
+    private final Map<String, Pose2d> startingPositions;
 
     private String stateName;
 
@@ -42,7 +41,8 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
         stateName = "Unknown";
         
-        mPaths = new HashMap<>();
+        paths = new HashMap<>();
+        startingPositions = new HashMap<>();
 
         YamlConfigParser yamlConfigParser = new YamlConfigParser();
         yamlConfigParser.loadWithFolderName("paths.yaml");
@@ -66,13 +66,19 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
                 path.build();
 
-                mPaths.put(pathName, path);
+                this.paths.put(pathName, path);
 
                 if("pt_test".equals(pathName)) {
                     graphPath(pathName, path);
                     // 210318 - there is an issue causing the code to hang here
                     //graphPathWayPoints(pathName, path);
                     graphVelocityProfile(pathName, path);
+                }
+
+                if(pathConfig.contains("start")) {
+                    Config startConfig = pathConfig.getSubConfig("start", "position");
+
+                    startingPositions.put(pathName, new Pose2d(startConfig.getDouble("x"), startConfig.getDouble("y"), startConfig.getDouble("heading")));
                 }
             }
         }
@@ -95,11 +101,16 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         headingMode = config.getString("heading_mode", "navx");
         targetHeading = config.getDouble("target_heading", 0.0);
 
-        if (!mPaths.containsKey(pathName)) {
+        if (!paths.containsKey(pathName)) {
             LOGGER.error("Path " + pathName + " doesn't exist");
             currentPath = new Path();
         } else {
-            currentPath = mPaths.get(pathName);
+            currentPath = paths.get(pathName);
+        }
+
+        if(startingPositions.containsKey(pathName)) {
+            Pose2d startingPosition = startingPositions.get(pathName);
+            sharedInputValues.setVector("ipv_fused_odometry_new_position", Map.of("x", startingPosition.getX(), "y", startingPosition.getY(), "heading", startingPosition.getHeading()));
         }
 
         graphPath(stateName, currentPath);
