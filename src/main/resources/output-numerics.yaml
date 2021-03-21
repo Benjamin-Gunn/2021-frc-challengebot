@@ -8,7 +8,7 @@ talon:
     read_velocity: true
     read_temperature: true
     # reciprocal of the counts per unit of the module
-#    position_scalar: 0.00107352
+#    position_scalar: 0.00107352 #20 tooth
 #    velocity_scalar: 0.00107352
     position_scalar: 0.00128822 #24 tooth
     velocity_scalar: 0.00128822
