@@ -62,6 +62,55 @@ single_state:
             path_name: pt_anc_bounce
             heading: 0.0
 
+    st_drivetrain_anc_bounce_1:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_anc_bounce_1
+            heading: 0.0
+
+    st_drivetrain_anc_bounce_2:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_anc_bounce_2
+            heading: 0.0
+
+    st_drivetrain_anc_bounce_3:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_anc_bounce_3
+            heading: 0.0
+
+    st_drivetrain_anc_bounce_4:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_anc_bounce_4
+            heading: 0.0
+
+
+    st_drivetrain_gscr_a_blue:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_gscr_a_blue
+            heading: 0.0
+
+    st_drivetrain_gscr_a_red:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_gscr_a_red
+            heading: 0.0
+
+    st_drivetrain_gscr_b_blue:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_gscr_b_blue
+            heading: 0.0
+
+    st_drivetrain_gscr_b_red:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_gscr_b_red
+            heading: 0.0
+
     st_drivetrain_gsc_a_blue:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
@@ -124,3 +173,5 @@ sequencer_state:
         sequence: [ st_drivetrain_gsc_b_blue ]
     sq_auto_gsc_b_red:
         sequence: [ st_drivetrain_gsc_b_red ]
+    sq_auto_anc_bounce:
+        sequence: [ st_drivetrain_anc_bounce_1, st_drivetrain_anc_bounce_2, st_drivetrain_anc_bounce_3, st_drivetrain_anc_bounce_4 ]
