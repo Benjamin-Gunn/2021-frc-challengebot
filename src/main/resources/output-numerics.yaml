@@ -8,10 +8,10 @@ talon:
     read_velocity: true
     read_temperature: true
     # reciprocal of the counts per unit of the module
-    position_scalar: 0.00107352
-    velocity_scalar: 0.00107352
-#  position_scalar: 0.00128822 24 tooth
-#  velocity_scalar: 0.00128822
+#    position_scalar: 0.00107352 #20 tooth
+#    velocity_scalar: 0.00107352
+    position_scalar: 0.00128822 #24 tooth
+    velocity_scalar: 0.00128822
     sensor_inverted: false
     current_limit_enabled: true
     continuous_current_limit_amps: 25
