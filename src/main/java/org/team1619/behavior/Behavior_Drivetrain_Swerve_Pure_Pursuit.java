@@ -68,12 +68,6 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
                 this.paths.put(pathName, path);
 
-                if("pt_test".equals(pathName)) {
-                    graphPath(pathName, path);
-                    graphPathWayPoints(pathName, path);
-                    graphVelocityProfile(pathName, path);
-                }
-
                 if(pathConfig.contains("start")) {
                     Config startConfig = pathConfig.getSubConfig("start", "position");
 
