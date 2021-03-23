@@ -1,8 +1,6 @@
-### 2020 FRC Basebot Code
-Base for witing code for a robot with the Up-A-Creek Robotics framework
+### 2021 FRC ChallengeBot Code
+Code for Up-A-Creek-Robotics' 2021 At Home Challenge Robot.
 
 Compiles and runs. 
-- Clicking th operator right trigger will run the example state for 1 sec
-- Holding down the operator left trigger will turn opb_example true
 
-March 18, 2021
+March 22, 2021
