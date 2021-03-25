@@ -5,13 +5,13 @@ general:
 
   states:
     sequences:
-      priority_level_4: [sq_auto_accel_test_test, sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_pure_pursuit_test, sq_auto_anc_bounce ]
+      priority_level_4: [sq_auto_accel_test_test, sq_auto_anc_anc_barrel, sq_auto_anc_anc_slalom, sq_auto_anc_anc_bounce, sq_auto_anc_bounce ]
 
     parallels:
 
     ss_drivetrain:
       priority_level_3: [ st_drivetrain_zero ]
-      priority_level_2: [ st_drivetrain_pure_pursuit_test, st_drivetrain_swerve_align ]
+      priority_level_2: [ st_drivetrain_swerve_align ]
       priority_level_1: [ st_drivetrain_accel_test, st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,  st_drivetrain_oval, st_drivetrain_straightline,
                           st_drivetrain_anc_bounce_1, st_drivetrain_anc_bounce_2, st_drivetrain_anc_bounce_3, st_drivetrain_anc_bounce_4]
       default: [ st_drivetrain_swerve ]

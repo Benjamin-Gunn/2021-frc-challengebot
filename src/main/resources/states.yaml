@@ -11,12 +11,6 @@ single_state:
     st_drivetrain_swerve:
         behavior: bh_drivetrain_swerve
 
-    st_drivetrain_pure_pursuit_test:
-        behavior: bh_drivetrain_swerve_pure_pursuit
-        behavior_config:
-            path_name: pt_test
-            target_heading: 0.0
-
     st_drivetrain_accel_test:
         behavior: bh_drivetrain_swerve_pure_pursuit
         behavior_config:
@@ -130,8 +124,6 @@ parallel_state:
 
 
 sequencer_state:
-    sq_pure_pursuit_test:
-        sequence: [ st_drivetrain_pure_pursuit_test ]
     sq_auto_accel_test_test:
         sequence: [ st_drivetrain_accel_test ]
     sq_auto_anc_anc_barrel:
