@@ -50,7 +50,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
             done = (value > -0.5 && value < 0.5) ? true : false;
         }
 
-        if(done == true){
+        if(done){
             LOGGER.debug("***WHEELS STRAIGHT***");
         }
     }
