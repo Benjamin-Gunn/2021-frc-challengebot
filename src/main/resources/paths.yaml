@@ -36,32 +36,31 @@ path:
         model: accel
 
     pt_anc_bounce_1:
-        path: [[50,90], [65,110], [70,140]]
+        path: [[50,75], [80,75], [85,132]]
         model: bounce
         start:
             x: 50.0
-            y: 90.0
+            y: 75.0
             heading: 0.0
 
     pt_anc_bounce_2:
-        path: [[70,140], [90,35], [155,35], [175,140]]
+        path: [[85,132], [85, 100], [120,45], [150,45], [180,125]]
         model: bounce
 
     pt_anc_bounce_3:
-        path: [[175,140], [180,30], [260,35], [280,140]]
+        path: [[180,125], [178,42], [235,42], [270,130]]
         model: bounce
 
     pt_anc_bounce_4:
-        path: [[280,140], [330,90]]
+        path: [[270,130], [262, 85], [340,90]]
         model: bounce
-
 
     pt_test:
         #    path: [[0, 0], [102, 0], [138, -36], [102, -72], [66, -36], [102, 0], [192, -12], [228, 24], [192, 60], [156, 24], [220, -72], [288, -36], [240, 0], [192, -12], [102, 0], [0, 0]]
         #        path: [[0, 0], [94, 0], [122, -30], [94, -50], [66, -30], [94, 0], [180, 8], [218, 43], [180, 78], [142, 43], [180, -4], [242, -52], [282, -21], [242, 0], [0, 0]]
 
         ## BARREL RACE PATH
-        path: [[50, 84], [140, 80], [165, 60], [150, 40], [135, 50], [160, 75], [230, 95], [280, 110], [270, 140], [260, 118], [300, 45], [350, 50], [285, 78], [10, 90]]
+        path: [[50, 84], [160, 80], [170, 50], [145, 25], [100, 60], [160, 75], [230, 85], [260, 110], [240, 140], [220, 118], [275, 30], [315, 50], [265, 78], [10, 90]]
         model: barrel_race
         start:
             x: 50.0
@@ -90,21 +89,21 @@ model:
         #    min_speed: 0.1
         #    max_speed: 0.2
         turn_speed: 0.02
-        look_ahead_distance: 40.0
+        look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
 
     bounce:
         spacing: 2.0
         smoothing: 0.0
-        max_acceleration: 0.002
-        max_deceleration: 0.002
+        max_acceleration: 0.005
+        max_deceleration: 0.005
         tracking_error_speed: 100000.0
-        min_speed: 0.4
+        min_speed: 0.5
         max_speed: 1.0
         #    min_speed: 0.1
         #    max_speed: 0.2
-        turn_speed: 0.04
-        look_ahead_distance: 100.0
+        turn_speed: 0.05
+        look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
 
     slalom:
