@@ -4,12 +4,10 @@ import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
-import org.uacr.utilities.Timer;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Zeros the swerve modules
@@ -23,6 +21,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     private double zeroingThreshold;
     private String stateName;
     private boolean done = false;
+    private List<Double> angleValues = new ArrayList<>();
 
     public Behavior_Drivetrain_Teleop_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
@@ -39,12 +38,20 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
 
     @Override
     public void update() {
-        for (String output : angleOutputNames) {
-            if (output.equals(0.0)) {
-                done = true;
-            } else {
-                done = false;
+
+        angleOutputNames.stream().forEach(output -> {
+            Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
+            if (value != null && value instanceof Double){
+                angleValues.add((Double) value);
             }
+        });
+
+        for (Double value : angleValues){
+            done = (value > -0.5 && value < 0.5) ? true : false;
+        }
+
+        if(done == true){
+            LOGGER.debug("***WHEELS STRAIGHT***");
         }
     }
 
