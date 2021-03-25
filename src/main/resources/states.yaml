@@ -8,6 +8,9 @@ single_state:
             timeout_time: 1000
             zeroing_threshold: 0.2
 
+    st_drivetrain_teleop_zero:
+        behavior: bh_drivetrain_teleop_zero
+
     st_drivetrain_swerve:
         behavior: bh_drivetrain_swerve
 
