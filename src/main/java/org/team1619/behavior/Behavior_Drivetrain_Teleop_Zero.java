@@ -19,7 +19,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
 
     private String stateName;
     private boolean done = false;
-    private List<Double> angleValues = new ArrayList<>();
+    private final List<Double> angleValues = new ArrayList<>();
 
     public Behavior_Drivetrain_Teleop_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
@@ -31,7 +31,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     public void initialize(String stateName, Config config) {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
-      angleOutputNames.stream().forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", 0.0, "pr_drive"));
+      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", 0.0, "pr_drive"));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
 
         angleOutputNames.forEach(output -> {
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
-            if (value != null && value instanceof Double){
+            if (value instanceof Double){
                 angleValues.add((Double) value);
             }
         });
@@ -62,6 +62,6 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
 
     @Override
     public boolean isDone() {
-        return done ? true : false;
+        return done;
     }
 }
