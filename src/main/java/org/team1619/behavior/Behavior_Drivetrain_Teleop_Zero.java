@@ -17,8 +17,6 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
 
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
 
-    private int timeoutTime;
-    private double zeroingThreshold;
     private String stateName;
     private boolean done = false;
     private List<Double> angleValues = new ArrayList<>();
@@ -39,7 +37,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     @Override
     public void update() {
 
-        angleOutputNames.stream().forEach(output -> {
+        angleOutputNames.forEach(output -> {
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
             if (value != null && value instanceof Double){
                 angleValues.add((Double) value);
