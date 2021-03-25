@@ -47,7 +47,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
         });
 
         for (Double value : angleValues){
-            done = (value > -0.5 && value < 0.5) ? true : false;
+            done = Math.abs(value) < 0.5;
         }
 
         if(done){
