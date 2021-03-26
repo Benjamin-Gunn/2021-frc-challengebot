@@ -16,7 +16,7 @@ path:
         model: slow
 
     pt_anc_slalom:
-        path: [[50,30], [85,40], [120,85], [240,85], [250,60], [280,30], [340,60], [295,90], [275,60], [250, 35], [110,35], [105,80], [30,80]]
+        path: [[50,30], [85,40], [110,85], [240,85], [240,60], [280,30], [338,60], [300,90], [275,60], [250, 35], [120,35], [100,80], [30,80]]
         model: slalom
         start:
             x: 50.0
@@ -97,13 +97,13 @@ model:
     slalom:
         spacing: 2.0
         smoothing: 0.0
-        max_acceleration: 0.04
-        max_deceleration: 0.002
+        max_acceleration: 0.06
+        max_deceleration: 0.004
         tracking_error_speed: 100000.0
         min_speed: 0.6
         max_speed: 1.0
         turn_speed: 0.02
-        look_ahead_distance: 30.0
+        look_ahead_distance: 20.0
         velocity_look_ahead_points: 1
 
     slow:
