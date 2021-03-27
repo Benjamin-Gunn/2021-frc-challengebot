@@ -47,7 +47,6 @@ global_timing:
   frame_cycle_time_threshold_info_thread: 80
 
 global_drivetrain_swerve:
-  max_module_velocity: 240.0
   module_positions: [ [ 6.75, -6.75 ], [ 6.75, 6.75 ], [ -6.75, 6.75 ], [ -6.75, -6.75 ] ]
   input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
   input_position_names: [ ipn_drivetrain_front_right_speed_primary_position, ipn_drivetrain_front_left_speed_primary_position, ipn_drivetrain_back_left_speed_primary_position, ipn_drivetrain_back_right_speed_primary_position]
@@ -61,10 +60,16 @@ global_drivetrain_swerve:
   swerve_y: ipn_driver_left_y
   swerve_rotate: ipn_driver_right_x
   swerve_field_oriented_button: ipb_driver_start
-  slow_mode_button: ipb_driver_left_trigger
-  slow_mode_max_velocity: 10
-  corner_mode_button: ipb_driver_right_trigger
+  max_module_velocity: 240.0
   corner_mode_max_velocity: 80
+  normal_mode_max_velocity: 120
+  slow_mode_max_velocity: 10
+  fast_mode_button: ipb_driver_a
+  corner_mode_button: ipb_driver_right_trigger
+  slow_mode_button: ipb_driver_left_trigger
+  velocity_increment_button: ipb_driver_dpad_up
+  velocity_decrement_button: ipb_driver_dpad_down
+  velocity_increment: 10
 
 global_limelight:
   limelight: ipv_limelight_shooter
