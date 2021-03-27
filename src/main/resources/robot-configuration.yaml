@@ -60,6 +60,7 @@ global_drivetrain_swerve:
   swerve_y: ipn_driver_left_y
   swerve_rotate: ipn_driver_right_x
   swerve_field_oriented_button: ipb_driver_start
+  angle_zero_button: ipb_driver_back
   max_module_velocity: 240.0
   corner_mode_max_velocity: 80
   normal_mode_max_velocity: 120
@@ -70,6 +71,7 @@ global_drivetrain_swerve:
   velocity_increment_button: ipb_driver_dpad_up
   velocity_decrement_button: ipb_driver_dpad_down
   velocity_increment: 10
+
 
 global_limelight:
   limelight: ipv_limelight_shooter

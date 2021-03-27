@@ -21,7 +21,8 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
     private final String xAxis;
     private final String yAxis;
     private final String rotateAxis;
-    private final String fFieldOrientedButton;
+    private final String fieldOrientedButton;
+    private final String zeroAngleButton;
 
     private final String slowModeButton;
     private final double slowModeMaxVelocity;
@@ -47,7 +48,8 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         xAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_x");
         yAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_y");
         rotateAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_rotate");
-        fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
+        fieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
+        zeroAngleButton = robotConfiguration.getString("global_drivetrain_swerve", "angle_zero_button");
 
         slowModeButton = robotConfiguration.getString("global_drivetrain_swerve", "slow_mode_button");
         slowModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "slow_mode_max_velocity");
@@ -81,8 +83,11 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
     @Override
     public void update() {
 
-        if (sharedInputValues.getBooleanRisingEdge(fFieldOrientedButton)) {
+        if (sharedInputValues.getBooleanRisingEdge(fieldOrientedButton)) {
             fieldOriented = !fieldOriented;
+        }
+        if(sharedInputValues.getBooleanRisingEdge(zeroAngleButton)) {
+            sharedInputValues.setInputFlag(navx, "zero");
         }
 
         boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
