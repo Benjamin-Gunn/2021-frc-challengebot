@@ -28,7 +28,7 @@ single_state:
         behavior: bh_collector_servo_zero
         behavior_config:
             servo_zero_offset: 0.0
-            timeout_time: 500
+            timeout_time: 0
 
     st_collector_servo_release:
         behavior: bh_collector_servo_states

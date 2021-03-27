@@ -52,10 +52,10 @@ path:
         model: bounce
 
     pt_anc_barrel:
-        path: [[50, 84], [155, 80], [165, 50], [145, 30], [110, 50], [150, 70], [230, 85], [250, 120], [225, 140], [210, 120], [280, 35], [330, 55], [265, 85], [10, 100]]
+        path: [[50, 84], [155, 80], [165, 50], [135, 25], [100, 45], [130, 75], [230, 85], [240, 120], [235, 140], [220, 120], [275, 35], [320, 55], [265, 80], [10, 100]]
         model: barrel_race
         start:
-            x: 50.0
+            x: 48.0
             y: 80.0
             heading: 0.0
 
@@ -78,7 +78,7 @@ model:
         tracking_error_speed: 100000.0
         min_speed: 0.5
         max_speed: 1.0
-        turn_speed: 0.01
+        turn_speed: 0.02
         look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
 

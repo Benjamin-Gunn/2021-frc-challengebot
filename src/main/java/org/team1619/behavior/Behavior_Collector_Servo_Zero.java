@@ -50,7 +50,7 @@ public class Behavior_Collector_Servo_Zero implements Behavior {
 			fSharedOutputValues.setNumeric("opn_collector_servo", "", servoZeroOffset);
 		}
 
-		if(mTimer.isDone()){
+		if(mTimer.isDone()) {
 			fSharedInputValues.setBoolean("ipb_collector_servo_has_been_zeroed", true);
 		}
 	}
