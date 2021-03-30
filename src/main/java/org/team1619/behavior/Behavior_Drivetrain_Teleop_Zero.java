@@ -4,6 +4,7 @@ import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
+import org.uacr.utilities.Timer;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 
@@ -18,6 +19,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
 
     private String stateName;
+    Timer timeoutTimer = new Timer();
     private boolean done = false;
     private final List<Double> angleValues = new ArrayList<>();
 
@@ -32,6 +34,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
       angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", 0.0, "pr_drive"));
+      timeoutTimer.start(2000);
     }
 
     @Override
@@ -45,7 +48,10 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
         });
 
         for (Double value : angleValues){
-            done = Math.abs(value) < 0.5;
+            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.5)){
+                LOGGER.debug("***TELEOP ZERO TIMEOUT***");
+            }
+            done = Math.abs(value) < 0.5 || timeoutTimer.isDone();
         }
 
         if(done){
