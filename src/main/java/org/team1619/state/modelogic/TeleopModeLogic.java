@@ -45,12 +45,7 @@ public class TeleopModeLogic extends AbstractModeLogic {
 			case "st_drivetrain_straightline":
 				return fSharedInputValues.getBoolean("ipb_driver_x");
 			case "st_drivetrain_teleop_zero":
-				return fSharedInputValues.getBooleanRisingEdge("ipb_driver_b") &&
-						!(fSharedInputValues.getNumeric("opn_drivetrain_front_right_angle") == 0.0) &&
-						!(fSharedInputValues.getNumeric("opn_drivetrain_front_left_angle") == 0.0) &&
-						!(fSharedInputValues.getNumeric("opn_drivetrain_back_right_angle") == 0.0) &&
-						!(fSharedInputValues.getNumeric("opn_drivetrain_back_left_angle") == 0.0);
-
+				return fSharedInputValues.getBooleanRisingEdge("ipb_driver_b");
 			case "st_collector_servo_zero":
 				return !fSharedInputValues.getBoolean("ipb_collector_servo_has_been_zeroed");
 			default:

@@ -10,6 +10,9 @@ single_state:
 
     st_drivetrain_teleop_zero:
         behavior: bh_drivetrain_teleop_zero
+        behavior_config:
+            motor_position: 0.0
+            timeout_time: 1500
 
     st_drivetrain_swerve:
         behavior: bh_drivetrain_swerve

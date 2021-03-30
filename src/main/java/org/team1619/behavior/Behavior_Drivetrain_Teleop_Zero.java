@@ -21,6 +21,8 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     private String stateName;
     Timer timeoutTimer = new Timer();
     private boolean done = false;
+    private double motorPosition;
+    private int timeoutTime;
     private final List<Double> angleValues = new ArrayList<>();
 
     public Behavior_Drivetrain_Teleop_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
@@ -33,8 +35,11 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     public void initialize(String stateName, Config config) {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
-      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", 0.0, "pr_drive"));
-      timeoutTimer.start(2000);
+        motorPosition = config.getDouble("motor_position");
+        timeoutTime = config.getInt("timeout_time");
+
+      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", motorPosition, "pr_drive"));
+      timeoutTimer.start(timeoutTime);
     }
 
     @Override
@@ -48,14 +53,14 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
         });
 
         for (Double value : angleValues){
-            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.5)){
-                LOGGER.debug("***TELEOP ZERO TIMEOUT***");
+            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.2)){
+                LOGGER.error("***WHEELS FAILED TO SET TO " + motorPosition + "***");
             }
-            done = Math.abs(value) < 0.5 || timeoutTimer.isDone();
+            done = Math.abs(value) < 0.2 || timeoutTimer.isDone();
         }
 
         if(done){
-            LOGGER.debug("***WHEELS STRAIGHT***");
+            LOGGER.debug("***WHEELS SET TO " + motorPosition + "***");
         }
     }
 
