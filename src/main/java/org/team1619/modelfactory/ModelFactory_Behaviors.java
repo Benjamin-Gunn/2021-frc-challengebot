@@ -43,8 +43,8 @@ public class ModelFactory_Behaviors extends AbstractModelFactory {
 				return new Behavior_Collector_Servo_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			case "bh_collector_servo_states":
 				return new Behavior_Collector_Servo_States(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
-			case "bh_drivetrain_teleop_zero":
-				return new Behavior_Drivetrain_Teleop_Zero(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
+			case "bh_drivetrain_wheel_position_on_button":
+				return new Behavior_Drivetrain_Wheel_Position_On_Button(fSharedInputValues, fSharedOutputValues, config, fRobotConfiguration);
 			// State not found
 			default:
 				throw new ConfigurationException("Behavior " + name + " does not exist.");

@@ -14,7 +14,7 @@ import java.util.*;
  * Zeros the swerve modules
  */
 
-public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
+public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
     private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
 
@@ -25,7 +25,7 @@ public class Behavior_Drivetrain_Teleop_Zero extends BaseSwerve {
     private int timeoutTime;
     private final List<Double> angleValues = new ArrayList<>();
 
-    public Behavior_Drivetrain_Teleop_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+    public Behavior_Drivetrain_Wheel_Position_On_Button(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
 
 
