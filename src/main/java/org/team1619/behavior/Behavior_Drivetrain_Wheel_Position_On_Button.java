@@ -23,7 +23,6 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
     private boolean done;
     private double wheelAngle;
     private int timeoutTime;
-    private final List<Double> angleValues = new ArrayList<>();
 
     public Behavior_Drivetrain_Wheel_Position_On_Button(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
@@ -56,9 +55,6 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
                 LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
             }
             done = done && (Math.abs(value) < 0.2 || timeoutTimer.isDone());
-        }
-        if (angleValues.size() >= 4){
-            angleValues.clear();
         }
 
         if(done){
