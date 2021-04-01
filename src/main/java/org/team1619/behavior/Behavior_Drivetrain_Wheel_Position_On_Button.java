@@ -34,13 +34,13 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         this.stateName = stateName;
         wheelAngle = config.getDouble("wheel_angle");
         timeoutTime = config.getInt("timeout_time");
-
-      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", wheelAngle, "pr_drive"));
-      timeoutTimer.start(timeoutTime);
+        angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output, "absolute_position", wheelAngle, "pr_drive"));timeoutTimer.start(timeoutTime);
     }
 
     @Override
     public void update() {
+        List<Double> angleValues = new ArrayList<>();
+
         angleOutputNames.forEach(output -> {
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
             if (value instanceof Double){
@@ -51,7 +51,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         done = true;
 
         for (Double value : angleValues){
-            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.2)){
+            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.2)) {
                 LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
             }
             done = done && (Math.abs(value) < 0.2 || timeoutTimer.isDone());
