@@ -20,7 +20,8 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
     private String stateName;
     Timer timeoutTimer = new Timer();
-    private boolean done;
+    private boolean isDone;
+    private boolean messageSent;
     private double wheelAngle;
     private int timeoutTime;
 
@@ -39,27 +40,26 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
     @Override
     public void update() {
-        List<Double> angleValues = new ArrayList<>();
 
-        angleOutputNames.forEach(output -> {
+        isDone = true;
+
+        for (String output: angleOutputNames){
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
-            if (value instanceof Double){
-                angleValues.add((Double) value);
+            isDone = isDone && Math.abs((Double)value) < 0.2;
+            if (Math.abs((Double) value) > 0.2 ){
+                break;
             }
-        });
-
-        done = true;
-
-        for (Double value : angleValues){
-            if(timeoutTimer.isDone() && !(Math.abs(value) < 0.2)) {
-                LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
-            }
-            done = done && (Math.abs(value) < 0.2 || timeoutTimer.isDone());
         }
 
-        if(done){
+        if (timeoutTimer.isDone() && !isDone && !messageSent){
+            LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
+            messageSent = true;
+        }
+
+        if(isDone && !messageSent){
             LOGGER.debug("***WHEELS SET TO " + wheelAngle + "***");
         }
+
     }
 
 
@@ -71,6 +71,6 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
     @Override
     public boolean isDone() {
-        return done;
+        return isDone || timeoutTimer.isDone();
     }
 }
