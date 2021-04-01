@@ -33,7 +33,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
     public void initialize(String stateName, Config config) {
         LOGGER.debug("Entering state {}", stateName);
         this.stateName = stateName;
-        motorPosition = config.getDouble("motor_position");
+        wheelAngle = config.getDouble("wheel_angle");
         timeoutTime = config.getInt("timeout_time");
 
       angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", wheelAngle, "pr_drive"));
