@@ -20,15 +20,13 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
     private String stateName;
     Timer timeoutTimer = new Timer();
-    private boolean done = false;
-    private double motorPosition;
+    private boolean done;
+    private double wheelAngle;
     private int timeoutTime;
     private final List<Double> angleValues = new ArrayList<>();
 
     public Behavior_Drivetrain_Wheel_Position_On_Button(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
-
-
     }
 
     @Override
@@ -38,13 +36,12 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         motorPosition = config.getDouble("motor_position");
         timeoutTime = config.getInt("timeout_time");
 
-      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", motorPosition, "pr_drive"));
+      angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output,"absolute_position", wheelAngle, "pr_drive"));
       timeoutTimer.start(timeoutTime);
     }
 
     @Override
     public void update() {
-
         angleOutputNames.forEach(output -> {
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
             if (value instanceof Double){
@@ -52,15 +49,20 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
             }
         });
 
+        done = true;
+
         for (Double value : angleValues){
             if(timeoutTimer.isDone() && !(Math.abs(value) < 0.2)){
-                LOGGER.error("***WHEELS FAILED TO SET TO " + motorPosition + "***");
+                LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
             }
-            done = Math.abs(value) < 0.2 || timeoutTimer.isDone();
+            done = done && (Math.abs(value) < 0.2 || timeoutTimer.isDone());
+        }
+        if (angleValues.size() >= 4){
+            angleValues.clear();
         }
 
         if(done){
-            LOGGER.debug("***WHEELS SET TO " + motorPosition + "***");
+            LOGGER.debug("***WHEELS SET TO " + wheelAngle + "***");
         }
     }
 

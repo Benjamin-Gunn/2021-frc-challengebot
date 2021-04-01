@@ -11,7 +11,7 @@ single_state:
     st_drivetrain_wheel_position_on_button:
         behavior: bh_drivetrain_wheel_position_on_button
         behavior_config:
-            motor_position: 0.0
+            wheel_angle: 0.0
             timeout_time: 1500
 
     st_drivetrain_swerve:
