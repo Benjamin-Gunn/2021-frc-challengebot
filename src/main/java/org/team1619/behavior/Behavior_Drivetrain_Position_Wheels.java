@@ -14,9 +14,9 @@ import java.util.*;
  * Zeros the swerve modules
  */
 
-public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
+public class Behavior_Drivetrain_Position_Wheels extends BaseSwerve {
 
-    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
+    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Position_Wheels.class);
 
     private String stateName;
     Timer timeoutTimer = new Timer();
@@ -25,7 +25,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
     private double wheelAngle;
     private int timeoutTime;
 
-    public Behavior_Drivetrain_Wheel_Position_On_Button(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
+    public Behavior_Drivetrain_Position_Wheels(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
         super(inputValues, outputValues, config, robotConfiguration, true);
     }
 
@@ -36,29 +36,29 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         wheelAngle = config.getDouble("wheel_angle");
         timeoutTime = config.getInt("timeout_time");
         angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output, "absolute_position", wheelAngle, "pr_drive"));
+        messageSent = false;
         timeoutTimer.start(timeoutTime);
+        isDone = true;
     }
 
     @Override
     public void update() {
 
-        isDone = true;
-
         for (String output: angleOutputNames){
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
-            if (Math.abs((Double) value) > 0.2 ){
+            if (Math.abs((Double) value - wheelAngle) > 0.2 ){
                 isDone = false;
                 break;
             }
         }
 
         if (timeoutTimer.isDone() && !isDone && !messageSent){
-            LOGGER.error("***WHEELS FAILED TO SET TO " + wheelAngle + "***");
+            LOGGER.error("*** WHEELS FAILED TO SET TO " + wheelAngle + " degrees ***");
             messageSent = true;
         }
 
         if(isDone && !messageSent){
-            LOGGER.debug("***WHEELS SET TO " + wheelAngle + "***");
+            LOGGER.info("*** WHEELS SET TO " + wheelAngle + " degrees ***");
             messageSent = true;
         }
 

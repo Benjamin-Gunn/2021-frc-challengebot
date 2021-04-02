@@ -8,10 +8,16 @@ single_state:
             timeout_time: 1000
             zeroing_threshold: 0.2
 
-    st_drivetrain_wheel_position_on_button:
-        behavior: bh_drivetrain_wheel_position_on_button
+    st_drivetrain_wheel_position_forwards:
+        behavior: bh_drivetrain_position_wheels
         behavior_config:
             wheel_angle: 0.0
+            timeout_time: 1500
+
+    st_drivetrain_wheel_position_sideways:
+        behavior: bh_drivetrain_position_wheels
+        behavior_config:
+            wheel_angle: 90.0
             timeout_time: 1500
 
     st_drivetrain_swerve:

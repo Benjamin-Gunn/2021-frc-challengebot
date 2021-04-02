@@ -10,8 +10,7 @@ general:
     parallels:
 
     ss_drivetrain:
-      priority_level_4: [ st_drivetrain_wheel_position_on_button ]
-      priority_level_3: [ st_drivetrain_zero ]
+      priority_level_3: [ st_drivetrain_zero, st_drivetrain_wheel_position_forwards, st_drivetrain_wheel_position_sideways ]
       priority_level_2: [ st_drivetrain_swerve_align ]
       priority_level_1: [ st_drivetrain_accel_test, st_drivetrain_gsc_a_blue, st_drivetrain_gsc_a_red, st_drivetrain_gsc_b_blue, st_drivetrain_gsc_b_red, st_drivetrain_anc_barrel, st_drivetrain_anc_slalom, st_drivetrain_anc_bounce,  st_drivetrain_oval, st_drivetrain_straightline,
                           st_drivetrain_anc_bounce_1, st_drivetrain_anc_bounce_2, st_drivetrain_anc_bounce_3, st_drivetrain_anc_bounce_4]

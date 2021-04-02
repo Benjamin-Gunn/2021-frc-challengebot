@@ -44,7 +44,9 @@ public class TeleopModeLogic extends AbstractModeLogic {
 				return fSharedInputValues.getBoolean("ipb_driver_y");
 			case "st_drivetrain_straightline":
 				return fSharedInputValues.getBoolean("ipb_driver_x");
-			case "st_drivetrain_wheel_position_on_button":
+			case "st_drivetrain_wheel_position_forwards":
+				return fSharedInputValues.getBooleanFallingEdge("ipb_driver_b");
+			case "st_drivetrain_wheel_position_sideways":
 				return fSharedInputValues.getBooleanRisingEdge("ipb_driver_b");
 			case "st_collector_servo_zero":
 				return !fSharedInputValues.getBoolean("ipb_collector_servo_has_been_zeroed");
