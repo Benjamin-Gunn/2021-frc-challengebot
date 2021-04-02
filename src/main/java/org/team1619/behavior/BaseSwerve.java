@@ -7,7 +7,6 @@ import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
 import org.uacr.utilities.closedloopcontroller.ClosedLoopController;
-import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.purepursuit.Vector;
 import org.uacr.utilities.purepursuit.VectorList;
 

@@ -15,12 +15,8 @@ path:
         path: [[0, 0], [0,1]]
         model: slow
 
-    pt_anc_barrel:
-        path: [[0, 0], [120, 0], [180, -30], [120, -60], [60, -30], [120, 0], [180, 0], [230, 30], [180, 70], [140, 30], [180, 0], [220, -60], [300, -30], [280, 0], [0, 0]]
-        model: slow
-
     pt_anc_slalom:
-        path: [[50,30], [90,35], [120,85], [240,85], [270,60], [290,30], [340,60], [285,100], [270,60], [240, 35], [110,35], [95,100], [30,120]]
+        path: [[50,30], [85,55], [120,85], [225,85], [245,60], [280,30], [334,60], [300,82], [280,60], [265, 35], [136,35], [96,85], [30,95]]
         model: slalom
         start:
             x: 50.0
@@ -36,35 +32,30 @@ path:
         model: accel
 
     pt_anc_bounce_1:
-        path: [[50,90], [65,110], [70,140]]
+        path: [[50,75], [80,75], [85,132]]
         model: bounce
         start:
             x: 50.0
-            y: 90.0
+            y: 75.0
             heading: 0.0
 
     pt_anc_bounce_2:
-        path: [[70,140], [90,35], [155,35], [175,140]]
+        path: [[85,132], [85, 100], [120,45], [150,45], [180,125]]
         model: bounce
 
     pt_anc_bounce_3:
-        path: [[175,140], [180,30], [260,35], [280,140]]
+        path: [[180,125], [178,42], [235,42], [270,130]]
         model: bounce
 
     pt_anc_bounce_4:
-        path: [[280,140], [330,90]]
+        path: [[270,130], [262, 85], [340,90]]
         model: bounce
 
-
-    pt_test:
-        #    path: [[0, 0], [102, 0], [138, -36], [102, -72], [66, -36], [102, 0], [192, -12], [228, 24], [192, 60], [156, 24], [220, -72], [288, -36], [240, 0], [192, -12], [102, 0], [0, 0]]
-        #        path: [[0, 0], [94, 0], [122, -30], [94, -50], [66, -30], [94, 0], [180, 8], [218, 43], [180, 78], [142, 43], [180, -4], [242, -52], [282, -21], [242, 0], [0, 0]]
-
-        ## BARREL RACE PATH
-        path: [[50, 84], [140, 80], [165, 60], [150, 40], [135, 50], [160, 75], [230, 95], [280, 110], [270, 140], [260, 118], [300, 45], [350, 50], [285, 78], [10, 90]]
+    pt_anc_barrel:
+        path: [[50, 84], [155, 80], [165, 50], [135, 25], [100, 45], [130, 75], [230, 85], [240, 120], [235, 140], [220, 120], [275, 35], [320, 55], [265, 80], [10, 100]]
         model: barrel_race
         start:
-            x: 50.0
+            x: 48.0
             y: 80.0
             heading: 0.0
 
@@ -83,42 +74,36 @@ model:
         spacing: 2.0
         smoothing: 0.0
         max_acceleration: 0.02
-        max_deceleration: 0.002
+        max_deceleration: 0.003
         tracking_error_speed: 100000.0
         min_speed: 0.5
         max_speed: 1.0
-        #    min_speed: 0.1
-        #    max_speed: 0.2
         turn_speed: 0.02
-        look_ahead_distance: 40.0
+        look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
 
     bounce:
         spacing: 2.0
         smoothing: 0.0
-        max_acceleration: 0.002
-        max_deceleration: 0.002
+        max_acceleration: 0.005
+        max_deceleration: 0.005
         tracking_error_speed: 100000.0
-        min_speed: 0.4
+        min_speed: 0.5
         max_speed: 1.0
-        #    min_speed: 0.1
-        #    max_speed: 0.2
-        turn_speed: 0.04
-        look_ahead_distance: 100.0
+        turn_speed: 0.05
+        look_ahead_distance: 30.0
         velocity_look_ahead_points: 1
 
     slalom:
         spacing: 2.0
         smoothing: 0.0
-        max_acceleration: 0.02
-        max_deceleration: 0.001
+        max_acceleration: 0.06
+        max_deceleration: 0.004
         tracking_error_speed: 100000.0
-        min_speed: 0.5
+        min_speed: 0.6
         max_speed: 1.0
-        #    min_speed: 0.1
-        #    max_speed: 0.2
-        turn_speed: 0.01
-        look_ahead_distance: 30.0
+        turn_speed: 0.02
+        look_ahead_distance: 20.0
         velocity_look_ahead_points: 1
 
     slow:

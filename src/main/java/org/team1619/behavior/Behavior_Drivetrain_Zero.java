@@ -44,6 +44,9 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 		stopModules();
 
 		sharedInputValues.setInputFlag(navx, "zero");
+		sharedInputValues.setInputFlag("ipv_swerve_odometry", "zero");
+		sharedInputValues.setInputFlag("ipv_rpi_odometry", "zero");
+		sharedInputValues.setInputFlag(odometry, "zero");
 
 		Stream.concat(angleOutputNames.stream(), speedOutputNames.stream()).forEach(output -> sharedOutputValues.setOutputFlag(output, "zero"));
 	}
@@ -67,7 +70,6 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 					LOGGER.debug("Drivetrain Zero -> Zeroed");
 					sharedInputValues.setBoolean("ipb_drivetrain_has_been_zeroed", true);
 				}
-				return;
 			}
 
 			if (timeoutTimer.isDone()) {

@@ -21,12 +21,20 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
     private final String xAxis;
     private final String yAxis;
     private final String rotateAxis;
-    private final String fFieldOrientedButton;
+    private final String fieldOrientedButton;
+    private final String zeroAngleButton;
 
     private final String slowModeButton;
     private final double slowModeMaxVelocity;
     private final String cornerModeButton;
     private final double cornerModeMaxVelocity;
+    private final String fastModeButton;
+    private final double normalModeMaxVelocity;
+    private final String velocityUpButton;
+    private final String velocityDownButton;
+    private final double velocityIncrement;
+    private double cornerVelocityAdjustment;
+    private double normalVelocityAdjustment;
 
     private String stateName;
 
@@ -40,12 +48,19 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
         xAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_x");
         yAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_y");
         rotateAxis = robotConfiguration.getString("global_drivetrain_swerve", "swerve_rotate");
-        fFieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
+        fieldOrientedButton = robotConfiguration.getString("global_drivetrain_swerve", "swerve_field_oriented_button");
+        zeroAngleButton = robotConfiguration.getString("global_drivetrain_swerve", "angle_zero_button");
 
         slowModeButton = robotConfiguration.getString("global_drivetrain_swerve", "slow_mode_button");
         slowModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "slow_mode_max_velocity");
         cornerModeButton = robotConfiguration.getString("global_drivetrain_swerve", "corner_mode_button");
         cornerModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "corner_mode_max_velocity");
+        fastModeButton = robotConfiguration.getString("global_drivetrain_swerve", "fast_mode_button");
+        normalModeMaxVelocity = robotConfiguration.getInt("global_drivetrain_swerve", "normal_mode_max_velocity");
+        velocityUpButton = robotConfiguration.getString("global_drivetrain_swerve", "velocity_increment_button");
+        velocityDownButton = robotConfiguration.getString("global_drivetrain_swerve", "velocity_decrement_button");
+        velocityIncrement = robotConfiguration.getInt("global_drivetrain_swerve", "velocity_increment");
+
         stateName = "Unknown";
 
         fieldOriented = true;
@@ -61,28 +76,52 @@ public class Behavior_Drivetrain_Swerve extends BaseSwerve {
 
         targetLimelight = config.getBoolean("target_limelight", false);
 
+        cornerVelocityAdjustment = 0.0;
+        normalVelocityAdjustment = 0.0;
     }
 
     @Override
     public void update() {
 
-        if (sharedInputValues.getBooleanRisingEdge(fFieldOrientedButton)) {
+        if (sharedInputValues.getBooleanRisingEdge(fieldOrientedButton)) {
             fieldOriented = !fieldOriented;
+        }
+        if(sharedInputValues.getBooleanRisingEdge(zeroAngleButton)) {
+            sharedInputValues.setInputFlag(navx, "zero");
         }
 
         boolean slowModeButton = sharedInputValues.getBoolean(this.slowModeButton);
         boolean cornerModeButton = sharedInputValues.getBoolean(this.cornerModeButton);
+        boolean fastModeButton = sharedInputValues.getBoolean(this.fastModeButton);
         double xAxis = rangeStick(sharedInputValues.getNumeric(this.xAxis));
         double yAxis = rangeStick(sharedInputValues.getNumeric(this.yAxis));
         double rotateAxis = rangeStick(sharedInputValues.getNumeric(this.rotateAxis));
+        boolean velocityUpButton = sharedInputValues.getBooleanRisingEdge(this.velocityUpButton);
+        boolean velocityDownButton = sharedInputValues.getBooleanRisingEdge(this.velocityDownButton);
 
         if (slowModeButton) {
             currentMaxModuleVelocity = slowModeMaxVelocity;
         }
         else if (cornerModeButton) {
-            currentMaxModuleVelocity = cornerModeMaxVelocity;
-        } else {
+            if (velocityUpButton) {
+                cornerVelocityAdjustment += velocityIncrement;
+            }
+            if (velocityDownButton) {
+                cornerVelocityAdjustment -= velocityIncrement;
+            }
+            currentMaxModuleVelocity = cornerModeMaxVelocity + cornerVelocityAdjustment;
+        }
+        else if (fastModeButton) {
             currentMaxModuleVelocity = maxModuleVelocity;
+        }
+        else {
+            if (velocityUpButton) {
+                normalVelocityAdjustment += velocityIncrement;
+            }
+            if (velocityDownButton) {
+                normalVelocityAdjustment -= velocityIncrement;
+            }
+            currentMaxModuleVelocity = normalModeMaxVelocity + normalVelocityAdjustment;
         }
 
         sharedInputValues.setNumeric("ipn_drivetrain_max_velocity", currentMaxModuleVelocity);

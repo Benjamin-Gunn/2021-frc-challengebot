@@ -61,4 +61,4 @@ odometry_fuser:
     ipv_fused_odometry:
         relative_odometry_input: ipv_swerve_odometry
         absolute_odometry_input: ipv_rpi_odometry
-        absolute_odometry_delay: 30
+        absolute_odometry_delay: 150
