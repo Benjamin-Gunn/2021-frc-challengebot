@@ -12,6 +12,7 @@ single_state:
         behavior: bh_drivetrain_wheel_position_on_button
         behavior_config:
             wheel_angle: 0.0
+            threshold: 0.2
             timeout_time: 1500
 
     st_drivetrain_swerve:
@@ -46,7 +47,7 @@ single_state:
         behavior: bh_collector_servo_states
         behavior_config:
             servo_zero_offset: 1.0
-            # 1.0 = 180 degreed
+            # 1.0 = 180 degrees
 
     # ------------Paths----------
 

@@ -16,13 +16,14 @@ import java.util.*;
 
 public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
-    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
+    private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Wheel_Position_On_Button.class);
 
     private String stateName;
     Timer timeoutTimer = new Timer();
     private boolean isDone;
     private boolean messageSent;
     private double wheelAngle;
+    private double threshold;
     private int timeoutTime;
 
     public Behavior_Drivetrain_Wheel_Position_On_Button(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
@@ -35,6 +36,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         this.stateName = stateName;
         wheelAngle = config.getDouble("wheel_angle");
         timeoutTime = config.getInt("timeout_time");
+        threshold = config.getDouble("threshold");
         angleOutputNames.forEach(output -> sharedOutputValues.setNumeric(output, "absolute_position", wheelAngle, "pr_drive"));
         timeoutTimer.start(timeoutTime);
     }
@@ -46,7 +48,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
 
         for (String output: angleOutputNames){
             Object value = sharedOutputValues.getOutputNumericValue(output).get("value");
-            if (Math.abs((Double) value) > 0.2 ){
+            if (Math.abs((Double) value) - Math.abs(wheelAngle) > threshold ){
                 isDone = false;
                 break;
             }
@@ -58,7 +60,7 @@ public class Behavior_Drivetrain_Wheel_Position_On_Button extends BaseSwerve {
         }
 
         if(isDone && !messageSent){
-            LOGGER.debug("***WHEELS SET TO " + wheelAngle + "***");
+            LOGGER.info("***WHEELS SET TO " + wheelAngle + "***");
             messageSent = true;
         }
 
