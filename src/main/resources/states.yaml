@@ -33,7 +33,7 @@ single_state:
     st_collector_servo_release:
         behavior: bh_collector_servo_states
         behavior_config:
-            servo_zero_offset: 1.0
+            servo_zero_offset: 0.0
             # 1.0 = 180 degreed
 
     # ------------Paths----------

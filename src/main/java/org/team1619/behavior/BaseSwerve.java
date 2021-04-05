@@ -107,7 +107,7 @@ public abstract class BaseSwerve implements Behavior {
 
         switch (headingMode) {
             case "navx":
-                setModulePowers(translation, -headingController.getWithPID(sharedInputValues.getVector(navx).get("angle")));
+                setModulePowers(translation, headingController.getWithPID(-sharedInputValues.getVector(navx).get("angle")));
                 break;
             case "limelight":
                 setModulePowers(translation, headingController.getWithPID(sharedInputValues.getVector(limelight).get("tx")));
@@ -161,7 +161,7 @@ public abstract class BaseSwerve implements Behavior {
     }
 
     protected void setMotorPowers(VectorList moduleVectors) {
-        moduleVectors.autoScaleAll(VectorList.AutoScaleMode.SCALE_LARGEST_DOWN, 1.0);
+//        moduleVectors.autoScaleAll(VectorList.AutoScaleMode.SCALE_LARGEST_DOWN, 1.0);
 
         for(int m = 0; m < moduleVectors.size(); m++) {
             setMotorPower(m, moduleVectors.get(m));

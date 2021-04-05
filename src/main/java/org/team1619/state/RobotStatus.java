@@ -16,13 +16,14 @@ import java.util.Queue;
 
 public class RobotStatus extends AbstractRobotStatus {
 
-	private static final Logger sLogger = LogManager.getLogger(RobotStatus.class);
+	private static final Logger LOGGER = LogManager.getLogger(RobotStatus.class);
 
 	private String mLimelight;
 
 	public RobotStatus(InputValues inputValues, RobotConfiguration robotConfiguration) {
 		super(inputValues, robotConfiguration);
-		mLimelight = "";
+
+		mLimelight = fRobotConfiguration.getString("global_drivetrain_swerve", "limelight");
 	}
 
 	@Override
@@ -32,9 +33,6 @@ public class RobotStatus extends AbstractRobotStatus {
 			fSharedInputValues.setBoolean("ipb_drivetrain_has_been_zeroed", false);
 			fSharedInputValues.setBoolean("ipb_collector_servo_has_been_zeroed", false);
 		}
-
-
-		mLimelight = fRobotConfiguration.getString("global_limelight", "limelight");
 	}
 
 	@Override
@@ -51,24 +49,21 @@ public class RobotStatus extends AbstractRobotStatus {
 
 
 		Map<String, Double> llValues = fSharedInputValues.getVector(mLimelight);
-		String mPathName;
-		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
-		mPathName = "No Target";
-		if (hasTarget) {
-			double llTargetX = llValues.getOrDefault("tx", 0.0);
-			double llTargetY = llValues.getOrDefault("ty", 0.0);
-			mPathName = "none";
-			if (llTargetX < 10 && llTargetX > 0) {
-				mPathName = "sq_auto_gsc_a_red";
-			} else if (llTargetX > 20 && llTargetX < 30) {
-				mPathName = "sq_auto_gsc_a_blue";
-			} else if (llTargetX < -10 && llTargetX > -30) {
-				mPathName = "sq_auto_gsc_b_red";
-			} else if (llTargetX < 20 && llTargetX > 10) {
-				mPathName = "sq_auto_gsc_b_blue";
-			}
-		}
-		fSharedInputValues.setString("Path", mPathName);
+//		String mPathName;
+//		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
+//		mPathName = "st_drivetrain_gsc_b_red";
+//		if (hasTarget) {
+//			mPathName = "st_drivetrain_gsc_a_red";
+
+//			double llTargetX = llValues.getOrDefault("tx", 0.0);
+//			if (llTargetX < 0) {
+//				mPathName = "sq_auto_gsc_a_red";
+//			} else {
+//				mPathName = "sq_auto_gsc_b_red";
+//			}
+//		}
+
+		fSharedInputValues.setString("gsc_path", llValues.getOrDefault("tv", 0.0) > 0.0 ? "st_drivetrain_gsc_a_red" : "st_drivetrain_gsc_b_red");
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.team1619.behavior;
 
+import org.uacr.models.exceptions.ConfigurationException;
 import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
@@ -10,11 +11,11 @@ import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 import org.uacr.utilities.purepursuit.*;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * Drives the robot in swerve mode, based on the joystick values.
@@ -26,14 +27,20 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
     private final Map<String, Path> paths;
     private final Map<String, Pose2d> startingPositions;
+    private final Map<String, ValueInterpolator> targetHeadingInterpolators;
 
     private String stateName;
 
+    @Nullable
     private Path currentPath;
+    @Nullable
     private Pose2d currentPosition;
+    @Nullable
+    private ValueInterpolator targetHeadingInterpolator;
+    @Nullable
+    private Pose2d startingPosition;
     private boolean isFollowing;
     private String headingMode;
-    private double targetHeading;
     private String pathName;
 
     public Behavior_Drivetrain_Swerve_Pure_Pursuit(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
@@ -43,6 +50,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         
         paths = new HashMap<>();
         startingPositions = new HashMap<>();
+        targetHeadingInterpolators = new HashMap<>();
 
         YamlConfigParser yamlConfigParser = new YamlConfigParser();
         yamlConfigParser.loadWithFolderName("paths.yaml");
@@ -68,17 +76,66 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
                 this.paths.put(pathName, path);
 
+                double heading = 0.0;
+
                 if(pathConfig.contains("start")) {
                     Config startConfig = pathConfig.getSubConfig("start", "position");
 
-                    startingPositions.put(pathName, new Pose2d(startConfig.getDouble("x"), startConfig.getDouble("y"), startConfig.getDouble("heading")));
+                    startingPositions.put(pathName, new Pose2d(startConfig.getDouble("x"), startConfig.getDouble("y"), startConfig.getDouble("heading", 0.0)));
+
+                    if(startConfig.contains("heading")) {
+                        heading = startConfig.getDouble("heading");
+                    }
                 }
+
+                List<ValueInterpolator.ValueDeviation> headingDeviations = new ArrayList<>();
+
+                if(pathConfig.contains("deviations")) {
+                    Config deviationsConfig = pathConfig.getSubConfig("deviations", "deviations");
+
+                    for(String deviationKey : deviationsConfig.getData().keySet()) {
+                        try {
+                            Config deviationConfig = deviationsConfig.getSubConfig(deviationKey, "deviation");
+
+                            double startRamp = 0.0;
+                            double endRamp = 0.0;
+
+                            if(deviationConfig.contains("start_ramp")) {
+                                startRamp = deviationConfig.getDouble("start_ramp");
+                            } else if(deviationConfig.contains("ramp")) {
+                                startRamp = deviationConfig.getDouble("ramp");
+                            }
+
+                            if(deviationConfig.contains("end_ramp")) {
+                                endRamp = deviationConfig.getDouble("end_ramp");
+                            } else if(deviationConfig.contains("ramp")) {
+                                endRamp = deviationConfig.getDouble("ramp");
+                            }
+
+                            PathDeviationConfig deviation = new PathDeviationConfig(deviationConfig.getDouble("start"), deviationConfig.getDouble("end"), startRamp, endRamp);
+
+                            setupDeviation(deviation, deviationConfig, yamlConfigParser);
+
+                            path.addDeviation(deviation);
+
+                            if(deviationConfig.contains("heading")) {
+                                headingDeviations.add(new ValueInterpolator.ValueDeviation(deviationConfig.getDouble("heading"), deviationConfig.getDouble("start"), deviationConfig.getDouble("end"), startRamp, endRamp));
+                            }
+                        } catch (Exception e) {
+                            ConfigurationException configurationException = new ConfigurationException("Error configuring \"" + deviationKey + "\" deviation");
+                            configurationException.addSuppressed(e);
+
+                            throw configurationException;
+                        }
+                    }
+                }
+
+                targetHeadingInterpolators.put(pathName, new ValueInterpolator(heading, headingDeviations));
             }
         }
 
         pathName = "Unknown";
         headingMode = "none";
-        targetHeading = 0.0;
 
         isFollowing = true;
     }
@@ -92,30 +149,33 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
 
         pathName = config.getString("path_name");
         headingMode = config.getString("heading_mode", "navx");
-        targetHeading = config.getDouble("target_heading", 0.0);
 
         if (!paths.containsKey(pathName)) {
-            LOGGER.error("Path " + pathName + " doesn't exist");
-            currentPath = new Path();
+            throw new RuntimeException("Path \"" + pathName + "\" doesn't exist");
         } else {
             currentPath = paths.get(pathName);
+            targetHeadingInterpolator = targetHeadingInterpolators.get(pathName);
         }
 
         if(startingPositions.containsKey(pathName)) {
-            Pose2d startingPosition = startingPositions.get(pathName);
+            startingPosition = startingPositions.get(pathName);
             sharedInputValues.setVector("ipv_fused_odometry_new_position", Map.of("x", startingPosition.getX(), "y", startingPosition.getY(), "heading", startingPosition.getHeading()));
+        } else {
+            startingPosition = null;
         }
 
-        graphPath(stateName, currentPath);
+        if(null != currentPath) {
+            graphPath(stateName, currentPath);
 
-        currentPath.reset();
+            currentPath.reset();
+        }
 
         isFollowing = true;
     }
 
     @Override
     public void update() {
-        if (!isFollowing) {
+        if (!isFollowing || null == currentPath || null == targetHeadingInterpolator) {
             stopModules();
 
             return;
@@ -126,8 +186,15 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         // Turns the odometry values into a Pose2d to pass to path methods
         currentPosition = new Pose2d(odometryValues.get("x"), odometryValues.get("y"), odometryValues.get("heading"));
 
-        int lookahead = currentPath.getLookAheadPointIndex(currentPosition);
+        if(null != startingPosition && startingPosition.distance(currentPosition) > 1) {
+            stopModules();
+
+            return;
+        }
+        startingPosition = null;
+
         int closest = currentPath.getClosestPointIndex(currentPosition);
+        int lookahead = currentPath.getLookAheadPointIndex(currentPosition, closest);
 
         if (lookahead == -1) {
             stopModules();
@@ -139,7 +206,7 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         // Uses the path object to calculate velocity values
         double velocity = currentPath.getPathPointVelocity(closest, currentPosition);
 
-        setModulePowers(new Vector(currentPath.getPoint(lookahead).subtract(currentPosition)).normalize().scale(velocity), headingMode, targetHeading);
+        setModulePowers(new Vector(currentPath.getPoint(lookahead).subtract(currentPosition)).normalize().scale(velocity).rotate(-currentPosition.getHeading()), headingMode, targetHeadingInterpolator.getValue(currentPath.getPoint(closest).getDistance()));
     }
 
     @Override
@@ -173,6 +240,38 @@ public class Behavior_Drivetrain_Swerve_Pure_Pursuit extends BaseSwerve {
         path.setMaxSpeed(config.getDouble("max_speed", path.getMaxSpeed()));
         path.setLookAheadDistance(config.getDouble("look_ahead_distance", path.getLookAheadDistance()));
         path.setVelocityLookAheadPoints(config.getInt("velocity_look_ahead_points", path.getVelocityLookAheadPoints()));
+    }
+
+    private void setupDeviation(PathDeviationConfig deviation, Config config, YamlConfigParser yamlConfigParser) {
+        String modelName = config.getString("model", "none");
+
+        if (!modelName.equals("none")) {
+            Config model = yamlConfigParser.getConfig(modelName);
+
+            setupDeviation(deviation, model, yamlConfigParser);
+        }
+
+        if(config.contains("turn_speed")) {
+            deviation.setTurnSpeed(config.getDouble("turn_speed"));
+        }
+        if(config.contains("max_acceleration")) {
+            deviation.setTurnSpeed(config.getDouble("max_acceleration"));
+        }
+        if(config.contains("max_deceleration")) {
+            deviation.setTurnSpeed(config.getDouble("max_deceleration"));
+        }
+        if(config.contains("min_speed")) {
+            deviation.setTurnSpeed(config.getDouble("min_speed"));
+        }
+        if(config.contains("max_speed")) {
+            deviation.setTurnSpeed(config.getDouble("max_speed"));
+        }
+        if(config.contains("look_ahead_distance")) {
+            deviation.setTurnSpeed(config.getDouble("look_ahead_distance"));
+        }
+        if(config.contains("turn_speed")) {
+            deviation.setTurnSpeed(config.getDouble("turn_speed"));
+        }
     }
 
     private void graphPath(String name, Path path) {
