@@ -67,11 +67,13 @@ public class RobotStatus extends AbstractRobotStatus {
 
 		}
 
-		fSharedInputValues.setString("gsc_path", llValues.getOrDefault("tv", 0.0) > 0.0 ? "st_drivetrain_gsc_a_red" : "st_drivetrain_gsc_b_red");
+		fSharedInputValues.setString("gsc_path", mPathName);
 	}
+
 
 	@Override
 	public void dispose() {
 
 	}
 }
+
