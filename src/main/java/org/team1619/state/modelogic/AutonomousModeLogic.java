@@ -55,6 +55,9 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 
 	@Override
 	public void dispose() {
+		// This prevents the auto from being run twice in a row with out first switching to teleop
+		// We may want to remove this if we want the auto to continue once switched into teleop
+		fSharedInputValues.setBoolean("ipb_auto_complete", true);
 	}
 
 	@Override
