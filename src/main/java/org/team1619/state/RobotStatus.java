@@ -45,23 +45,27 @@ public class RobotStatus extends AbstractRobotStatus {
 	}
 
 	public void disabledUpdate() {
-		// jace and alex path no signaling test
-
-
 		Map<String, Double> llValues = fSharedInputValues.getVector(mLimelight);
-//		String mPathName;
-//		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
-//		mPathName = "st_drivetrain_gsc_b_red";
-//		if (hasTarget) {
-//			mPathName = "st_drivetrain_gsc_a_red";
+		String mPathName;
+		boolean hasTarget = llValues.getOrDefault("tv", 0.0) == 1;
 
-//			double llTargetX = llValues.getOrDefault("tx", 0.0);
-//			if (llTargetX < 0) {
-//				mPathName = "sq_auto_gsc_a_red";
-//			} else {
-//				mPathName = "sq_auto_gsc_b_red";
-//			}
-//		}
+		if (hasTarget) {
+			double llTargetX = llValues.getOrDefault("tx", 0.0);
+			if (llTargetX > 10) {
+				mPathName = "sq_auto_gsc_b_red";
+			} else if (llTargetX > 0) {
+				mPathName = "sq_auto_gsc_a_red";
+			}
+			else if (llTargetX > -8) {
+				mPathName = "sq_auto_gsc_a_blue";
+			}
+			else{
+				mPathName = "sq_auto_gsc_b_blue";
+			}
+		} else {
+			mPathName = "none";
+
+		}
 
 		fSharedInputValues.setString("gsc_path", llValues.getOrDefault("tv", 0.0) > 0.0 ? "st_drivetrain_gsc_a_red" : "st_drivetrain_gsc_b_red");
 	}
