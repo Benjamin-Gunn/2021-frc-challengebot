@@ -30,7 +30,8 @@ public class TeleopModeLogic extends AbstractModeLogic {
 
 	@Override
 	public void dispose() {
-
+		// Prevents the auto from running twice in a row without first switching to teleop and then switching back to auto
+		fSharedInputValues.setBoolean("ipb_auto_complete", false);
 	}
 
 	@Override

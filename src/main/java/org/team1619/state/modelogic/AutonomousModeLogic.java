@@ -27,6 +27,8 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		mAutoDestination = "none";
 		mAutoAction = "none";
 		mCombinedAuto = "none";
+
+		fSharedInputValues.setBoolean("ipb_auto_complete", false);
 	}
 
 	@Override
@@ -41,11 +43,9 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 		if (mAutoOrigin.equals("gsc") && mAutoDestination.equals("ball") && mAutoAction.equals("pattern")) {
 			mCombinedAuto = fSharedInputValues.getString("Path");
 		} else if (mAutoOrigin.equals("doesnotexist") || mAutoDestination.equals("doesnotexist") || mAutoAction.equals("doesnotexist")) {
-			mCombinedAuto = "st_drivetrain_anc_barrel";
+			mCombinedAuto = "none";
 		}
 		sLogger.debug(mCombinedAuto);
-
-		fSharedInputValues.setBoolean("ipb_auto_complete", false);
 	}
 
 	@Override
@@ -55,8 +55,6 @@ public class AutonomousModeLogic extends AbstractModeLogic {
 
 	@Override
 	public void dispose() {
-		fSharedInputValues.setString("ips_auto_origin", "");
-
 	}
 
 	@Override
