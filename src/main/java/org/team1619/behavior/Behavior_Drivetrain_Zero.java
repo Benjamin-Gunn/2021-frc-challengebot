@@ -4,7 +4,7 @@ import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
-import org.uacr.utilities.Timer;
+import org.uacr.utilities.RobotTimer;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 
@@ -19,14 +19,14 @@ public class Behavior_Drivetrain_Zero extends BaseSwerve {
 
 	private static final Logger LOGGER = LogManager.getLogger(Behavior_Drivetrain_Zero.class);
 
-	private final Timer timeoutTimer;
+	private final RobotTimer timeoutTimer;
 	private int timeoutTime;
 	private double zeroingThreshold;
 
 	public Behavior_Drivetrain_Zero(InputValues inputValues, OutputValues outputValues, Config config, RobotConfiguration robotConfiguration) {
 		super(inputValues, outputValues, config, robotConfiguration, true);
 
-		timeoutTimer = new Timer();
+		timeoutTimer = new RobotTimer(inputValues);
 		timeoutTime = 500;
 		zeroingThreshold = 0.1;
 	}

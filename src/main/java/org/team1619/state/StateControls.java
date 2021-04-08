@@ -41,7 +41,7 @@ public class StateControls extends AbstractStateControls {
 		mIsEndgameMode = false;
 		mIsManualMode = false;
 
-		fTimerMode = new Timer();
+		fTimerMode = new RobotTimer();
 		mFmsMode = FMS.Mode.DISABLED;
 		//Climb
 		fTimerEndgame = new Timer();
