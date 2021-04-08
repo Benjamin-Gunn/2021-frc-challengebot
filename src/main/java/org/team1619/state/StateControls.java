@@ -6,7 +6,7 @@ import org.uacr.robot.ControlMode;
 import org.uacr.shared.abstractions.FMS;
 import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
-import org.uacr.utilities.Timer;
+import org.uacr.utilities.RobotTimer;
 import org.uacr.utilities.injection.Inject;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
@@ -19,8 +19,8 @@ public class StateControls extends AbstractStateControls {
 
 	private static final Logger sLogger = LogManager.getLogger(StateControls.class);
 
-	private final Timer fTimerMode;
-	private final Timer fTimerEndgame;
+	private final RobotTimer fTimerMode;
+	private final RobotTimer fTimerEndgame;
 	private final boolean fInitialIsManualMode;
 
 	private boolean mIsEndgameMode;
@@ -41,10 +41,10 @@ public class StateControls extends AbstractStateControls {
 		mIsEndgameMode = false;
 		mIsManualMode = false;
 
-		fTimerMode = new RobotTimer();
+		fTimerMode = new RobotTimer(inputValues);
 		mFmsMode = FMS.Mode.DISABLED;
 		//Climb
-		fTimerEndgame = new Timer();
+		fTimerEndgame = new RobotTimer(inputValues);
 		if (robotConfiguration.contains("general", "initial_teleop_mode")) {
 			switch (robotConfiguration.getString("general", "initial_teleop_mode")) {
 				case "teleop_mode":

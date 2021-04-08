@@ -5,7 +5,7 @@ import org.uacr.shared.abstractions.InputValues;
 import org.uacr.shared.abstractions.OutputValues;
 import org.uacr.shared.abstractions.RobotConfiguration;
 import org.uacr.utilities.Config;
-import org.uacr.utilities.Timer;
+import org.uacr.utilities.RobotTimer;
 import org.uacr.utilities.logging.LogManager;
 import org.uacr.utilities.logging.Logger;
 
@@ -22,7 +22,7 @@ public class Behavior_Collector_Servo_Zero implements Behavior {
 
 	private final InputValues fSharedInputValues;
 	private final OutputValues fSharedOutputValues;
-	private Timer mTimer;
+	private RobotTimer mTimer;
 
 
 	private double servoZeroOffset;
@@ -32,7 +32,7 @@ public class Behavior_Collector_Servo_Zero implements Behavior {
 		fSharedOutputValues = outputValues;
 
 		servoZeroOffset = 0.0;
-		mTimer = new Timer();
+		mTimer = new RobotTimer();
 	}
 
 	@Override
