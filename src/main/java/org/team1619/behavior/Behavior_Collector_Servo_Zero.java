@@ -32,7 +32,7 @@ public class Behavior_Collector_Servo_Zero implements Behavior {
 		fSharedOutputValues = outputValues;
 
 		servoZeroOffset = 0.0;
-		mTimer = new RobotTimer();
+		mTimer = new RobotTimer(inputValues);
 	}
 
 	@Override
